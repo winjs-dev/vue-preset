@@ -1,0 +1,32 @@
+{
+  "name": "vue-preset",
+  "version": "1.0.0",
+  "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
+  "main": "./generator/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "deploy": "sh ./docs/deploy.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloud-templates/vue-preset.git"
+  },
+  "keywords": [
+    "vue-cli3",
+    "preset"
+  ],
+  "author": "liwb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloud-templates/vue-preset/issues"
+  },
+  "homepage": "https://github.com/cloud-templates/vue-preset#readme",
+  "devDependencies": {
+    "vuepress": "^0.14.8"
+  }
+}
