@@ -1,5 +1,8 @@
-# Vue CLI 3 Preset 项目开发小结
+# Vue CLI 3 Preset Web 项目骨架开发小结
 ## Vue CLI 3 基本认识
+> [官网文档](https://cli.vuejs.org/zh/guide/)
+[参考链接](https://github.com/yuezhilunhui2009/vue-cli3-preset-seed)
+
 ### @vue/cli
 用于交互式搭建基于 vue 技术栈项目的工具，通常安装在全局 node_module 中。它提供的命令主要有以下几个：
 ```bash
@@ -35,178 +38,6 @@ vue-cli-service inspect
 
 # 代码书写格式检查
 vue-cli-service lint
-```
-
-### @vue/cli-plugin-xxx
-插件分为 Service 插件、CLI 插件两类。
-#### Service 插件
-为 @vue/cli-service 添加特性
-* 功能：添加命令、配置（webpack）模块
-* 生命周期：每次执行 ```vue-cli-service``` 命令时被调用
-* 表现形式：一个默认导出为函数的 javascript 文件
-* 上下文：
-```js
-// 主逻辑（必要）
-module.exports = (api, projectOptions) => {
-  api.chainWebpack(webpackConfig => {
-    // 通过 webpack-chain 修改 webpack 配置
-  })
-
-  api.configureWebpack(webpackConfig => {
-    // 修改 webpack 配置
-    // 或返回通过 webpack-merge 合并的配置对象
-  })
-
-  api.registerCommand('my-build', args => {
-    // 注册 `vue-cli-service my-build`
-  })
-}
-
-// 模式限制（可选）
-module.exports.defaultModes = {
-  'my-build': 'production'
-}
-
-// 自定义插件参数（可选）
-module.exports = {
-  pluginOptions: {}
-}
-```
-
-#### CLI 插件
-为 @vue/cli 添加特性
-* 功能：首先包含一个 Service 插件，此外还有 [Generator](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#generator) 和 [Prompt](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#%E7%AC%AC%E4%B8%89%E6%96%B9%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AF%B9%E8%AF%9D)
-* 生命周期：如果插件包含在 preset 配置中，则 [Generator](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#generator) 和 [Prompt](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#%E7%AC%AC%E4%B8%89%E6%96%B9%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AF%B9%E8%AF%9D) 在调用命令 ```vue create``` 时执行，如果插件是独立安装，则两者在调用命令 ```vue invoke``` 时执行。
-* 表现形式如下项目结构所示：
-```
-.
-├── README.md
-├── generator.js  # generator (可选)
-├── prompts.js    # prompt 文件 (可选)
-├── index.js      # service 插件
-└── package.json
-```
-* 上下文：
-```js
-/**
- * Generator 主逻辑
- *
- * @param {Generator} api - GeneratorAPI 实例，可以参考下方的 GeneratorAPI 成员签名
- * @param {object} options - 由 prompts.js 配置的问题返回的答案对象
- * @param {object} rootOptions - 完整的 preset.json
- */
-module.exports = (api, options, rootOptions) => {}
-```
-[GeneratorAPI](https://github.com/vuejs/vue-cli/blob/dev/packages/%40vue/cli/lib/GeneratorAPI.js)：
-```js
-/**
- * Resolve path for a project.
- *
- * @param {string} _path - Relative path from project root
- * @return {string} The resolved absolute path.
- */
-function resolve (_path) {}
-
-/**
- * Configure how config files are extracted.
- *
- * @param {string} key - Config key in package.json
- * @param {object} options - Options
- * @param {object} options.file - File descriptor
- * Used to search for existing file.
- * Each key is a file type (possible values: ['js', 'json', 'yaml', 'lines']).
- * The value is a list of filenames.
- * Example:
- * {
- *   js: ['.eslintrc.js'],
- *   json: ['.eslintrc.json', '.eslintrc']
- * }
- * By default, the first filename will be used to create the config file.
- */
-function addConfigTransform (key, options) {}
-
-/**
- * Extend the package.json of the project.
- * Nested fields are deep-merged unless `{ merge: false }` is passed.
- * Also resolves dependency conflicts between plugins.
- * Tool configuration fields may be extracted into standalone files before
- * files are written to disk.
- *
- * @param {object | () => object} fields - Fields to merge.
- */
-function extendPackage (fields) {}
-
-/**
- * Render template files into the virtual files tree object.
- *
- * @param {string | object | FileMiddleware} source -
- *   Can be one of:
- *   - relative path to a directory;
- *   - Object hash of { sourceTemplate: targetFile } mappings;
- *   - a custom file middleware function.
- * @param {object} [additionalData] - additional data available to templates.
- * @param {object} [ejsOptions] - options for ejs.
- */
-function render (source, additionalData = {}, ejsOptions = {}) {}
-
-/**
- * Push a file middleware that will be applied after all normal file
- * middelwares have been applied.
- *
- * @param {FileMiddleware} cb
- */
-function postProcessFiles (cb) {}
-
-/**
- * Push a callback to be called when the files have been written to disk.
- *
- * @param {function} cb
- */
-function onCreateComplete (cb) {}
-
-/**
- * Add a message to be printed when the generator exits (after any other standard messages).
- *
- * @param {} msg String or value to print after the generation is completed
- * @param {('log'|'info'|'done'|'warn'|'error')} [type='log'] Type of message
- */
-function exitLog (msg, type = 'log') {}
-
-/**
- * convenience method for generating a js config file from json
- */
-function genJSConfig (value) {}
-
-/**
- * Add import statements to a file.
- */
-function injectImports (file, imports) {}
-
-/**
- * Add options to the root Vue instance (detected by `new Vue`).
- */
-function injectRootOptions (file, options) {}
-
-/**
- * Get the entry file taking into account typescript.
- *
- * @readonly
- */
-get entryFile () {}
-
-/**
- * Is the plugin being invoked?
- *
- * @readonly
- */
-get invoking () {}
-```
-
-### @vue/cli-service-global
-官方描述是快速开始零配置原型开发，也就是安装了 @vue/cli + @vue/cli-service-global 之后，vue 命令可以对单个 vue 组建直接提供一下两个命令：
-```bash
-vue serve xxx.vue
-vue build xxx.vue
 ```
 
 ## Preset 项目开发
@@ -260,14 +91,10 @@ vue create --preset ./my-preset my-project
 vue create --preset my-preset.json my-project
 ```
 
-::: tip 提示
-由于初始化项目会有繁琐的安装依赖过程，所以推荐在 [@vue/cli 中打断点](https://github.com/vuejs/vue-cli/blob/dev/packages/%40vue/cli/lib/Creator.js#L63)观察整个创建流程。
-:::
-
 ## 问题记录
 ### 如何从任意 git 仓库获取 remote preset 初始化项目？
 #### 背景
-* 截止 2018/10/16 官方文档关于获取远程 preset 说明包含 github、gitlab、bitbucket 三个云仓库；
+* 获取远程 preset 说明包含 github、gitlab、bitbucket 三个云仓库；
 * 尝试直接在 --preset 后填写完整 url 直接报 404 或 auth 相关错误；
 * 添加 --clone 参数后报 'git clone' failed with status 128 错误；
 #### 解决方案
