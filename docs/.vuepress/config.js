@@ -1,4 +1,6 @@
 module.exports = {
+  base: '/vue-preset/',
+  serviceWorker: true,
   title: 'vue-preset 说明文档',
   head: [
     ['link', { rel: 'icon', href: './favicon.ico' }]
@@ -6,5 +8,9 @@ module.exports = {
   themeConfig: {
     sidebar: 'auto',
     repo: 'https://github.com/cloud-templates/vue-preset',
+    docsDir: 'docs',
+    serviceWorker: {
+      updatePopup: true
+    }
   }
 }
