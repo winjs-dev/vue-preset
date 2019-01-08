@@ -135,6 +135,16 @@ module.exports = {
       )
 
     // plugin
+    
+    // preload
+    // runtime.js 内联的形式嵌入
+    config
+      .plugin('preload')
+      .tap(args => {
+        args[0].fileBlacklist.push(/runtime\./);
+        return args;
+      })
+
     // webpack-html-plugin
     config
       .plugin('html')
