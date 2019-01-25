@@ -15,12 +15,12 @@ const pkg = require('../package.json');
 //   lastChangedAuthor: 'author',
 //   lastChangedRev: '14243',
 //   lastChangedDate: '2019-01-22 10:29:32 +0800 ( ܶ , 22 һ   2019)' }
-exports.getSvnInfo = function () {
+exports.getCurrentVersion = function () {
   // 当前项目的 svn 绝对路径
   const svnUrl = '';
 
   if (svnUrl) {
-    return svnInfo.sync(svnUrl, 'HEAD');
+    return svnInfo.sync(svnUrl, 'HEAD').lastChangedRev;
   }
 
   return pkg.name;
