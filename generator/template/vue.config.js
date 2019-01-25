@@ -1,8 +1,10 @@
 'use strict'
 
 const path = require('path')
+const getSvnInfo = require('./build/utils')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+const HtmlWebpackIncludeCodePlugin = require('html-webpack-include-code-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const resolve = (dir) => {
@@ -36,10 +38,21 @@ const genPlugins = () => {
   // HtmlWebpackIncludeAssetsPlugin
   // 为静态资源文件添加 hash，防止缓存
   plugins.push(
-    new HtmlWebpackIncludeAssetsPlugin({
+    new HtmlWebpackIncludeCodePlugin({
       assets: ['config.local.js'],
       append: false,
       hash: true
+    })
+  )
+
+  // HtmlWebpackIncludeCodePlugin
+  // html 自动插入版本信息
+  plugins.push(
+    new HtmlWebpackInlineCodePlugin  ({
+      headTags: [{
+        tagName: 'script',
+        tagCode: `window.__version=${getSvnInfo().lastChangedRev}`
+      }]
     })
   )
 
@@ -135,7 +148,7 @@ module.exports = {
       )
 
     // plugin
-    
+
     // preload
     // runtime.js 内联的形式嵌入
     config

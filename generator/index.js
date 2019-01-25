@@ -2,14 +2,14 @@ module.exports = (api, options, rootOptions) => {
   // 命令
   api.extendPackage({
     scripts: {
-      'serve': 'vue-cli-service serve',
-      'build': 'node build/index.js',
-      'lint': 'vue-cli-service lint',
-      'analyz': 'vue-cli-service build --mode analyz',
-      'report': 'npm_config_generate_report=true npm run build',
-      'svgo': 'svgo -f src/icons/svg --config=src/icons/svgo.yml',
-      'deploy': 'npm run build && node build/zip.js',
-      'release': 'sh build/release.sh'
+      "serve": "vue-cli-service serve",
+      "build": "node build/index.js",
+      "lint": "vue-cli-service lint",
+      "analyz": "vue-cli-service build --mode analyz",
+      "report": "npm_config_generate_report=true npm run build",
+      "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+      "deploy": "npm run build && node build/zip.js",
+      "release": "sh build/release.sh"
     },
     "scripts-info": {
       "serve": "运行开发服务器",
@@ -37,11 +37,13 @@ module.exports = (api, options, rootOptions) => {
       "eslint": "^5.8.0",
       "eslint-plugin-vue": "^5.0.0-0",
       "html-webpack-include-assets-plugin": "^1.0.6",
+      "html-webpack-include-code-plugin": "^1.0.1",
       "postcss-pxtorem": "^4.0.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
       "svg-sprite-loader": "^4.1.3",
       "svgo": "^1.1.1",
+      "svn-info": "^1.0.0",
       "vue-template-compiler": "^2.5.17",
       "webpack-bundle-analyzer": "^3.0.3",
       "webstorm-disable-index": "^1.2.0"
@@ -51,8 +53,8 @@ module.exports = (api, options, rootOptions) => {
   // postcss
   api.extendPackage({
     postcss: {
-      'plugins': {
-        'autoprefixer': {},
+      plugins: {
+        autoprefixer: {},
         'postcss-pxtorem': {
           rootValue: 37.5,
           unitPrecision: 5,
