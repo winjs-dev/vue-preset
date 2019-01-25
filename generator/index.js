@@ -37,13 +37,11 @@ module.exports = (api, options, rootOptions) => {
       "eslint": "^5.8.0",
       "eslint-plugin-vue": "^5.0.0-0",
       "html-webpack-include-assets-plugin": "^1.0.6",
-      "html-webpack-include-code-plugin": "^1.0.1",
       "postcss-pxtorem": "^4.0.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
       "svg-sprite-loader": "^4.1.3",
       "svgo": "^1.1.1",
-      "svn-info": "^1.0.0",
       "vue-template-compiler": "^2.5.17",
       "webpack-bundle-analyzer": "^3.0.3",
       "webstorm-disable-index": "^1.2.0"
