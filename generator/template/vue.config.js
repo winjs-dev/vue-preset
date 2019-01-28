@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
 const {getCurrentVersion} = require('./build/utils')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
@@ -31,8 +32,19 @@ const genPlugins = () => {
         threshold: 10240,
         minRatio: 0.8,
         cache: true
-      })
+      }),
+      // HtmlWebpackInlineCodePlugin
+      // html 自动插入版本信息
+      new HtmlWebpackInlineCodePlugin({
+        headTags: [{
+          tagName: 'script',
+          tagCode: `window.__version='${getCurrentVersion()}'`
+        }]
+      }),
+      // 为 js 及 css 静态资源添加版本信息
+      new webpack.BannerPlugin(`current version：${getCurrentVersion()}`),
     )
+
   }
 
   // HtmlWebpackIncludeAssetsPlugin
@@ -42,17 +54,6 @@ const genPlugins = () => {
       assets: ['config.local.js'],
       append: false,
       hash: true
-    })
-  )
-
-  // HtmlWebpackInlineCodePlugin
-  // html 自动插入版本信息
-  plugins.push(
-    new HtmlWebpackInlineCodePlugin({
-      headTags: [{
-        tagName: 'script',
-        tagCode: `window.__version=${getCurrentVersion()}`
-      }]
     })
   )
 

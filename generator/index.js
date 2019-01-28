@@ -45,6 +45,7 @@ module.exports = (api, options, rootOptions) => {
       "svgo": "^1.1.1",
       "svn-info": "^1.0.0",
       "vue-template-compiler": "^2.5.17",
+      "webpack": "^4.29.0",
       "webpack-bundle-analyzer": "^3.0.3",
       "webstorm-disable-index": "^1.2.0"
     }
