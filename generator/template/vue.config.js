@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const {getCurrentVersion} = require('./build/utils')
+const {formatDte} = require('@liwb/cloud-utils')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 const HtmlWebpackInlineCodePlugin = require('html-webpack-inline-code-plugin')
@@ -42,7 +43,7 @@ const genPlugins = () => {
         }]
       }),
       // 为 js 及 css 静态资源添加版本信息
-      new webpack.BannerPlugin(`current version：${getCurrentVersion()}`),
+      new webpack.BannerPlugin(`current version: ${getCurrentVersion()} and build time: ${formatDte(new Date(), 'yyyy-MM-dd HH:mm:ss')}`),
     )
 
   }
