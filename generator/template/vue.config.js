@@ -4,7 +4,7 @@ const path = require('path')
 const getCurrentVersion = require('./build/utils')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
-const HtmlWebpackIncludeCodePlugin = require('html-webpack-include-code-plugin')
+const HtmlWebpackInlineCodePlugin = require('html-webpack-inline-code-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const resolve = (dir) => {
@@ -45,10 +45,10 @@ const genPlugins = () => {
     })
   )
 
-  // HtmlWebpackIncludeCodePlugin
+  // HtmlWebpackInlineCodePlugin
   // html 自动插入版本信息
   plugins.push(
-    new HtmlWebpackIncludeCodePlugin({
+    new HtmlWebpackInlineCodePlugin({
       headTags: [{
         tagName: 'script',
         tagCode: `window.__version=${getCurrentVersion()}`
