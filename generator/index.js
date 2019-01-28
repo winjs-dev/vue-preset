@@ -37,7 +37,7 @@ module.exports = (api, options, rootOptions) => {
       "eslint": "^5.8.0",
       "eslint-plugin-vue": "^5.0.0-0",
       "html-webpack-include-assets-plugin": "^1.0.6",
-      "html-webpack-include-code-plugin": "^1.0.1",
+      "html-webpack-inline-code-plugin": "^1.0.1",
       "postcss-pxtorem": "^4.0.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
