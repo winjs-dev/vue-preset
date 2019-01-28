@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const getCurrentVersion = require('./build/utils')
+const {getCurrentVersion} = require('./build/utils')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 const HtmlWebpackInlineCodePlugin = require('html-webpack-inline-code-plugin')
