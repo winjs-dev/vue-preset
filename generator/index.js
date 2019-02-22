@@ -32,10 +32,12 @@ module.exports = (api, options, rootOptions) => {
     },
     devDependencies: {
       "archiver": "^2.1.1",
+      "@vue/cli-plugin-eslint": "^3.4.1",
       "chalk": "^2.4.1",
+      "babel-eslint": "^10.0.1",
       "compression-webpack-plugin": "^2.0.0",
       "eslint": "^5.8.0",
-      "eslint-plugin-vue": "^5.0.0-0",
+      "eslint-plugin-vue": "^5.0.0",
       "html-webpack-include-assets-plugin": "^1.0.6",
       "html-webpack-inline-code-plugin": "^1.0.1",
       "postcss-pxtorem": "^4.0.1",
