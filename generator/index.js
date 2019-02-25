@@ -41,6 +41,7 @@ module.exports = (api, options, rootOptions) => {
       "html-webpack-include-assets-plugin": "^1.0.6",
       "html-webpack-inline-code-plugin": "^1.0.1",
       "postcss-pxtorem": "^4.0.1",
+      "progress-bar-webpack-plugin": "^1.12.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
       "svg-sprite-loader": "^4.1.3",
