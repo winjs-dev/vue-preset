@@ -403,7 +403,7 @@ Vue.use(SvgIcon, {
 # 关键点：
 # 1. 在 git 仓库 url 前添加 "direct:"
 # 2. 添加 --clone 参数
-vue create --preset direct:https://github.com/cloud-templates/vue-preset.git preset-seed-demo --clone
+vue create --preset direct:https://github.com/cklwblove/vue-preset.git preset-seed-demo --clone
 ```
 #### 解决过程
 1. 打开全局 node_modules/@vue/cli 扫一眼目录结构，从 bin 目录找到 vue create --preset 入口；

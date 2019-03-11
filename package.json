@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloud-templates/vue-preset.git"
+    "url": "git+https://github.com/cklwblove/vue-preset.git"
   },
   "keywords": [
     "vue-cli3",
@@ -23,9 +23,9 @@
   "author": "liwb",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cloud-templates/vue-preset/issues"
+    "url": "https://github.com/cklwblove/vue-preset/issues"
   },
-  "homepage": "https://github.com/cloud-templates/vue-preset#readme",
+  "homepage": "https://github.com/cklwblove/vue-preset#readme",
   "devDependencies": {
     "vuepress": "^0.14.8"
   }
