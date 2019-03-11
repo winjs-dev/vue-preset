@@ -5,9 +5,10 @@ module.exports = (api, options, rootOptions) => {
       "serve": "vue-cli-service serve",
       "build": "node build/index.js",
       "lint": "vue-cli-service lint",
+      "lint:style": "vue-cli-service lint:style",
       "analyz": "vue-cli-service build --mode analyz",
       "report": "npm_config_generate_report=true npm run build",
-      "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+      "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6",
       "deploy": "npm run build && node build/zip.js",
       "release": "sh build/release.sh"
     },
@@ -28,9 +29,11 @@ module.exports = (api, options, rootOptions) => {
       "magicless": "*",
       "normalize.css": "^7.0.0",
       "vue": "^2.5.17",
-      "vue-router": "^3.0.1"
+      "vue-router": "^3.0.1",
+      "vue-svgicon": "^3.2.2"
     },
     devDependencies: {
+      "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.2",
       "archiver": "^2.1.1",
       "chalk": "^2.4.1",
       "compression-webpack-plugin": "^2.0.0",
@@ -40,8 +43,10 @@ module.exports = (api, options, rootOptions) => {
       "postcss-pxtorem": "^4.0.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
-      "svg-sprite-loader": "^4.1.3",
-      "svgo": "^1.1.1",
+      "style-resources-loader": "^1.2.1",
+      "stylelint": "^9.10.1",
+      "stylelint-config-standard": "^18.2.0",
+      "stylelint-order": "^2.1.0",
       "vue-template-compiler": "^2.5.17",
       "webpack-bundle-analyzer": "^3.0.3",
       "webstorm-disable-index": "^1.2.0"
