@@ -109,25 +109,16 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-    // svg
-    config
-      .module
-      .rule('svg')
-      .exclude.add(resolve('src/icons'))
-      .end()
-
-    config
-      .module
-      .rule('icons')
-      .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
+    /* config.module.rule('less').oneOf('vue').use('style-resources-loader') */
+    config.module
+      .rule('less')
+      .oneOf('vue')
+      .use('style-resources-loader')
+      .loader('style-resources-loader')
       .options({
-        symbolId: 'icon-[name]'
-      })
-      .end()
+        patterns: [path.resolve(__dirname, 'src/assets/less/variable.less'), path.resolve(__dirname, 'node_modules/magicless/magicless.less')],
+        injector: 'prepend'
+      }).end();
 
     config
       .when(process.env.NODE_ENV === 'development',
@@ -222,5 +213,9 @@ module.exports = {
             openAnalyzer: false
           }])
       )
+  },
+  pluginOptions: {
+    lintStyleOnBuild: true,
+    stylelint: {}
   }
 };

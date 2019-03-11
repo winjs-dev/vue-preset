@@ -1,9 +1,10 @@
 import Vue from 'vue';
-import {SvgIcon} from '@components';
+import SvgIcon from 'vue-svgicon';
+import './svg-icon.less';
+import './components';
 
-// register globally
-Vue.component('svg-icon', SvgIcon);
-
-const req = require.context('./svg', false, /\.svg$/);
-const requireAll = (requireContext) => requireContext.keys().map(requireContext);
-requireAll(req);
+Vue.use(SvgIcon, {
+  tagName: 'svg-icon',
+  defaultWidth: '1em',
+  defaultHeight: '1em',
+});
