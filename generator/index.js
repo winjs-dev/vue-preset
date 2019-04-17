@@ -9,6 +9,7 @@ module.exports = (api, options, rootOptions) => {
       "analyz": "vue-cli-service build --mode analyz",
       "report": "npm_config_generate_report=true npm run build",
       "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6",
+      "new": "plop",
       "deploy": "npm run build && node build/zip.js",
       "release": "sh build/release.sh"
     },
@@ -40,6 +41,7 @@ module.exports = (api, options, rootOptions) => {
       "eslint": "^5.8.0",
       "eslint-plugin-vue": "^5.0.0-0",
       "html-webpack-include-assets-plugin": "^1.0.6",
+      "plop": "^2.3.0",
       "postcss-pxtorem": "^4.0.1",
       "runjs": "^4.3.2",
       "script-ext-html-webpack-plugin": "^2.1.3",
