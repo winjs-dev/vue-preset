@@ -49,6 +49,7 @@ module.exports = (api, options, rootOptions) => {
       "stylelint": "^9.10.1",
       "stylelint-config-standard": "^18.2.0",
       "stylelint-order": "^2.1.0",
+      "vue-cli-plugin-qrcode": "^0.0.3",
       "vue-template-compiler": "^2.5.17",
       "webpack-bundle-analyzer": "^3.0.3",
       "webstorm-disable-index": "^1.2.0"
