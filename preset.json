@@ -3,7 +3,7 @@
   "packageManager": "yarn",
   "useTaobaoRegistry": true,
   "cssPreprocessor": "less",
-  "router": true,
+  "router": false,
   "vuex": false,
   "routerHistoryMode": false,
   "plugins": {
