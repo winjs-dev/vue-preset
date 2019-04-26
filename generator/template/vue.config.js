@@ -4,6 +4,9 @@ const path = require('path')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const chalk = require('chalk')
+const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin')
 
 const resolve = (dir) => {
   return path.join(__dirname, './', dir)
@@ -14,7 +17,26 @@ const isProd = () => {
 }
 
 const genPlugins = () => {
-  const plugins = [];
+  const plugins = [
+    new ProgressBarPlugin({
+      format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
+      clear: false
+    }),
+    new VueRouterInvokeWebpackPlugin({
+      dir: 'src/views',
+      // must set the alias for the dir option which you have set
+      alias: '@/views',
+      mode: 'hash',
+      routerDir: 'src/router',
+      ignore: ['images', 'components'],
+      redirect: [
+        {
+          redirect: '/hello',
+          path: '/'
+        }
+      ]
+    })
+  ];
 
   if (isProd()) {
     plugins.push(
