@@ -1,4 +1,6 @@
+<%_ if (options.application === 'mobile') { _%>
 import 'lib-flexible';
+<%_ } _%>
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/.invoke/router.js';

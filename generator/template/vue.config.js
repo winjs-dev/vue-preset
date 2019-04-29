@@ -1,20 +1,20 @@
-'use strict'
+'use strict';
 
-const path = require('path')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const chalk = require('chalk')
-const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin')
+const path = require('path');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
+const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 
 const resolve = (dir) => {
-  return path.join(__dirname, './', dir)
-}
+  return path.join(__dirname, './', dir);
+};
 
 const isProd = () => {
-  return process.env.NODE_ENV === 'production'
-}
+  return process.env.NODE_ENV === 'production';
+};
 
 const genPlugins = () => {
   const plugins = [
@@ -46,13 +46,13 @@ const genPlugins = () => {
         test: new RegExp(
           '\\.(' +
           ['js', 'css'].join('|') +
-          ')$',
+          ')$'
         ),
         threshold: 10240,
         minRatio: 0.8,
         cache: true
       })
-    )
+    );
   }
 
   // HtmlWebpackIncludeAssetsPlugin
@@ -63,10 +63,10 @@ const genPlugins = () => {
       append: false,
       hash: true
     })
-  )
+  );
 
   return plugins;
-}
+};
 
 module.exports = {
   /**
@@ -145,7 +145,7 @@ module.exports = {
     config
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
-      )
+      );
 
     // plugin
 
@@ -156,7 +156,7 @@ module.exports = {
       .tap(args => {
         args[0].fileBlacklist.push(/runtime\./);
         return args;
-      })
+      });
 
     // webpack-html-plugin
     config
@@ -173,9 +173,9 @@ module.exports = {
           minifyJS: true,
           minifyCSS: true,
           minifyURLs: true
-        }
-        return args
-      })
+        };
+        return args;
+      });
 
     // optimization
     config
@@ -186,7 +186,7 @@ module.exports = {
             .use('script-ext-html-webpack-plugin', [{
               // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
-            }])
+            }]);
           config
             .optimization
             .splitChunks({
@@ -206,10 +206,10 @@ module.exports = {
                   reuseExistingChunk: true
                 }
               }
-            })
-          config.optimization.runtimeChunk('single')
+            });
+          config.optimization.runtimeChunk('single');
         }
-      )
+      );
 
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
@@ -222,7 +222,7 @@ module.exports = {
             analyzerPort: 8888,
             generateStatsFile: false
           }])
-      )
+      );
 
     // `npm run build --generate_report`
     config
@@ -234,7 +234,7 @@ module.exports = {
             reportFilename: 'bundle-report.html',
             openAnalyzer: false
           }])
-      )
+      );
   },
   pluginOptions: {
     lintStyleOnBuild: true,
