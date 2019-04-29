@@ -5,7 +5,7 @@ module.exports = (api, options, rootOptions) => {
     }
   });
   api.render('../ui/element');
-  api.injectImports('src/plugins/index.js', `import './element.js'`);
+  api.injectImports('src/vendor/index.js', `import './element.js'`);
   api.onCreateComplete(() => {
   });
 };

@@ -24,7 +24,7 @@ module.exports = [
   {
     name: 'ui-framework',
     type: 'list',
-    message: 'choice UI Framework(default:Element UI)',
+    message: 'choice UI Framework(default:none)',
     choices: [
       {
         name: 'Element UI',
@@ -37,9 +37,13 @@ module.exports = [
       {
         name: 'ant-design-vue',
         value: 'ant'
+      },
+      {
+        name: 'none',
+        value: 'none'
       }
     ],
     when: answers => answers.application === 'pc',
-    default: 'element-ui'
+    default: 'none'
   }
 ];

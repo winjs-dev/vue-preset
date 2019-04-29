@@ -8,6 +8,13 @@ import './components/global';
 import './icons';
 import './filters';
 import './services';
+<%_ if (options['ui-framework'] === 'element-ui') { _%>
+import './vendor/element';
+<%_ } else if (options['ui-framework'] === 'iview') { _%>
+import './vendor/iview';
+<%_ } else if (options['ui-framework'] === 'ant') { _%>
+import './vendor/ant';
+<%_ } _%>
 
 /* eslint-disable */
 Vue.config.productionTip = process.env.NODE_ENV === 'production';

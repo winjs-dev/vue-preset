@@ -1,4 +1,5 @@
 module.exports = (api, options, rootOptions) => {
+  const utils = require('./utils')(api);
   // 命令
   api.extendPackage({
     scripts: {
@@ -59,16 +60,7 @@ module.exports = (api, options, rootOptions) => {
   api.extendPackage({
     postcss: {
       plugins: {
-        autoprefixer: {},
-        'postcss-pxtorem': {
-          rootValue: 37.5,
-          unitPrecision: 5,
-          propList: ['height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom'],
-          selectorBlackList: [],
-          replace: true,
-          mediaQuery: false,
-          minPixelValue: 1
-        }
+        autoprefixer: {}
       }
     }
   });
@@ -81,16 +73,21 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         'postcss-pxtorem': '^4.0.1'
+      },
+      postcss: {
+        plugins: {
+          'postcss-pxtorem': {
+            rootValue: 37.5,
+            unitPrecision: 5,
+            propList: ['height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom'],
+            selectorBlackList: [],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 1
+          }
+        }
       }
-    })
-  }
-
-  if (options['ui-framework'] === 'element-ui') {
-    require('./element.js')(api, options);
-  } else if (options['ui-framework'] === 'iview') {
-    require('./iview.js')(api, options);
-  } else if (options['ui-framework'] === 'ant') {
-    require('./ant.js')(api, options);
+    });
   }
 
   // 删除 vue-cli3 默认目录
@@ -100,6 +97,14 @@ module.exports = (api, options, rootOptions) => {
       .forEach(path => delete files[path]);
   });
 
+  if (options['ui-framework'] === 'element-ui') {
+    require('./element.js')(api, options);
+  } else if (options['ui-framework'] === 'iview') {
+    require('./iview.js')(api, options);
+  } else if (options['ui-framework'] === 'ant') {
+    require('./ant.js')(api, options);
+  }
+
   // 公共基础目录和文件
   api.render('./template');
 
@@ -107,5 +112,8 @@ module.exports = (api, options, rootOptions) => {
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
   api.onCreateComplete(() => {
     process.env.VUE_CLI_SKIP_WRITE = true;
+    if (options.application === 'mobile') {
+      utils.deleteDir('./src/vendor');
+    }
   });
 };
