@@ -36,12 +36,12 @@ module.exports = (api, options, rootOptions) => {
     devDependencies: {
       '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
       '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
+      'add-asset-html-webpack-plugin': '^3.1.3',
       'archiver': '^2.1.1',
       'chalk': '^2.4.1',
       'compression-webpack-plugin': '^2.0.0',
       'eslint': '^5.8.0',
       'eslint-plugin-vue': '^5.0.0-0',
-      'html-webpack-include-assets-plugin': '^1.0.6',
       'plop': '^2.3.0',
       'progress-bar-webpack-plugin': '^1.12.1',
       'runjs': '^4.3.2',

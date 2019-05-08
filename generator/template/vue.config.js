@@ -2,7 +2,7 @@
 
 const path = require('path');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
@@ -35,7 +35,12 @@ const genPlugins = () => {
           path: '/'
         }
       ]
-    })
+    }),
+    // 为静态资源文件添加 hash，防止缓存
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, './public/config.local.js'),
+      hash: true
+    }),
   ];
 
   if (isProd()) {
@@ -54,16 +59,6 @@ const genPlugins = () => {
       })
     );
   }
-
-  // HtmlWebpackIncludeAssetsPlugin
-  // 为静态资源文件添加 hash，防止缓存
-  plugins.push(
-    new HtmlWebpackIncludeAssetsPlugin({
-      assets: ['config.local.js'],
-      append: false,
-      hash: true
-    })
-  );
 
   return plugins;
 };
