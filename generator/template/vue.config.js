@@ -1,29 +1,47 @@
-'use strict'
+'use strict';
 
-const path = require('path')
-const webpack = require('webpack')
-const {getCurrentVersion} = require('./build/utils')
-const {formatDate} = require('@liwb/cloud-utils')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const chalk = require('chalk')
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
-const HtmlWebpackInlineCodePlugin = require('html-webpack-inline-code-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const path = require('path');
+const pkg = require('./package.json');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
+const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
+
 
 const resolve = (dir) => {
-  return path.join(__dirname, './', dir)
-}
+  return path.join(__dirname, './', dir);
+};
 
 const isProd = () => {
-  return process.env.NODE_ENV === 'production'
-}
+  return process.env.NODE_ENV === 'production';
+};
 
 const genPlugins = () => {
   const plugins = [
     new ProgressBarPlugin({
       format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
       clear: false
+    }),
+    new VueRouterInvokeWebpackPlugin({
+      dir: 'src/views',
+      // must set the alias for the dir option which you have set
+      alias: '@/views',
+      mode: 'hash',
+      routerDir: 'src/router',
+      ignore: ['images', 'components'],
+      redirect: [
+        {
+          redirect: '/hello',
+          path: '/'
+        }
+      ]
+    }),
+    // 为静态资源文件添加 hash，防止缓存
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, './public/config.local.js'),
+      hash: true
     })
   ];
 
@@ -35,7 +53,7 @@ const genPlugins = () => {
         test: new RegExp(
           '\\.(' +
           ['js', 'css'].join('|') +
-          ')$',
+          ')$'
         ),
         threshold: 10240,
         minRatio: 0.8,
@@ -52,21 +70,10 @@ const genPlugins = () => {
       // 为 js 及 css 静态资源添加版本信息
       new webpack.BannerPlugin(`current version: ${getCurrentVersion()} and build time: ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}`),
     )
-
   }
 
-  // HtmlWebpackIncludeAssetsPlugin
-  // 为静态资源文件添加 hash，防止缓存
-  plugins.push(
-    new HtmlWebpackIncludeAssetsPlugin({
-      assets: ['config.local.js'],
-      append: false,
-      hash: true
-    })
-  )
-
   return plugins;
-}
+};
 
 module.exports = {
   /**
@@ -105,7 +112,7 @@ module.exports = {
     modules: false
   },
   configureWebpack: () => ({
-    name: 'vue-cli3-template',
+    name: `${pkg.name}`,
     resolve: {
       alias: {
         '@': resolve('src'),
@@ -131,30 +138,21 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-    // svg
-    config
-      .module
-      .rule('svg')
-      .exclude.add(resolve('src/icons'))
-      .end()
-
-    config
-      .module
-      .rule('icons')
-      .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
+    /* config.module.rule('less').oneOf('vue').use('style-resources-loader') */
+    config.module
+      .rule('less')
+      .oneOf('vue')
+      .use('style-resources-loader')
+      .loader('style-resources-loader')
       .options({
-        symbolId: 'icon-[name]'
-      })
-      .end()
+        patterns: [path.resolve(__dirname, 'src/assets/less/variable.less'), path.resolve(__dirname, 'node_modules/magicless/magicless.less')],
+        injector: 'prepend'
+      }).end();
 
     config
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
-      )
+      );
 
     // plugin
 
@@ -165,7 +163,7 @@ module.exports = {
       .tap(args => {
         args[0].fileBlacklist.push(/runtime\./);
         return args;
-      })
+      });
 
     // webpack-html-plugin
     config
@@ -182,9 +180,9 @@ module.exports = {
           minifyJS: true,
           minifyCSS: true,
           minifyURLs: true
-        }
-        return args
-      })
+        };
+        return args;
+      });
 
     // optimization
     config
@@ -195,7 +193,7 @@ module.exports = {
             .use('script-ext-html-webpack-plugin', [{
               // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
-            }])
+            }]);
           config
             .optimization
             .splitChunks({
@@ -215,10 +213,10 @@ module.exports = {
                   reuseExistingChunk: true
                 }
               }
-            })
-          config.optimization.runtimeChunk('single')
+            });
+          config.optimization.runtimeChunk('single');
         }
-      )
+      );
 
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
@@ -231,7 +229,7 @@ module.exports = {
             analyzerPort: 8888,
             generateStatsFile: false
           }])
-      )
+      );
 
     // `npm run build --generate_report`
     config
@@ -243,6 +241,10 @@ module.exports = {
             reportFilename: 'bundle-report.html',
             openAnalyzer: false
           }])
-      )
+      );
+  },
+  pluginOptions: {
+    lintStyleOnBuild: true,
+    stylelint: {}
   }
 };

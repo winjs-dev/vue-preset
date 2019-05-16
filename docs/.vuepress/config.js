@@ -7,7 +7,7 @@ module.exports = {
   ],
   themeConfig: {
     sidebar: 'auto',
-    repo: 'https://github.com/cloud-templates/vue-preset',
+    repo: 'https://github.com/cklwblove/vue-preset',
     docsDir: 'docs',
     serviceWorker: {
       updatePopup: true
