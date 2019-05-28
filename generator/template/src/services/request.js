@@ -143,23 +143,6 @@ export default function request(url, {
     }
   } else {
     delete defaultConfig.params;
-
-    const contentType = headers['Content-Type'];
-
-    if (typeof contentType !== 'undefined') {
-      if (~contentType.indexOf('multipart')) {
-        // 类型 `multipart/form-data;`
-        defaultConfig.data = data;
-      } else if (~contentType.indexOf('json')) {
-        // 类型 `application/json`
-        // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
-        defaultConfig.data = JSON.stringify(data);
-      } else {
-        // 类型 `application/x-www-form-urlencoded`
-        // 服务器收到的raw body(原始数据) name=homeway&key=nokey
-        defaultConfig.data = Qs.stringify(data);
-      }
-    }
   }
 
   return axios(defaultConfig);

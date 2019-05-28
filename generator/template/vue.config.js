@@ -16,6 +16,19 @@ const isProd = () => {
   return process.env.NODE_ENV === 'production';
 };
 
+function addStyleResource(rule) {
+  rule
+    .use('style-resource')
+    .loader('style-resources-loader')
+    .options({
+      patterns: [
+        path.resolve(__dirname, 'src/assets/less/variable.less'),
+        path.resolve(__dirname, 'node_modules/magicless/magicless.less'),
+      ],
+      injector: 'prepend',
+    });
+}
+
 const genPlugins = () => {
   const plugins = [
     new ProgressBarPlugin({
@@ -126,16 +139,11 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-    /* config.module.rule('less').oneOf('vue').use('style-resources-loader') */
-    config.module
-      .rule('less')
-      .oneOf('vue')
-      .use('style-resources-loader')
-      .loader('style-resources-loader')
-      .options({
-        patterns: [path.resolve(__dirname, 'src/assets/less/variable.less'), path.resolve(__dirname, 'node_modules/magicless/magicless.less')],
-        injector: 'prepend'
-      }).end();
+    // style-resources-loader
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+    types.forEach((type) =>
+      addStyleResource(config.module.rule('less').oneOf(type))
+    );
 
     config
       .when(process.env.NODE_ENV === 'development',
