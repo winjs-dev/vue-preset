@@ -26,10 +26,10 @@ module.exports = (api, options, rootOptions) => {
   api.extendPackage({
     dependencies: {
       '@liwb/cloud-utils': '*',
-      'axios': '^0.18.0',
+      'axios': '^0.19.0',
       'magicless': '*',
-      'normalize.css': '^7.0.0',
-      'vue': '^2.5.17',
+      'normalize.css': '^8.0.1',
+      'vue': '^2.6.10',
       'vue-router': '^3.0.1',
       'vue-svgicon': '^3.2.2'
     },
@@ -37,21 +37,21 @@ module.exports = (api, options, rootOptions) => {
       '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
       '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
       'add-asset-html-webpack-plugin': '^3.1.3',
-      'archiver': '^2.1.1',
+      'archiver': '^3.0.0',
       'chalk': '^2.4.1',
-      'compression-webpack-plugin': '^2.0.0',
+      'compression-webpack-plugin': '^3.0.0',
       'eslint': '^5.8.0',
-      'eslint-plugin-vue': '^5.0.0-0',
+      'eslint-plugin-vue': '^5.0.0',
       'plop': '^2.3.0',
       'progress-bar-webpack-plugin': '^1.12.1',
       'runjs': '^4.3.2',
       'script-ext-html-webpack-plugin': '^2.1.3',
       'style-resources-loader': '^1.2.1',
-      'stylelint': '^9.10.1',
+      'stylelint': '^10.1.0',
       'stylelint-config-standard': '^18.2.0',
-      'stylelint-order': '^2.1.0',
-      'vue-template-compiler': '^2.5.17',
-      'webpack-bundle-analyzer': '^3.0.3',
+      'stylelint-order': '^3.0.0',
+      'vue-template-compiler': '^2.6.10',
+      'webpack-bundle-analyzer': '^3.3.2',
       'webstorm-disable-index': '^1.2.0'
     }
   });
