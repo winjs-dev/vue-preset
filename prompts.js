@@ -39,6 +39,10 @@ module.exports = [
         value: 'ant'
       },
       {
+        name: 'h_ui',
+        value: 'hui'
+      },
+      {
         name: 'none',
         value: 'none'
       }

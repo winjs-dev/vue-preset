@@ -103,6 +103,8 @@ module.exports = (api, options, rootOptions) => {
     require('./iview.js')(api, options);
   } else if (options['ui-framework'] === 'ant') {
     require('./ant.js')(api, options);
+  } else if (options['ui-framework'] === 'hui') {
+    require('./hui.js')(api, options);
   }
 
   // 公共基础目录和文件
