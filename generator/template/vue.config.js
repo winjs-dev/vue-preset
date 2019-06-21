@@ -3,7 +3,6 @@
 const path = require('path');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
@@ -212,31 +211,6 @@ module.exports = {
             });
           config.optimization.runtimeChunk('single');
         }
-      );
-
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run analyz`
-    config
-      .when(process.env.IS_ANALYZ,
-        config => config
-          .plugin('webpack-bundle-analyzer')
-          .use(BundleAnalyzerPlugin, [{
-            analyzerPort: 8888,
-            generateStatsFile: false
-          }])
-      );
-
-    // `npm run build --generate_report`
-    config
-      .when(process.env.npm_config_generate_report,
-        config => config
-          .plugin('webpack-bundle-analyzer-report')
-          .use(BundleAnalyzerPlugin, [{
-            analyzerMode: 'static',
-            reportFilename: 'bundle-report.html',
-            openAnalyzer: false
-          }])
       );
   },
   pluginOptions: {

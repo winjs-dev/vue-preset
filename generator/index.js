@@ -8,7 +8,7 @@ module.exports = (api, options, rootOptions) => {
       'lint': 'vue-cli-service lint',
       'lint:style': 'vue-cli-service lint:style',
       'analyz': 'vue-cli-service build --mode analyz',
-      'report': 'npm_config_generate_report=true npm run build',
+      'report': 'vue-cli-service build --report',
       'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
       'new': 'plop',
       'deploy': 'npm run build && node build/zip.js',
@@ -51,7 +51,6 @@ module.exports = (api, options, rootOptions) => {
       'stylelint-config-standard': '^18.2.0',
       'stylelint-order': '^3.0.0',
       'vue-template-compiler': '^2.6.10',
-      'webpack-bundle-analyzer': '^3.3.2',
       'webstorm-disable-index': '^1.2.0'
     }
   });
