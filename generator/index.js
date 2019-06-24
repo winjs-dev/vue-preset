@@ -44,12 +44,12 @@ module.exports = (api, options, rootOptions) => {
       'eslint-plugin-vue': '^5.0.0',
       'plop': '^2.3.0',
       'progress-bar-webpack-plugin': '^1.12.1',
-      'runjs': '^4.3.2',
       'script-ext-html-webpack-plugin': '^2.1.3',
       'style-resources-loader': '^1.2.1',
       'stylelint': '^10.1.0',
       'stylelint-config-standard': '^18.2.0',
       'stylelint-order': '^3.0.0',
+      'tasksfile': '^5.1.0',
       'vue-template-compiler': '^2.6.10',
       'webstorm-disable-index': '^1.2.0'
     }
