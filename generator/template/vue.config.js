@@ -146,7 +146,7 @@ module.exports = {
 
     config
       .when(process.env.NODE_ENV === 'development',
-        config => config.devtool('cheap-source-map')
+        config => config.devtool('cheap-eval-source-map')
       );
 
     // plugin
