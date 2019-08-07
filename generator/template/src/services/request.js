@@ -49,8 +49,9 @@ axios.interceptors.response.use((response) => {
   // 业务处理（成功或者失败）
   return checkStatus(response);
 }, (error) => {
+  const {response} = error;
   // 对返回的错误进行一些处理
-  return Promise.reject(checkStatus(error));
+  return Promise.reject(checkStatus(response));
 });
 
 function checkStatus(response) {
