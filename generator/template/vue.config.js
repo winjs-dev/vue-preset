@@ -2,7 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const { formatDate } = require('@liwb/cloud-utils');
+const {formatDate} = require('@liwb/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -24,9 +24,9 @@ function addStyleResource(rule) {
     .options({
       patterns: [
         path.resolve(__dirname, 'src/assets/less/variable.less'),
-        path.resolve(__dirname, 'node_modules/magicless/magicless.less'),
+        path.resolve(__dirname, 'node_modules/magicless/magicless.less')
       ],
-      injector: 'prepend',
+      injector: 'prepend'
     });
 }
 
@@ -57,8 +57,8 @@ const genPlugins = () => {
     }),
     // bannerPlugin
     new webpack.BannerPlugin({
-      banner: 'Build time ' + formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-    }),
+      banner: 'Build time ' + formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    })
   ];
 
   if (isProd()) {
@@ -97,14 +97,25 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: process.platform === 'darwin',
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 3000,
     https: false,
     hotOnly: false,
     overlay: {
       warnings: false,
       errors: true
-    }
+    },
+    // 代理
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:8000',// 后端接口地址
+    //     ws: true,
+    //     changeOrigin: true,// 是否允许跨域
+    //     pathRewrite: {
+    //       '^/api': ''   // 直接用'api/接口名'进行请求.
+    //     }
+    //   }
+    // }
   },
   // css相关配置
   css: {
