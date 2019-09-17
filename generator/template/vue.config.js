@@ -104,13 +104,13 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    // 代理
+    }
+    // 代理示例 https://webpack.docschina.org/configuration/dev-server/#devserver-proxy
     // proxy: {
     //   '/api': {
-    //     target: 'http://localhost:8000',// 后端接口地址
+    //     target: 'http://localhost:8000', // 后端接口地址
     //     ws: true,
-    //     changeOrigin: true,// 是否允许跨域
+    //     changeOrigin: true, // 是否允许跨域
     //     pathRewrite: {
     //       '^/api': ''   // 直接用'api/接口名'进行请求.
     //     }
