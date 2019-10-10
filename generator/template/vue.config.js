@@ -175,7 +175,6 @@ module.exports = {
       }
     },
     plugins: genPlugins(),
-    // 生产环境去掉 console.log
     // https://github.com/cklwblove/vue-cli3-template/issues/12
     optimization: getOptimization()
   }),

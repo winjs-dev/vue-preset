@@ -42,6 +42,7 @@ module.exports = (api, options, rootOptions) => {
       "@vue/eslint-config-prettier": "^4.0.1",
       'add-asset-html-webpack-plugin': '^3.1.3',
       'archiver': '^3.0.0',
+      "babel-eslint": "^10.0.1",
       'chalk': '^2.4.1',
       "check-prettier": "^1.0.3",
       'compression-webpack-plugin': '^3.0.0',
