@@ -48,7 +48,7 @@ if (nativeBridgeMethods.isLightOS()) {
     render: (h) => h(App),
   });
 }
-<%_ } _%> else { _%>
+<%_ } else { _%>
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
