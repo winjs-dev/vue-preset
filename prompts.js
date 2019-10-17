@@ -17,6 +17,10 @@ module.exports = [
       {
         name: 'mobile',
         value: 'mobile'
+      },
+      {
+        name: 'H5离线包',
+        value: 'offline'
       }
     ],
     default: 'mobile'

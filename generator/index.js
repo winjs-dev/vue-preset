@@ -8,13 +8,13 @@ module.exports = (api, options, rootOptions) => {
       'zip': 'node build/zip.js',
       'lint': 'vue-cli-service lint',
       'lint:style': 'vue-cli-service lint:style',
-      "lint:prettier": "check-prettier lint",
+      'lint:prettier': 'check-prettier lint',
       'analyz': 'vue-cli-service build --mode analyz',
       'report': 'vue-cli-service build --report',
       'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
       'new': 'plop',
       'deploy': 'npm run build && npm run zip',
-      "prettier": "node ./scripts/prettier.js",
+      'prettier': 'node ./scripts/prettier.js',
       'release': 'sh build/release.sh'
     },
     'scripts-info': {
@@ -39,18 +39,18 @@ module.exports = (api, options, rootOptions) => {
     devDependencies: {
       '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
       '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
-      "@vue/eslint-config-prettier": "^4.0.1",
+      '@vue/eslint-config-prettier': '^4.0.1',
       'add-asset-html-webpack-plugin': '^3.1.3',
       'archiver': '^3.0.0',
-      "babel-eslint": "^10.0.1",
+      'babel-eslint': '^10.0.1',
       'chalk': '^2.4.1',
-      "check-prettier": "^1.0.3",
+      'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
       'eslint': '^5.8.0',
       'eslint-plugin-vue': '^5.0.0',
-      "eslint-plugin-prettier": "^3.1.0",
+      'eslint-plugin-prettier': '^3.1.0',
       'plop': '^2.3.0',
-      "prettier": "^1.18.2",
+      'prettier': '^1.18.2',
       'progress-bar-webpack-plugin': '^1.12.1',
       'script-ext-html-webpack-plugin': '^2.1.3',
       'style-resources-loader': '^1.2.1',
@@ -93,6 +93,16 @@ module.exports = (api, options, rootOptions) => {
             minPixelValue: 1
           }
         }
+      }
+    });
+  }
+
+  // application 应用类型为 H5离线包
+  if (options.application === 'offline') {
+    api.extendPackage({
+      dependencies: {
+        'light-sdk': '^1.0.61',
+        'native-bridge-methods': '*'
       }
     });
   }
