@@ -149,9 +149,7 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: isProd() ? true : false,
     // css预设器配置项
-    loaderOptions: {},
-    // 启用 CSS modules for all css / pre-processor files.
-    modules: false
+    loaderOptions: {}
   },
   configureWebpack: () => ({
     name: 'vue-cli3-template',
