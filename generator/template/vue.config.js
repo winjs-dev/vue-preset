@@ -169,7 +169,8 @@ module.exports = {
         'services': resolve('src/services'),
         'variable': resolve('src/assets/less/variable.less'),
         'utils': resolve('node_modules/@liwb/cloud-utils/dist/cloud-utils.esm'),
-        'mixins': resolve('node_modules/magicless/magicless.less')
+        'mixins': resolve('node_modules/magicless/magicless.less'),
+        'native-bridge-methods': resolve('node_modules/native-bridge-methods/dist/native-bridge-methods.esm')
       }
     },
     plugins: genPlugins(),
