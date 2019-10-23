@@ -4,6 +4,7 @@ import 'lib-flexible';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/.invoke/router.js';
+import './router/router.interceptor';
 import './components/global';
 import './common/errorPlugin';
 import './icons';
@@ -17,19 +18,18 @@ import './vendor/iview';
 import './vendor/ant';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
-import nativeBridgeMethods from 'native-bridge-methods';
+import {isLightOS, nativeReady} from 'native-bridge-methods';
 import LightSDK from 'light-sdk/dist/index.umd';
 
 window.LightSDK = LightSDK;
-window.nativeBridgeMethods = nativeBridgeMethods;
 <%_ } _%>
 
 /* eslint-disable */
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
 <%_ if (options.application === 'offline') { _%>
-if (nativeBridgeMethods.isLightOS()) {
-  nativeBridgeMethods.nativeReady().then(() => {
+if (isLightOS()) {
+  nativeReady().then(() => {
     new Vue({
       el: '#app',
       router,
