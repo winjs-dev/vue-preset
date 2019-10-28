@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const pkg = require('package')
+const pkg = require('package');
 const webpack = require('webpack');
 const {formatDate} = require('@liwb/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -97,11 +97,11 @@ const getOptimization = () => {
               warnings: false,
               drop_console: true,
               drop_debugger: true,
-              pure_funcs: ['console.log'],
-            },
-          },
-        }),
-      ],
+              pure_funcs: ['console.log']
+            }
+          }
+        })
+      ]
     };
   }
   return optimization;
