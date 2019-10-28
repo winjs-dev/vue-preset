@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const pkg = require('package')
 const webpack = require('webpack');
 const {formatDate} = require('@liwb/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -58,7 +59,7 @@ const genPlugins = () => {
     }),
     // bannerPlugin
     new webpack.BannerPlugin({
-      banner: 'Build time ' + formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')
+      banner: `Current version ${pkg.version} and build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}`
     })
   ];
 
