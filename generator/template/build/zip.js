@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
-const { formatDate } = require('@liwb/cloud-utils');
+const {formatDate} = require('@liwb/cloud-utils');
 
 const DEST_DIR = path.join(__dirname, '../dist');
 const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip');
@@ -13,7 +13,7 @@ const extractExtensionData = () => {
 
   return {
     name: extPackageJson.name,
-    version: extPackageJson.version,
+    version: extPackageJson.version
   };
 };
 
@@ -30,12 +30,15 @@ const removeDir = function removeDir(dir) {
       fs.unlinkSync(newPath);
     }
   }
-  fs.rmdirSync(dir);//如果文件夹是空的，就将自己删除掉
+  // 如果文件夹是空的，就将自己删除掉
+  fs.rmdirSync(dir);
 };
 
 const makeDestZipDirIfNotExists = () => {
-  removeDir(DEST_ZIP_DIR);
   if (!fs.existsSync(DEST_ZIP_DIR)) {
+    fs.mkdirSync(DEST_ZIP_DIR);
+  } else {
+    removeDir(DEST_ZIP_DIR);
     fs.mkdirSync(DEST_ZIP_DIR);
   }
 };
@@ -43,7 +46,7 @@ const makeDestZipDirIfNotExists = () => {
 const buildZip = (src, dist, zipFilename) => {
   console.info(`Building ${zipFilename}...`);
 
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = archiver('zip', {zlib: {level: 9}});
   const stream = fs.createWriteStream(path.join(dist, zipFilename));
 
   return new Promise((resolve, reject) => {
@@ -58,7 +61,7 @@ const buildZip = (src, dist, zipFilename) => {
 };
 
 const main = () => {
-  const { name, version } = extractExtensionData();
+  const {name, version} = extractExtensionData();
   const zipFilename = `${name}-v${version}_${formatDate(
     new Date(),
     'yyyy-MM-dd_HH-mm-ss'
