@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const pkg = require('package');
+const pkg = require('./package.json');
 const webpack = require('webpack');
 const {formatDate} = require('@liwb/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
