@@ -10,7 +10,9 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const svnInfo = require('svn-info');
 
+const N = '\n';
 const resolve = (dir) => {
   return path.join(__dirname, './', dir);
 };
@@ -19,7 +21,7 @@ const isProd = () => {
   return process.env.NODE_ENV === 'production';
 };
 
-function addStyleResource(rule) {
+const addStyleResource = (rule) => {
   rule
     .use('style-resource')
     .loader('style-resources-loader')
@@ -30,7 +32,15 @@ function addStyleResource(rule) {
       ],
       injector: 'prepend'
     });
-}
+};
+
+// 获取 svn 信息
+const getSvnInfo = () => {
+  const svnURL = '';
+  if (svnURL) return svnInfo.sync(svnURL, 'HEAD').lastChangedRev;
+
+  return 'unknown';
+};
 
 const genPlugins = () => {
   const plugins = [
@@ -56,15 +66,19 @@ const genPlugins = () => {
     new AddAssetHtmlPlugin({
       filepath: path.resolve(__dirname, './public/config.local.js'),
       hash: true
-    }),
-    // bannerPlugin
-    new webpack.BannerPlugin({
-      banner: `Current version ${pkg.version} and build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}`
     })
   ];
 
   if (isProd()) {
     plugins.push(
+      // bannerPlugin
+      new webpack.BannerPlugin({
+        banner:
+          `@author: Winner FED${
+            N}@version: ${pkg.version}${
+            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
+          `
+      }),
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
         algorithm: 'gzip',

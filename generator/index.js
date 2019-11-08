@@ -57,6 +57,7 @@ module.exports = (api, options, rootOptions) => {
       'stylelint': '^10.1.0',
       'stylelint-config-standard': '^18.2.0',
       'stylelint-order': '^3.0.0',
+      "svn-info": "^1.0.0",
       'tasksfile': '^5.1.0',
       'vue-template-compiler': '^2.6.10',
       'webstorm-disable-index': '^1.2.0'
@@ -86,7 +87,7 @@ module.exports = (api, options, rootOptions) => {
           'postcss-pxtorem': {
             rootValue: 37.5,
             unitPrecision: 5,
-            propList: ['height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom'],
+            propList: ['height', 'line-height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom'],
             selectorBlackList: [],
             replace: true,
             mediaQuery: false,
