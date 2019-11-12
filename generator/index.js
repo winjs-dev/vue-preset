@@ -33,7 +33,7 @@ module.exports = (api, options, rootOptions) => {
       'magicless': '*',
       'normalize.css': '^8.0.1',
       'vue': '^2.6.10',
-      'vue-router': '^3.0.1',
+      'vue-router': '^3.1.3',
       'vue-svgicon': '^3.2.2'
     },
     devDependencies: {
