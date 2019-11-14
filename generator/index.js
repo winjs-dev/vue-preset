@@ -74,7 +74,7 @@ module.exports = (api, options, rootOptions) => {
   });
 
   // application 应用类型为 mobile
-  if (options.application === 'mobile') {
+  if (options.application === 'mobile' || options.application === 'offline') {
     api.extendPackage({
       dependencies: {
         'lib-flexible': '^0.3.2'
