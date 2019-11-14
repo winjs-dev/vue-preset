@@ -87,7 +87,7 @@ module.exports = (api, options, rootOptions) => {
           'postcss-pxtorem': {
             rootValue: 37.5,
             unitPrecision: 5,
-            propList: ['height', 'line-height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom'],
+            propList: ['height', 'line-height', 'width', 'padding', 'margin', 'top', 'left', 'right', 'bottom', 'font-size'],
             selectorBlackList: [],
             replace: true,
             mediaQuery: false,
