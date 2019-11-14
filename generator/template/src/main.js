@@ -1,4 +1,4 @@
-<%_ if (options.application === 'mobile') { _%>
+<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
 import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
