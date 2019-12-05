@@ -3,6 +3,7 @@ module.exports = (api, options, rootOptions) => {
   // 命令
   api.extendPackage({
     scripts: {
+      'bootstrap': 'npm install',
       'serve': 'vue-cli-service serve',
       'build': 'node build/index.js',
       'zip': 'node build/zip.js',
