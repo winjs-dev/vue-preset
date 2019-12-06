@@ -16,7 +16,8 @@ module.exports = (api, options, rootOptions) => {
       'new': 'plop',
       'deploy': 'npm run build && npm run zip',
       'prettier': 'node ./scripts/prettier.js',
-      'release': 'sh build/release.sh'
+      'release': 'sh build/release.sh',
+      'inspect': 'vue inspect > output.js --verbose'
     },
     'scripts-info': {
       'serve': '运行开发服务器',
@@ -58,7 +59,7 @@ module.exports = (api, options, rootOptions) => {
       'stylelint': '^10.1.0',
       'stylelint-config-standard': '^18.2.0',
       'stylelint-order': '^3.0.0',
-      "svn-info": "^1.0.0",
+      'svn-info': '^1.0.0',
       'tasksfile': '^5.1.0',
       'vue-template-compiler': '^2.6.10',
       'webstorm-disable-index': '^1.2.0'
