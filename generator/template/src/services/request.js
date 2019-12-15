@@ -54,7 +54,6 @@ const axiosConfig = {
  */
 const axiosResponse = {
   success: (response) => {
-    window.$eventBus.$emit('isBrokenNetwork', false);
     responseLog(response);
     return checkStatus(response);
   },
@@ -75,7 +74,6 @@ const axiosResponse = {
       // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
       // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
       console.log('断网了~');
-      window.$eventBus.$emit('isBrokenNetwork', true);
     }
   }
 };
