@@ -41,7 +41,8 @@ module.exports = (api, options, rootOptions) => {
     devDependencies: {
       '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
       '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
-      '@vue/eslint-config-prettier': '^4.0.1',
+      "@vue/cli-plugin-eslint": "^4.1.0",
+      '@vue/eslint-config-prettier': '^4.1.0',
       'add-asset-html-webpack-plugin': '^3.1.3',
       'archiver': '^3.0.0',
       'babel-eslint': '^10.0.1',
