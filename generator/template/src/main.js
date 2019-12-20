@@ -6,7 +6,6 @@ import App from './App.vue';
 import router from './router/.invoke/router.js';
 import './router/router.interceptor';
 import './components/global';
-import './common/errorPlugin';
 import './icons';
 import './filters';
 import './services';
