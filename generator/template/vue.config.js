@@ -21,19 +21,6 @@ const isProd = () => {
   return process.env.NODE_ENV === 'production';
 };
 
-const addStyleResource = (rule) => {
-  rule
-    .use('style-resource')
-    .loader('style-resources-loader')
-    .options({
-      patterns: [
-        path.resolve(__dirname, 'src/assets/less/variable.less'),
-        path.resolve(__dirname, 'node_modules/magicless/magicless.less')
-      ],
-      injector: 'prepend'
-    });
-};
-
 // 获取 svn 信息
 const getSvnInfo = () => {
   const svnURL = '';
@@ -198,11 +185,6 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-    // style-resources-loader
-    const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
-    types.forEach((type) =>
-      addStyleResource(config.module.rule('less').oneOf(type))
-    );
 
     // svg
     // exclude icons
