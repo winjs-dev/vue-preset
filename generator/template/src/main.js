@@ -23,6 +23,8 @@ import LightSDK from 'light-sdk/dist/index.umd';
 window.LightSDK = LightSDK;
 <%_ } _%>
 
+import './assets/less/app.less';
+
 /* eslint-disable */
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
