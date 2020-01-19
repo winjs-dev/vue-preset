@@ -51,7 +51,7 @@ const genPlugins = () => {
     }),
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin({
-      filepath: path.resolve(__dirname, './public/config.local.js'),
+      filepath: [path.resolve(__dirname, './public/config.local.js'), path.resolve(__dirname, './public/console.js')],
       hash: true
     })
   ];
