@@ -31,12 +31,12 @@ module.exports = (api, options, rootOptions) => {
   api.extendPackage({
     dependencies: {
       '@liwb/cloud-utils': '*',
-      'axios': '^0.19.0',
+      'axios': '0.19.1',
       'magicless': '*',
-      'normalize.css': '^8.0.1',
-      'vue': '^2.6.10',
-      'vue-router': '^3.1.3',
-      'vue-svgicon': '^3.2.2'
+      'normalize.css': '8.0.1',
+      'vue': '2.6.11',
+      'vue-router': '3.1.5',
+      'vue-svgicon': '3.2.6'
     },
     devDependencies: {
       '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
