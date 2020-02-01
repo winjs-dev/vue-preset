@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import request from './request';
-import urls from './RESTFULLURL';
+import urls from './RESTFULURL';
 
 let FUNS = {};
 
