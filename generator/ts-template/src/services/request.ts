@@ -8,7 +8,7 @@
  */
 
 import Qs from 'qs';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
 import {TIMEOUT, HOME_PREFIX} from '../constant';
 
@@ -165,5 +165,5 @@ export default function request(url, {
     }
   }
 
-  return axios(defaultConfig);
+  return axios(defaultConfig as AxiosRequestConfig);
 }
