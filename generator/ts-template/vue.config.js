@@ -1,16 +1,13 @@
 'use strict';
 
 const path = require('path');
-const pkg = require('./package.json');
-const webpack = require('webpack');
-const {formatDate} = require('@liwb/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
-const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const svnInfo = require('svn-info');
+const pkg = require('./package.json');
 
 const N = '\n';
 const resolve = (dir) => {
@@ -34,20 +31,6 @@ const genPlugins = () => {
     new ProgressBarPlugin({
       format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
       clear: false
-    }),
-    new VueRouterInvokeWebpackPlugin({
-      dir: 'src/views',
-      // must set the alias for the dir option which you have set
-      alias: '@/views',
-      mode: 'hash',
-      routerDir: 'src/router',
-      ignore: ['images', 'components'],
-      redirect: [
-        {
-          redirect: '/hello',
-          path: '/'
-        }
-      ]
     }),
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin([
@@ -122,7 +105,7 @@ module.exports = {
    * for example GitHub pages. If you plan to deploy your site to https://foo.github.io/bar/,
    * then assetsPublicPath should be set to "/bar/".
    * In most cases please use '/' !!!
-   * Detail https://cli.vuejs.org/config/#publicPath
+   * Detail https://cli.vuejs.org/config/#baseurl
    */
   publicPath: './',
   assetsDir: 'static',
@@ -138,7 +121,7 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    }
+    },
     // 代理示例 https://webpack.docschina.org/configuration/dev-server/#devserver-proxy
     // proxy: {
     //   '/api': {
@@ -180,8 +163,8 @@ module.exports = {
         'utils': resolve('node_modules/@liwb/cloud-utils/dist/cloud-utils.esm'),
         'mixins': resolve('node_modules/magicless/magicless.less'),
         <%_ if (options.application === 'offline') { _%>
-        'native-bridge-methods': resolve('node_modules/native-bridge-methods/dist/native-bridge-methods.esm')
-        <%_ } _%>
+'native-bridge-methods': resolve('node_modules/native-bridge-methods/dist/native-bridge-methods.esm')
+<%_ } _%>
       }
     },
     plugins: genPlugins(),
@@ -192,7 +175,6 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-
     // svg
     // exclude icons
     config.module
@@ -213,9 +195,6 @@ module.exports = {
         config => config.devtool('cheap-eval-source-map')
       );
 
-    // plugin
-
-    // preload
     // runtime.js 内联的形式嵌入
     config
       .plugin('preload')
@@ -224,10 +203,11 @@ module.exports = {
         return args;
       });
 
+    // plugin
     // webpack-html-plugin
     config
       .plugin('html')
-      .tap((args) => {
+      .tap(args => {
         args[0].minify = {
           removeComments: true,
           collapseWhitespace: true,
@@ -244,6 +224,7 @@ module.exports = {
       });
 
     // optimization
+    // https://imweb.io/topic/5b66dd601402769b60847149
     config
       .when(process.env.NODE_ENV === 'production',
         config => {
