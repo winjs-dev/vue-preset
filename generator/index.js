@@ -115,7 +115,6 @@ module.exports = (api, options, rootOptions) => {
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
         '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
-        '@vue/cli-plugin-eslint': '^4.2.0',
         '@vue/cli-plugin-pwa': '^4.2.0',
         '@vue/cli-plugin-router': '^4.2.0',
         '@vue/cli-plugin-typescript': '^4.2.0',

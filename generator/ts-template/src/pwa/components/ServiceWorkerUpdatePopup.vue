@@ -9,6 +9,7 @@
     private notificationText = 'New content is available!';
     private refreshButtonText = 'Refresh';
     private registration: ServiceWorkerRegistration | null = null;
+    $notify: any;
 
     created() {
       // Listen for swUpdated event and display refresh notification as required.
@@ -60,7 +61,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .sw-update-popup > button {
     padding: 0.25em 1.5em;
     margin-top: 0.5em;
