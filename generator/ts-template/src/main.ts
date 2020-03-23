@@ -2,14 +2,15 @@
 import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import App from './App.vue';
 import router from './router';
 import './icons';
 import './router/router.interceptor';
 import './filters';
 import './services';
-import './registerServiceWorker';
 import './bus';
+import './pwa/register-service-worker';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>
 import './vendor/element';
 <%_ } else if (options['ui-framework'] === 'iview') { _%>
@@ -25,6 +26,13 @@ window.LightSDK = LightSDK;
 <%_ } _%>
 
 import './assets/less/app.less';
+
+// 注册钩子函数
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate'
+]);
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
 

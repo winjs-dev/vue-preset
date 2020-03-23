@@ -30,6 +30,27 @@ const codeMessage: object = {
   504: '网关超时。',
 };
 
+// 检测请求状态
+function checkStatus(response) {
+  // 如果http状态码正常，则直接返回数据
+  if (response) {
+    const { status, statusText } = response;
+    if ((status >= 200 && status < 300) || status === 304) {
+      // 如果不需要除了data之外的数据，可以直接 return response.data
+      return response.data;
+    }
+    return {
+      status,
+      msg: codeMessage[status] || statusText,
+    };
+  }
+  // 异常状态下，把错误信息返回去
+  return {
+    status: -404,
+    msg: '网络异常',
+  };
+}
+
 /**
  * 全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
@@ -78,27 +99,6 @@ const axiosResponse = {
     }
   },
 };
-
-// 检测请求状态
-function checkStatus(response) {
-  // 如果http状态码正常，则直接返回数据
-  if (response) {
-    const { status, statusText } = response;
-    if ((status >= 200 && status < 300) || status === 304) {
-      // 如果不需要除了data之外的数据，可以直接 return response.data
-      return response.data;
-    }
-    return {
-      status,
-      msg: codeMessage[status] || statusText,
-    };
-  }
-  // 异常状态下，把错误信息返回去
-  return {
-    status: -404,
-    msg: '网络异常',
-  };
-}
 
 axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
 axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);

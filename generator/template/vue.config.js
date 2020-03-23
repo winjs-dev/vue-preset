@@ -123,6 +123,7 @@ module.exports = {
    * then assetsPublicPath should be set to "/bar/".
    * In most cases please use '/' !!!
    * Detail https://cli.vuejs.org/config/#publicPath
+   *  publicPath: process.env.NODE_ENV === 'production' ? `/${pkg.name}/` : './'
    */
   publicPath: './',
   assetsDir: 'static',

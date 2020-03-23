@@ -41,8 +41,7 @@ class EventBus {
     if (vm instanceof this.Vue) this.setEventMapUid(vm._uid, eventName);
   }
 
-  $emit() {
-    const args = [...arguments];
+  $emit(...args) {
     const eventName = args[0];
     const params = args.slice(1);
     if (this.handles[eventName]) {
