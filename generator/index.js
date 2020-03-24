@@ -112,9 +112,12 @@ module.exports = (api, options, rootOptions) => {
         'vue-svgicon': '^3.2.6'
       },
       devDependencies: {
+        '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
-        '@ascendancyy/vue-cli-plugin-stylelint': '^1.1.2',
+        '@typescript-eslint/eslint-plugin': '^2.18.0',
+        '@typescript-eslint/parser': '^2.18.0',
+        '@vue/cli-plugin-eslint': '^4.2.0',
         '@vue/cli-plugin-pwa': '^4.2.0',
         '@vue/cli-plugin-router': '^4.2.0',
         '@vue/cli-plugin-typescript': '^4.2.0',
@@ -124,6 +127,9 @@ module.exports = (api, options, rootOptions) => {
         'chalk': '^2.4.1',
         'check-prettier': '^1.0.3',
         'compression-webpack-plugin': '^3.0.0',
+        'eslint': '^6.7.2',
+        'eslint-plugin-prettier': '^3.1.1',
+        'eslint-plugin-vue': '^6.1.2',
         'prettier': '^1.19.1',
         'progress-bar-webpack-plugin': '^1.12.1',
         'script-ext-html-webpack-plugin': '^2.1.3',
