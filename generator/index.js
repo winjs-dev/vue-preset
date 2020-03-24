@@ -122,6 +122,8 @@ module.exports = (api, options, rootOptions) => {
         '@vue/cli-plugin-router': '^4.2.0',
         '@vue/cli-plugin-typescript': '^4.2.0',
         '@vue/cli-service': '^4.2.0',
+        '@vue/eslint-config-prettier': '^6.0.0',
+        '@vue/eslint-config-typescript': '^5.0.1',
         'add-asset-html-webpack-plugin': '^3.1.3',
         'archiver': '^3.0.0',
         'chalk': '^2.4.1',
