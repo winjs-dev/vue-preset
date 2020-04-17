@@ -1,4 +1,6 @@
 <%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
