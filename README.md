@@ -25,3 +25,8 @@ npm run docs:dev
 # 构建部署版本
 npm run docs:build
 ```
+
+## 待办
+- [ ] 新增**多页**模板
+- [ ] axios retry 特性
+- [x] 新增**TS**模板
