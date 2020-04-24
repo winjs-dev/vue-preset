@@ -161,7 +161,7 @@ module.exports = {
       'page',
       'set-link-source',
       'unicode-bidi',
-      'speak'
-    ]
-  }
+      'speak',
+    ],
+  },
 };
