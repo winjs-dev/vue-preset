@@ -231,6 +231,17 @@ module.exports = {
         return args;
       });
 
+    // set preserveWhitespace
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap((options) => {
+        options.compilerOptions.preserveWhitespace = true;
+        return options;
+      })
+      .end();
+
     // optimization
     // https://imweb.io/topic/5b66dd601402769b60847149
     config
@@ -241,7 +252,9 @@ module.exports = {
             .use('script-ext-html-webpack-plugin', [{
               // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
-            }]);
+            }])
+            .end();
+
           config
             .optimization
             .splitChunks({

@@ -244,16 +244,30 @@ module.exports = {
         return args;
       });
 
+    // set preserveWhitespace
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap((options) => {
+        options.compilerOptions.preserveWhitespace = true;
+        return options;
+      })
+      .end();
+
     // optimization
     config
       .when(process.env.NODE_ENV === 'production',
         config => {
           config
             .plugin('ScriptExtHtmlWebpackPlugin')
+            .after('html')
             .use('script-ext-html-webpack-plugin', [{
               // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
-            }]);
+            }])
+            .end();
+
           config
             .optimization
             .splitChunks({
