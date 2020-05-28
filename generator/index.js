@@ -184,7 +184,7 @@ module.exports = (api, options, rootOptions) => {
     api.extendPackage({
       dependencies: {
         'light-sdk': '^1.0.61',
-        'native-bridge-methods': '*'
+        '@winner-fed/native-bridge-methods': '*'
       }
     });
   }
