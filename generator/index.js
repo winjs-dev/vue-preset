@@ -33,9 +33,9 @@ module.exports = (api, options, rootOptions) => {
     // 安装一些基础公共库
     api.extendPackage({
       dependencies: {
-        '@liwb/cloud-utils': '*',
+        '@winner-fed/cloud-utils': '*',
         'axios': '0.19.1',
-        'magicless': '*',
+        '@winner-fed/magicless': '*',
         'normalize.css': '8.0.1',
         'vue': '2.6.11',
         'vue-router': '3.1.5',
