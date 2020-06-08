@@ -29,4 +29,6 @@ npm run docs:build
 ## 待办
 - [ ] 新增**多页**模板
 - [ ] axios retry 特性
+- [ ] axios cancel request
+- [ ] 引入 vant-ui
 - [x] 新增**TS**模板
