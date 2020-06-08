@@ -19,7 +19,7 @@ import './vendor/iview';
 import './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
-_%> }
+<%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
 import LightSDK from 'light-sdk/dist/index.umd';
