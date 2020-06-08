@@ -181,7 +181,7 @@ module.exports = {
         'utils': resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
         'mixins': resolve('node_modules/@winner-fed/magicless/magicless.less'),
         <%_ if (options.application === 'offline') { _%>
-        'native-bridge-methods': resolve('node_modules/native-bridge-methods/dist/native-bridge-methods.esm')
+        'native-bridge-methods': resolve('node_modules/@winner-fed/native-bridge-methods/dist/native-bridge-methods.esm')
         <%_ } _%>
       }
     },
