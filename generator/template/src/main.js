@@ -17,9 +17,11 @@ import './vendor/element';
 import './vendor/iview';
 <%_ } else if (options['ui-framework'] === 'ant') { _%>
 import './vendor/ant';
-<%_ } _%>
+<%_ } else if (options['ui-framework'] === 'hui') { _%>
+import './vendor/hui';
+_%>
 <%_ if (options.application === 'offline') { _%>
-import {isLightOS, nativeReady} from 'native-bridge-methods';
+import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
 import LightSDK from 'light-sdk/dist/index.umd';
 
 window.LightSDK = LightSDK;
