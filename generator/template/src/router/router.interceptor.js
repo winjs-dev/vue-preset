@@ -1,6 +1,6 @@
 import router from './.invoke/router';
 <%_ if (options.application === 'offline') { _%>
-import { isLightOS, navigateTo } from 'native-bridge-methods';
+import { isLightOS, navigateTo } from '@winner-fed/native-bridge-methods';
 <%_ } _%>
 
 router.beforeEach((to, from, next) => {
