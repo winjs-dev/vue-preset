@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
-const {formatDate} = require('@liwb/cloud-utils');
+const {formatDate} = require('@winner-fed/cloud-utils');
 
 const DEST_DIR = path.join(__dirname, '../dist');
 const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip');
