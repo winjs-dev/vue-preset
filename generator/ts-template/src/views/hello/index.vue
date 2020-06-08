@@ -64,7 +64,7 @@
    */
   import {Component, Vue} from 'vue-property-decorator';
   // 工具类
-  import {formatDate} from '@liwb/cloud-utils/dist/cloud-utils.esm';
+  import {formatDate} from 'utils';
 
   @Component
   export default class Hello extends Vue {
