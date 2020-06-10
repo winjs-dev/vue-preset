@@ -1,49 +1,77 @@
-'use strict';
-const path = require('path');
+#!/usr/bin/env node
+
 const fs = require('fs');
+const path = require('path');
 const archiver = require('archiver');
-const {formatDate} = require('@liwb/cloud-utils');
+const {formatDate} = require('@winner-fed/cloud-utils');
 
-// create a file to stream archive data to.
-var output = fs.createWriteStream(`${path.resolve(__dirname, '../')}/dist_${formatDate(new Date(), 'yyyy-MM-dd_HH:mm:ss')}.zip`);
-var archive = archiver('zip', {
-  zlib: { level: 9 } // Sets the compression level.
-});
+const DEST_DIR = path.join(__dirname, '../dist');
+const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip');
 
-// listen for all archive data to be written
-// 'close' event is fired only when a file descriptor is involved
-output.on('close', function() {
-  console.log(archive.pointer() + ' total bytes');
-  console.log('archiver has been finalized and the output file descriptor has closed.');
-});
+const extractExtensionData = () => {
+  const extPackageJson = require('../package.json');
 
-// This event is fired when the data source is drained no matter what was the data source.
-// It is not part of this library but rather from the NodeJS Stream API.
-// @see: https://nodejs.org/api/stream.html#stream_event_end
-output.on('end', function() {
-  console.log('Data has been drained');
-});
+  return {
+    name: extPackageJson.name,
+    version: extPackageJson.version
+  };
+};
 
-// good practice to catch warnings (ie stat failures and other non-blocking errors)
-archive.on('warning', function(err) {
-  if (err.code === 'ENOENT') {
-    // log warning
-  } else {
-    // throw error
-    throw err;
+const removeDir = function removeDir(dir) {
+  let files = fs.readdirSync(dir);
+  for (let i = 0; i < files.length; i++) {
+    let newPath = path.join(dir, files[i]);
+    let stat = fs.statSync(newPath);
+    if (stat.isDirectory()) {
+      // 如果是文件夹就递归下去
+      removeDir(newPath);
+    } else {
+      // 删除文件
+      fs.unlinkSync(newPath);
+    }
   }
-});
+  // 如果文件夹是空的，就将自己删除掉
+  fs.rmdirSync(dir);
+};
 
-// good practice to catch this error explicitly
-archive.on('error', function(err) {
-  throw err;
-});
+const makeDestZipDirIfNotExists = () => {
+  if (!fs.existsSync(DEST_ZIP_DIR)) {
+    fs.mkdirSync(DEST_ZIP_DIR);
+  } else {
+    removeDir(DEST_ZIP_DIR);
+    fs.mkdirSync(DEST_ZIP_DIR);
+  }
+};
 
-// pipe archive data to the file
-archive.pipe(output);
+const buildZip = (src, dist, zipFilename) => {
+  console.info(`Building ${zipFilename}...`);
 
-archive.directory('./dist/', false);
+  const archive = archiver('zip', {zlib: {level: 9}});
+  const stream = fs.createWriteStream(path.join(dist, zipFilename));
 
-// finalize the archive (ie we are done appending files but streams have to finish yet)
-// 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
-archive.finalize();
+  return new Promise((resolve, reject) => {
+    archive
+      .directory(src, false)
+      .on('error', (err) => reject(err))
+      .pipe(stream);
+
+    stream.on('close', () => resolve());
+    archive.finalize();
+  });
+};
+
+const main = () => {
+  const {name, version} = extractExtensionData();
+  const zipFilename = `${name}-v${version}_${formatDate(
+    new Date(),
+    'yyyy-MM-dd_HH-mm-ss'
+  )}.zip`;
+
+  makeDestZipDirIfNotExists();
+
+  buildZip(DEST_DIR, DEST_ZIP_DIR, zipFilename)
+    .then(() => console.info('OK'))
+    .catch(console.err);
+};
+
+main();

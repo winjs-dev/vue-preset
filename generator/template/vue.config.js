@@ -2,13 +2,19 @@
 
 const path = require('path');
 const pkg = require('./package.json');
+
+const webpack = require('webpack');
+const {formatDate} = require('@winner-fed/cloud-utils');
+
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const svnInfo = require('svn-info');
 
+const N = '\n';
 
 const resolve = (dir) => {
   return path.join(__dirname, './', dir);
@@ -16,6 +22,14 @@ const resolve = (dir) => {
 
 const isProd = () => {
   return process.env.NODE_ENV === 'production';
+};
+
+// 获取 svn 信息
+const getSvnInfo = () => {
+  const svnURL = '';
+  if (svnURL) return svnInfo.sync(svnURL, 'HEAD').lastChangedRev;
+
+  return 'unknown';
 };
 
 const genPlugins = () => {
@@ -39,6 +53,16 @@ const genPlugins = () => {
       ]
     }),
     // 为静态资源文件添加 hash，防止缓存
+    new AddAssetHtmlPlugin([
+      {
+        filepath: path.resolve(__dirname, './public/config.local.js'),
+        hash: true,
+      },
+      {
+        filepath: path.resolve(__dirname, './public/console.js'),
+        hash: true,
+      }
+    ]),
     new AddAssetHtmlPlugin({
       filepath: path.resolve(__dirname, './public/config.local.js'),
       hash: true
@@ -47,6 +71,14 @@ const genPlugins = () => {
 
   if (isProd()) {
     plugins.push(
+      // bannerPlugin
+      new webpack.BannerPlugin({
+        banner:
+          `@author: Winner FED${
+            N}@version: ${pkg.version}${
+            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
+          `
+      })<%_ if (options.application !== 'offline') { _%>,
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
         algorithm: 'gzip',
@@ -58,6 +90,9 @@ const genPlugins = () => {
         threshold: 10240,
         minRatio: 0.8,
         cache: true
+      })
+    <%_ } _%>
+    );
       }),
       // HtmlWebpackInlineCodePlugin
       // html 自动插入版本信息
@@ -75,6 +110,30 @@ const genPlugins = () => {
   return plugins;
 };
 
+// 生产环境去掉 console.log
+const getOptimization = () => {
+  let optimization = {};
+  if (isProd()) {
+    optimization = {
+      // https://webpack.docschina.org/configuration/optimization/#optimization-minimizer
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            compress: {
+              warnings: false,
+              drop_console: true,
+              drop_debugger: true,
+              pure_funcs: ['console.log']
+            }
+          }
+        })
+      ]
+    };
+  }
+  return optimization;
+};
+
 module.exports = {
   /**
    * You can set by yourself according to actual condition
@@ -83,6 +142,7 @@ module.exports = {
    * then assetsPublicPath should be set to "/bar/".
    * In most cases please use '/' !!!
    * Detail https://cli.vuejs.org/config/#publicPath
+   *  publicPath: process.env.NODE_ENV === 'production' ? `/${pkg.name}/` : './'
    */
   publicPath: './',
   assetsDir: 'static',
@@ -99,6 +159,17 @@ module.exports = {
       warnings: false,
       errors: true
     }
+    // 代理示例 https://webpack.docschina.org/configuration/dev-server/#devserver-proxy
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:8000', // 后端接口地址
+    //     ws: true,
+    //     changeOrigin: true, // 是否允许跨域
+    //     pathRewrite: {
+    //       '^/api': ''   // 直接用'api/接口名'进行请求.
+    //     }
+    //   }
+    // }
   },
   // css相关配置
   css: {
@@ -107,9 +178,7 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: isProd() ? true : false,
     // css预设器配置项
-    loaderOptions: {},
-    // 启用 CSS modules for all css / pre-processor files.
-    modules: false
+    loaderOptions: {}
   },
   configureWebpack: () => ({
     name: `${pkg.name}`,
@@ -128,30 +197,40 @@ module.exports = {
         // 文件别名
         'services': resolve('src/services'),
         'variable': resolve('src/assets/less/variable.less'),
-        'utils': resolve('node_modules/@liwb/cloud-utils/dist/cloud-utils.esm'),
-        'mixins': resolve('node_modules/magicless/magicless.less')
+        'utils': resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
+        'mixins': resolve('node_modules/@winner-fed/magicless/magicless.less'),
+        <%_ if (options.application === 'offline') { _%>
+        'native-bridge-methods': resolve('node_modules/@winner-fed/native-bridge-methods/dist/native-bridge-methods.esm')
+        <%_ } _%>
       }
     },
-    plugins: genPlugins()
+    plugins: genPlugins(),
+    // https://github.com/cklwblove/vue-cli3-template/issues/12
+    optimization: getOptimization()
   }),
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
-    /* config.module.rule('less').oneOf('vue').use('style-resources-loader') */
+
+    // svg
+    // exclude icons
     config.module
-      .rule('less')
-      .oneOf('vue')
-      .use('style-resources-loader')
-      .loader('style-resources-loader')
-      .options({
-        patterns: [path.resolve(__dirname, 'src/assets/less/variable.less'), path.resolve(__dirname, 'node_modules/magicless/magicless.less')],
-        injector: 'prepend'
-      }).end();
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
+      .end();
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('url-loader')
+      .loader('url-loader')
+      .end();
 
     config
       .when(process.env.NODE_ENV === 'development',
-        config => config.devtool('cheap-source-map')
+        config => config.devtool('cheap-eval-source-map')
       );
 
     // plugin
@@ -168,7 +247,7 @@ module.exports = {
     // webpack-html-plugin
     config
       .plugin('html')
-      .tap(args => {
+      .tap((args) => {
         args[0].minify = {
           removeComments: true,
           collapseWhitespace: true,
@@ -184,16 +263,30 @@ module.exports = {
         return args;
       });
 
+    // set preserveWhitespace
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap((options) => {
+        options.compilerOptions.preserveWhitespace = true;
+        return options;
+      })
+      .end();
+
     // optimization
     config
       .when(process.env.NODE_ENV === 'production',
         config => {
           config
             .plugin('ScriptExtHtmlWebpackPlugin')
+            .after('html')
             .use('script-ext-html-webpack-plugin', [{
               // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
-            }]);
+            }])
+            .end();
+
           config
             .optimization
             .splitChunks({
@@ -216,31 +309,6 @@ module.exports = {
             });
           config.optimization.runtimeChunk('single');
         }
-      );
-
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run analyz`
-    config
-      .when(process.env.IS_ANALYZ,
-        config => config
-          .plugin('webpack-bundle-analyzer')
-          .use(BundleAnalyzerPlugin, [{
-            analyzerPort: 8888,
-            generateStatsFile: false
-          }])
-      );
-
-    // `npm run build --generate_report`
-    config
-      .when(process.env.npm_config_generate_report,
-        config => config
-          .plugin('webpack-bundle-analyzer-report')
-          .use(BundleAnalyzerPlugin, [{
-            analyzerMode: 'static',
-            reportFilename: 'bundle-report.html',
-            openAnalyzer: false
-          }])
       );
   },
   pluginOptions: {
