@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/cloud-templates/vue-preset)
+
 # vue-preset
 结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板
 
