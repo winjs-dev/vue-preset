@@ -6,8 +6,7 @@ const webpack = require('webpack');
 const {formatDate} = require('@winner-fed/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const chalk = require('chalk');
+const WebpackBar = require('webpackbar');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const svnInfo = require('svn-info');
@@ -31,10 +30,7 @@ const getSvnInfo = () => {
 
 const genPlugins = () => {
   const plugins = [
-    new ProgressBarPlugin({
-      format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-      clear: false
-    }),
+    new WebpackBar(),
     new VueRouterInvokeWebpackPlugin({
       dir: 'src/views',
       // must set the alias for the dir option which you have set

@@ -34,7 +34,7 @@ module.exports = (api, options, rootOptions) => {
     api.extendPackage({
       dependencies: {
         '@winner-fed/cloud-utils': '*',
-        'axios': '0.19.1',
+        'axios': '0.19.2',
         '@winner-fed/magicless': '*',
         'normalize.css': '8.0.1',
         'vue': '2.6.11',
@@ -57,7 +57,6 @@ module.exports = (api, options, rootOptions) => {
         'eslint-plugin-prettier': '^3.1.0',
         'plop': '^2.3.0',
         'prettier': '^1.18.2',
-        'progress-bar-webpack-plugin': '^1.12.1',
         'script-ext-html-webpack-plugin': '^2.1.3',
         'stylelint': '^10.1.0',
         'stylelint-config-standard': '^18.2.0',
@@ -65,6 +64,7 @@ module.exports = (api, options, rootOptions) => {
         'svn-info': '^1.0.0',
         'tasksfile': '^5.1.0',
         'vue-template-compiler': '^2.6.10',
+        'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0'
       }
     });
@@ -131,7 +131,6 @@ module.exports = (api, options, rootOptions) => {
         'eslint-plugin-prettier': '^3.1.1',
         'eslint-plugin-vue': '^6.1.2',
         'prettier': '^1.19.1',
-        'progress-bar-webpack-plugin': '^1.12.1',
         'script-ext-html-webpack-plugin': '^2.1.3',
         'stylelint': '^10.1.0',
         'stylelint-config-standard': '^18.2.0',
@@ -140,6 +139,7 @@ module.exports = (api, options, rootOptions) => {
         'tasksfile': '^5.1.0',
         'typescript': '~3.7.5',
         'vue-template-compiler': '^2.6.10',
+        'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0'
       }
     });

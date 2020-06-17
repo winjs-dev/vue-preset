@@ -4,8 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const chalk = require('chalk');
+const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
 const svnInfo = require('svn-info');
 const pkg = require('./package.json');
@@ -29,10 +28,7 @@ const getSvnInfo = () => {
 
 const genPlugins = () => {
   const plugins = [
-    new ProgressBarPlugin({
-      format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
-      clear: false
-    }),
+    new WebpackBar(),
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin([
       {
