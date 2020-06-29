@@ -42,9 +42,29 @@ module.exports = [
     default: 'mobile'
   },
   {
+    name: 'offline-id',
+    type: 'input',
+    message: 'Fill in the offline package ID',
+    validate: function (val) {
+      return /^[0-9a-z]{4,8}$/.test(val) ? true : '请输入4-8位的小写英文字母或数字，注意唯一性';
+    },
+    when: answers => answers.application === 'offline',
+    default: '离线包 ID'
+  },
+  {
+    name: 'offline-name',
+    type: 'input',
+    message: 'Fill in the offline package name',
+    validate: function (val) {
+      return /^[\u4e00-\u9fa5a-zA-Z0-9]{1,10}$/.test(val) ? true : '请输入1-10位的中英文字符或数字';
+    },
+    when: answers => answers.application === 'offline',
+    default: '离线包中文描述'
+  },
+  {
     name: 'ui-framework',
     type: 'list',
-    message: 'choice UI Framework(default:none)',
+    message: 'Choice UI Framework(default:none)',
     choices: [
       {
         name: 'Element UI',
@@ -84,7 +104,7 @@ module.exports = [
         value: 'none'
       }
     ],
-    when: answers => answers.application === 'mobile',
+    when: answers => answers.application === 'mobile' || answers.application === 'offline',
     default: 'none'
-  },
+  }
 ];

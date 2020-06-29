@@ -34,3 +34,4 @@ npm run docs:build
 - [x] axios cancel request
 - [x] 引入 vant-ui
 - [x] 新增**TS**模板
+- [x] 新增离线包相关特性

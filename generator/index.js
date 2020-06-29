@@ -222,5 +222,9 @@ module.exports = (api, options, rootOptions) => {
     if (options['mobile-ui-framework'] === 'none') {
       utils.deleteDir('./src/vendor');
     }
+    // 只有离线包才有这个文件
+    if(options.application !== 'offline') {
+      utils.deleteDir('./src/offlinePackage.json');
+    }
   });
 };

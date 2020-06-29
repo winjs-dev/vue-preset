@@ -1,5 +1,6 @@
 interface Window {
   LOCAL_CONFIG?: any;
+  LightSDK?: any;
   $eventBus?: any;
 }
 
