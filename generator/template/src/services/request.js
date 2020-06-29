@@ -10,7 +10,8 @@
 import Qs from 'qs';
 import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '../constant';
+import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { addPending, removePending } from './pending';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -36,6 +37,10 @@ const codeMessage = {
  */
 const axiosConfig = {
   success: (config) => {
+    // 在请求开始前，对之前的请求做检查取消操作
+    removePending(config);
+    // 将当前请求添加到 pending 中
+    addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
     if (~config['url'].indexOf('operatorQry')) {
@@ -54,11 +59,18 @@ const axiosConfig = {
  */
 const axiosResponse = {
   success: (response) => {
+    // 在请求结束后，移除本次请求
+    removePending(response);
     responseLog(response);
     return checkStatus(response);
   },
   error: (error) => {
     const {response, code} = error;
+    if (axios.isCancel(error)) {
+      console.error('repeated request: ' + error.message);
+    } else {
+      // handle error code
+    }
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
