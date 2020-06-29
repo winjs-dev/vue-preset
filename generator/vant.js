@@ -3,11 +3,11 @@ module.exports = (api, options, rootOptions) => {
   if (options.language === 'js') {
     devDependencies = {
       'babel-plugin-import': '^1.13.0'
-    }
+    };
   } else {
     devDependencies = {
       'ts-import-plugin': '^1.6.6'
-    }
+    };
   }
 
   api.extendPackage({
@@ -16,12 +16,12 @@ module.exports = (api, options, rootOptions) => {
     },
     devDependencies
   });
-  api.render('../ui/vant');
   if (options.language === 'js') {
-    api.injectImports('src/vendor/index.js', `import './vant.js'`);
+    api.render('../ui/vant');
   } else {
-    api.injectImports('src/vendor/index.js', `import './vant.ts'`);
+    api.render('../ui/vant-ts');
   }
+
   api.onCreateComplete(() => {
   });
 };
