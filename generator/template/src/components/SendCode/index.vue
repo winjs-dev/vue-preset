@@ -36,27 +36,8 @@
         default: false
       }
     },
-    methods: {
-      run() {
-        let second = this.second;
-        this.text = this.getText(this.second);
-        this.timer = setInterval(() => {
-          second--;
-          this.text = this.getText(second);
-          second <= 0 && this.stop();
-        }, 1000);
-      },
-      stop: function () {
-        this.text = this.resetText;
-        this.$emit('input', false);
-        clearInterval(this.timer);
-      },
-      getText(second) {
-        return this.runText.replace(/\{([^{]*?)%s(.*?)\}/g, second);
-      }
-    },
     watch: {
-      value: function (val) {
+      value (val) {
         this.isStart = val;
         val && this.run();
       }
@@ -68,6 +49,25 @@
     },
     destroyed() {
       this.stop();
+    },
+    methods: {
+      run() {
+        let second = this.second;
+        this.text = this.getText(this.second);
+        this.timer = setInterval(() => {
+          second--;
+          this.text = this.getText(second);
+          second <= 0 && this.stop();
+        }, 1000);
+      },
+      stop () {
+        this.text = this.resetText;
+        this.$emit('input', false);
+        clearInterval(this.timer);
+      },
+      getText(second) {
+        return this.runText.replace(/\{([^{]*?)%s(.*?)\}/g, second);
+      }
     }
   };
 </script>
