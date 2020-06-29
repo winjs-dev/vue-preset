@@ -1,6 +1,6 @@
-<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
 import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
@@ -21,6 +21,8 @@ import './vendor/iview';
 import './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
+<%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
+import './vendor/vant';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
@@ -40,7 +42,34 @@ Component.registerHooks([
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
+<%_ if (options.application === 'offline') { _%>
+if (isLightOS()) {
+  nativeReady().then(() => {
+    new Vue({
+      el: '#app',
+      router,
+      // use Runtime-only
+      // https://vuejs.org/v2/guide/installation.html
+      render: (h) => h(App),
+    });
+  });
+} else {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#app',
+    router,
+    // use Runtime-only
+    // https://vuejs.org/v2/guide/installation.html
+    render: (h) => h(App),
+  });
+}
+<%_ } else { _%>
+/* eslint-disable no-new */
 new Vue({
+  el: '#app',
   router,
-  render: (h) => h(App),
-}).$mount('#app');
+  // use Runtime-only
+  // https://vuejs.org/v2/guide/installation.html
+  render: (h) => h(App)
+});
+<%_ } _%>

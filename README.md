@@ -32,5 +32,5 @@ npm run docs:build
 - [ ] 新增**多页**模板
 - [ ] axios retry 特性
 - [x] axios cancel request
-- [ ] 引入 vant-ui
+- [x] 引入 vant-ui
 - [x] 新增**TS**模板

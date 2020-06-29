@@ -204,6 +204,8 @@ module.exports = (api, options, rootOptions) => {
     require('./ant.js')(api, options);
   } else if (options['ui-framework'] === 'hui') {
     require('./hui.js')(api, options);
+  } else if (options['mobile-ui-framework'] === 'vant') {
+    require('./vant.js')(api, options);
   }
 
   if (options.language === 'js') {
@@ -217,7 +219,7 @@ module.exports = (api, options, rootOptions) => {
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
   api.onCreateComplete(() => {
     process.env.VUE_CLI_SKIP_WRITE = true;
-    if (options.application === 'mobile') {
+    if (options['mobile-ui-framework'] === 'none') {
       utils.deleteDir('./src/vendor');
     }
   });

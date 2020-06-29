@@ -1,5 +1,5 @@
 import router from './.invoke/router';
-import { clearPending } from 'services/pending';
+import { clearPending } from '@/services/pending';
 <%_ if (options.application === 'offline') { _%>
 import { isLightOS, navigateTo } from '@winner-fed/native-bridge-methods';
 <%_ } _%>

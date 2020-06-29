@@ -162,7 +162,7 @@ export default function request(url, {
     url,
     method,
     params: data,
-    data: data,
+    data,
     timeout,
     headers,
     responseType: dataType

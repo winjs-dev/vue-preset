@@ -69,5 +69,22 @@ module.exports = [
     ],
     when: answers => answers.application === 'pc',
     default: 'none'
-  }
+  },
+  {
+    name: 'mobile-ui-framework',
+    type: 'list',
+    message: 'choice UI Framework(default:none)',
+    choices: [
+      {
+        name: 'Vant',
+        value: 'vant'
+      },
+      {
+        name: 'none',
+        value: 'none'
+      }
+    ],
+    when: answers => answers.application === 'mobile',
+    default: 'none'
+  },
 ];
