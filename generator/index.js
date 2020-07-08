@@ -224,7 +224,12 @@ module.exports = (api, options, rootOptions) => {
     }
     // 只有离线包才有这个文件
     if(options.application !== 'offline') {
-      utils.deleteDir('./src/offlinePackage.json');
+      utils.deleteFile('./offlinePackage.json');
+    }
+    // 是否为公司内部项目
+    if(!options['mirror-source']) {
+      utils.deleteFile('./.npmrc');
+      utils.deleteFile('./.yarnrc');
     }
   });
 };

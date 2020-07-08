@@ -93,7 +93,7 @@ module.exports = [
   {
     name: 'mobile-ui-framework',
     type: 'list',
-    message: 'choice UI Framework(default:none)',
+    message: 'Choice Mobile UI Framework(default:none)',
     choices: [
       {
         name: 'Vant',
@@ -106,5 +106,11 @@ module.exports = [
     ],
     when: answers => answers.application === 'mobile' || answers.application === 'offline',
     default: 'none'
-  }
+  },
+  {
+    name: 'mirror-source',
+    type: 'confirm',
+    message: 'Whether it is an internal project of the company?',
+    initial: true
+  },
 ];

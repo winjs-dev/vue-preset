@@ -1,6 +1,6 @@
 {
   "name": "vue-preset",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
   "main": "./generator/index.js",
   "directories": {
