@@ -39,11 +39,12 @@ const genPlugins = () => {
       {
         filepath: path.resolve(__dirname, './public/config.local.js'),
         hash: true,
-      },
+      }<%_ if (options.application !== 'pc') { _%>,
       {
         filepath: path.resolve(__dirname, './public/console.js'),
         hash: true,
       }
+  <%_ } _%>
     ]),
   ];
 

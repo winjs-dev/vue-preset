@@ -231,5 +231,10 @@ module.exports = (api, options, rootOptions) => {
       utils.deleteFile('./.npmrc');
       utils.deleteFile('./.yarnrc');
     }
+    // PC项目
+    if(options['application'] === 'pc') {
+      utils.deleteFile('./public/console.js');
+      utils.deleteFile('./public/vconsole.min.js');
+    }
   });
 };
