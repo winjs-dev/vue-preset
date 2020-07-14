@@ -22,11 +22,11 @@
         window.location.reload();
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
-   .page-network {
+  .page-network {
     height: 100%;
     overflow: hidden;
     background-color: #f5f5f5;
