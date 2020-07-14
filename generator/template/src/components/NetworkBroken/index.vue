@@ -26,26 +26,26 @@
 </script>
 
 <style scoped>
-  .page-network {
-    background-color: #f5f5f5;
+   .page-network {
     height: 100%;
     overflow: hidden;
+    background-color: #f5f5f5;
   }
 
   .network-box {
     position: absolute;
-    width: 70%;
-    height: 70%;
     top: 50%;
     left: 50%;
+    width: 70%;
+    height: 70%;
     transform: translate(-50%, -40%);
   }
 
   .network-box img {
+    display: block;
     width: 100%;
     height: auto;
     max-height: 100%;
-    display: block;
   }
 
   .page-network .info {
@@ -62,20 +62,20 @@
   .page-network .network-button {
     position: relative;
     display: inline-block;
-    box-sizing: border-box;
+    width: 68px;
+    height: 28px;
     padding: 0 15px;
     font-size: 14px;
+    line-height: 28px;
+    color: #fff;
     text-align: center;
     cursor: pointer;
+    background-color: #ee0a24;
+    border: 1px solid #ee0a24;
+    border-radius: 4px;
+    box-sizing: border-box;
     -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
     -webkit-appearance: none;
-    width: 68px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: #ee0a24;
-    border: 1px solid #ee0a24;
   }
 </style>
