@@ -30,7 +30,7 @@ npm run docs:build
 
 ## 待办
 - [ ] 新增**多页**模板
-- [ ] 支持 REST 接口规范
+- [x] 支持 REST 接口规范，可以参考 [restful](https://github.com/cklwblove/vue-preset/blob/ece3b851d947ec00d42815919ca32bb1e84be1b3/generator/template/src/services/request.js#L136)
 - [x] axios retry 特性，可以参考 [axios-retry](https://github.com/cklwblove/vue-preset/blob/axios-retry/generator/template/src/services/request.js)
 - [x] axios cancel request
 - [x] 引入 vant-ui
