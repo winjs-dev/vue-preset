@@ -169,23 +169,23 @@ export default function request(url, {
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (data !== undefined) {
+    if (Object.keys(data).length) {
       defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
     } else {
       defaultConfig.params = {_t: (new Date()).getTime()};
     }
   } else {
-    delete defaultConfig.params;
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 
     if (typeof contentType !== 'undefined') {
-      if (~contentType.indexOf('multipart')) {
+      if (contentType.indexOf('multipart') !== -1) {
         // 类型 `multipart/form-data;`
         defaultConfig.data = data;
-      } else if (~contentType.indexOf('json')) {
+      } else if (contentType.indexOf('json') !== -1) {
         // 类型 `application/json`
         // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
         defaultConfig.data = JSON.stringify(data);
