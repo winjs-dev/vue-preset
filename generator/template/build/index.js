@@ -1,18 +1,29 @@
 'use strict';
 
-const { sh, cli } = require('tasksfile');
+const fs = require('fs');
+const path = require('path');
+const {sh, cli} = require('tasksfile');
 const chalk = require('chalk');
 const rawArgv = process.argv.slice(2);
 const args = rawArgv.join(' ');
+
+const resolve = (dir) => {
+  return path.join(__dirname, '../', dir);
+};
 
 // 便于捕捉 build 之后的错误，然后进行自定义处理
 // 配合 jenkins 执行 job
 function command() {
   sh(`vue-cli-service build ${args}`, {
     async: true,
-    stdio: 'inherit',
+    stdio: 'inherit'
   })
     .then((output) => {
+    <%_ if (options.application === 'offline') { _%>
+        // 离线包的说明信息
+      fs.createReadStream(resolve(`offlinePackage.json`))
+        .pipe(fs.createWriteStream(resolve('dist/offlinePackage.json')));
+    <%_ } _%>
       console.log(chalk.cyan(output || ''));
     })
     .catch((err) => {

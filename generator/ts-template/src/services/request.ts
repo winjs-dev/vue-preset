@@ -10,7 +10,8 @@
 import Qs from 'qs';
 import axios, { AxiosRequestConfig } from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import {TIMEOUT, HOME_PREFIX} from '../constant';
+import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { addPending, removePending } from './pending';
 
 const codeMessage: object = {
   200: '服务器成功返回请求的数据。',
@@ -51,12 +52,35 @@ function checkStatus(response) {
   };
 }
 
+function responseLog(response) {
+  if (process.env.NODE_ENV === 'development') {
+    const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
+      Math.random() * 255
+    )},${Math.round(Math.random() * 255)})`;
+    console.log(
+      '%c┍------------------------------------------------------------------┑',
+      `color:${randomColor};`
+    );
+    console.log('| 请求地址：', response.config.url);
+    console.log('| 请求参数：', Qs.parse(response.config.data));
+    console.log('| 返回数据：', response.data);
+    console.log(
+      '%c┕------------------------------------------------------------------┙',
+      `color:${randomColor};`
+    );
+  }
+}
+
 /**
  * 全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
  */
 const axiosConfig = {
   success: (config) => {
+    // 在请求开始前，对之前的请求做检查取消操作
+    removePending(config);
+    // 将当前请求添加到 pending 中
+    addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
     if (config['url'].indexOf('operatorQry') !== -1) {
@@ -75,11 +99,19 @@ const axiosConfig = {
  */
 const axiosResponse = {
   success: (response) => {
+    // 在请求结束后，移除本次请求
+    removePending(response);
+    responseLog(response);
     window.$eventBus.$emit('isBrokenNetwork', false);
     return checkStatus(response);
   },
   error: (error) => {
     const { response, code } = error;
+    if (axios.isCancel(error)) {
+      console.error('repeated request: ' + error.message);
+    } else {
+      // handle error code
+    }
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
@@ -124,10 +156,7 @@ export default function request(url, {
 }) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  headers = Object.assign(method === 'get' ? {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json; charset=UTF-8'
-  } : {
+  headers = Object.assign({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   }, headers);
 
@@ -143,9 +172,17 @@ export default function request(url, {
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
+
+    // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
+    if (Object.keys(data).length) {
+      defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
+    } else {
+      defaultConfig.params = {_t: (new Date()).getTime()};
+    }
   } else {
-    delete defaultConfig.params;
+    // @ts-ignore
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 
@@ -167,3 +204,12 @@ export default function request(url, {
 
   return axios(defaultConfig as AxiosRequestConfig);
 }
+
+// 上传文件封装
+export const uploadFile = (url, formData) => {
+  return request(url, {
+    method: 'post',
+    data: formData,
+    headers: {'Content-Type': 'multipart/form-data'}
+  });
+};

@@ -10,7 +10,8 @@
 import Qs from 'qs';
 import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '../constant';
+import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { addPending, removePending } from './pending';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -36,6 +37,10 @@ const codeMessage = {
  */
 const axiosConfig = {
   success: (config) => {
+    // 在请求开始前，对之前的请求做检查取消操作
+    removePending(config);
+    // 将当前请求添加到 pending 中
+    addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
     if (~config['url'].indexOf('operatorQry')) {
@@ -54,11 +59,18 @@ const axiosConfig = {
  */
 const axiosResponse = {
   success: (response) => {
+    // 在请求结束后，移除本次请求
+    removePending(response);
     responseLog(response);
     return checkStatus(response);
   },
   error: (error) => {
     const {response, code} = error;
+    if (axios.isCancel(error)) {
+      console.error('repeated request: ' + error.message);
+    } else {
+      // handle error code
+    }
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
@@ -150,30 +162,30 @@ export default function request(url, {
     url,
     method,
     params: data,
-    data: data,
+    data,
     timeout,
     headers,
     responseType: dataType
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (data !== undefined) {
+    if (Object.keys(data).length) {
       defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
     } else {
       defaultConfig.params = {_t: (new Date()).getTime()};
     }
   } else {
-    delete defaultConfig.params;
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 
     if (typeof contentType !== 'undefined') {
-      if (~contentType.indexOf('multipart')) {
+      if (contentType.indexOf('multipart') !== -1) {
         // 类型 `multipart/form-data;`
         defaultConfig.data = data;
-      } else if (~contentType.indexOf('json')) {
+      } else if (contentType.indexOf('json') !== -1) {
         // 类型 `application/json`
         // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
         defaultConfig.data = JSON.stringify(data);

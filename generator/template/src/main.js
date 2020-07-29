@@ -1,6 +1,6 @@
-<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
 import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
@@ -19,6 +19,8 @@ import './vendor/iview';
 import './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
+<%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
+import './vendor/vant';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
