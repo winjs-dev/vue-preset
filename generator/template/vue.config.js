@@ -2,8 +2,10 @@
 
 const path = require('path');
 const pkg = require('./package.json');
+
 const webpack = require('webpack');
 const {formatDate} = require('@winner-fed/cloud-utils');
+
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
@@ -12,6 +14,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const svnInfo = require('svn-info');
 
 const N = '\n';
+
 const resolve = (dir) => {
   return path.join(__dirname, './', dir);
 };
@@ -57,6 +60,10 @@ const genPlugins = () => {
       }
   <%_ } _%>
     ]),
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, './public/config.local.js'),
+      hash: true
+    })
   ];
 
   if (isProd()) {
@@ -83,6 +90,18 @@ const genPlugins = () => {
       })
     <%_ } _%>
     );
+      }),
+      // HtmlWebpackInlineCodePlugin
+      // html 自动插入版本信息
+      new HtmlWebpackInlineCodePlugin({
+        headTags: [{
+          tagName: 'script',
+          tagCode: `window.__version='${getCurrentVersion()}'`
+        }]
+      }),
+      // 为 js 及 css 静态资源添加版本信息
+      new webpack.BannerPlugin(`current version: ${getCurrentVersion()} and build time: ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}`),
+    )
   }
 
   return plugins;

@@ -3,6 +3,8 @@
 # vue-preset
 结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板
 
+**注意：此模板不做维护，请移步[传送门](https://github.com/cklwblove/vue-preset)**
+
 ## 快速开始
 
 ```bash
@@ -27,7 +29,6 @@ npm run docs:dev
 # 构建部署版本
 npm run docs:build
 ```
-
 ## 待办
 - [ ] 新增**多页**模板
 - [x] 支持 REST 接口规范，可以参考 [restful](https://github.com/cklwblove/vue-preset/blob/ece3b851d947ec00d42815919ca32bb1e84be1b3/generator/template/src/services/request.js#L136)
@@ -36,3 +37,4 @@ npm run docs:build
 - [x] 引入 vant-ui
 - [x] 新增**TS**模板
 - [x] 新增离线包相关特性
+
