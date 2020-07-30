@@ -3,8 +3,6 @@
 # vue-preset
 结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板
 
-**注意：此模板不做维护，请移步[传送门](https://github.com/cklwblove/vue-preset)**
-
 ## 快速开始
 
 ```bash
