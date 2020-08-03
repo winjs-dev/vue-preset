@@ -74,7 +74,6 @@
     border: 1px solid #ee0a24;
     border-radius: 4px;
     box-sizing: border-box;
-    -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
     -webkit-appearance: none;
   }
