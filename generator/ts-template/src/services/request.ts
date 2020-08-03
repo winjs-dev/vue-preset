@@ -172,16 +172,17 @@ export default function request(url, {
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
 
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (data !== undefined) {
+    if (Object.keys(data).length) {
       defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
     } else {
       defaultConfig.params = {_t: (new Date()).getTime()};
     }
   } else {
-    delete defaultConfig.params;
+    // @ts-ignore
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 

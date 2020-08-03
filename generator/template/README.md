@@ -1,8 +1,10 @@
 # [vue-cli3-template](https://github.com/cklwblove/vue-cli3-template)
 
-[![license](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue) 
+[![license](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/cklwblove/vue-cli3-template/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/cklwblove/vue-cli3-template.svg?branch=master)](https://travis-ci.org/cklwblove/vue-cli3-template) 
+[![Build Status](https://travis-ci.org/cklwblove/vue-cli3-template.svg?branch=master)](https://travis-ci.org/cklwblove/vue-cli3-template)
+
+基于 vue-cli3 搭建的前端模板
 
 ## 特性
 
@@ -14,32 +16,34 @@
 
 - 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `lib-flexible`，可以自由地用 px 去开发
 
-- 常用的 js 工具类： [cloud-utils](https://cloud-templates.github.io/cloud-utils/)
+- 常用的 js 工具类： [cloud-utils](https://cklwblove.github.io/cloud-utils/)
 
 - 常用的 Less 的 mixins 集合：[magicless](https://github.com/cklwblove/magicless)
-
 
 ## 目录介绍
 
 ```
 .
-├── build            # 生成压缩包
-├── public           # 静态资源，不需要 webpack 处理
+├── build              # 生成压缩包
+├── public             # 静态资源，不需要 webpack 处理
 └── src
     ├── assets
-    │   ├── fonts    # 字体文件
+    │   ├── fonts      # 字体文件
     │   ├── img
-    │   ├── js       # 不经过 npm 或 yarn 下载的第三方依赖包
-    │   └── less     # reset 样式，及定义的常量文件等
+    │   ├── js         # 不经过 npm 或 yarn 下载的第三方依赖包
+    │   └── less       # reset 样式，及定义的常量文件等
     ├── components
-    │   └── SvgIcon  # svg 雪碧图
-    ├── filters      # 全局过滤器
-    ├── icons        # svg 文件
+    │   ├── SendCode   # tree shaking 组件
+    │   └── global     # 全局注册组件
+    │       └── SvgIcon
+    ├── filters        # 全局过滤器
+    ├── icons          # svg 文件
     │   └── svg
-    ├── router       # 路由及拦截器
-    ├── services     # 统一的服务接口请求处理
+    ├── router         # 路由及拦截器
+    ├── services       # 统一的服务接口请求处理
     └── views
         └── hello
+
 ```
 
 
@@ -65,7 +69,7 @@ yarn run deploy
 
 ```
 
-浏览器访问 http://localhost:3001
+浏览器访问 http://localhost:3000
 
 ## 其他
 ```
