@@ -1,4 +1,5 @@
 import { UPLOAD_PREFIX } from '@/constant';
+import { combineURLs } from 'utils';
 
 /**
  * 根据前缀，自动匹配基础的url
@@ -6,16 +7,13 @@ import { UPLOAD_PREFIX } from '@/constant';
  * @param prefix
  * @returns {string}
  */
-export default function autoMatchBaseUrl(prefix: string) {
+export default function autoMatchBaseUrl(prefix: string = '') {
   let baseUrl = '';
-  switch (prefix) {
-    case UPLOAD_PREFIX:
-      prefix = '';
-      baseUrl = window.LOCAL_CONFIG.API_UPLOAD;
-      break;
-    default:
-      baseUrl = window.LOCAL_CONFIG.API_HOME;
+  if (prefix === UPLOAD_PREFIX) {
+    baseUrl = window.LOCAL_CONFIG.API_UPLOAD;
+  } else {
+    baseUrl = window.LOCAL_CONFIG.API_HOME;
   }
 
-  return `${baseUrl}`;
+  return combineURLs(baseUrl, prefix);
 }
