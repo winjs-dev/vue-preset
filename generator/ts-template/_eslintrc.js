@@ -4,8 +4,8 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/essential',
-    'eslint:recommended',
+    '@winner-fed/eslint-config-win',
+    '@winner-fed/eslint-config-win/vue',
     '@vue/typescript/recommended',
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',

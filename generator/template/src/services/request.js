@@ -31,6 +31,45 @@ const codeMessage = {
   504: '网关超时。'
 };
 
+function responseLog (response) {
+  if (process.env.NODE_ENV === 'development') {
+    const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
+      Math.random() * 255
+    )},${Math.round(Math.random() * 255)})`;
+    console.log(
+      '%c┍------------------------------------------------------------------┑',
+      `color:${randomColor};`
+    );
+    console.log('| 请求地址：', response.config.url);
+    console.log('| 请求参数：', Qs.parse(response.config.data));
+    console.log('| 返回数据：', response.data);
+    console.log(
+      '%c┕------------------------------------------------------------------┙',
+      `color:${randomColor};`
+    );
+  }
+}
+
+function checkStatus (response) {
+  // 如果http状态码正常，则直接返回数据
+  if (response) {
+    const { status, statusText } = response;
+    if ((status >= 200 && status < 300) || status === 304) {
+      // 如果不需要除了data之外的数据，可以直接 return response.data
+      return response.data;
+    }
+    return {
+      status,
+      msg: codeMessage[status] || statusText
+    };
+  }
+  // 异常状态下，把错误信息返回去
+  return {
+    status: -404,
+    msg: '网络异常'
+  };
+}
+
 /**
  * 全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
@@ -43,7 +82,7 @@ const axiosConfig = {
     addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
-    if (~config['url'].indexOf('operatorQry')) {
+    if (config['url'].indexOf('operatorQry') !== -1) {
       config.headers['accessToken'] =
         'de4738c67e1bb450be71b660f0716aa4675860cec1ff9bc23d800efb40519cf3';
     }
@@ -90,45 +129,6 @@ const axiosResponse = {
   }
 };
 
-function responseLog(response) {
-  if (process.env.NODE_ENV === 'development') {
-    const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
-      Math.random() * 255
-    )},${Math.round(Math.random() * 255)})`;
-    console.log(
-      '%c┍------------------------------------------------------------------┑',
-      `color:${randomColor};`
-    );
-    console.log('| 请求地址：', response.config.url);
-    console.log('| 请求参数：', Qs.parse(response.config.data));
-    console.log('| 返回数据：', response.data);
-    console.log(
-      '%c┕------------------------------------------------------------------┙',
-      `color:${randomColor};`
-    );
-  }
-}
-
-function checkStatus(response) {
-  // 如果http状态码正常，则直接返回数据
-  if (response) {
-    const {status, statusText} = response;
-    if ((status >= 200 && status < 300) || status === 304) {
-      // 如果不需要除了data之外的数据，可以直接 return response.data
-      return response.data;
-    }
-    return {
-      status,
-      msg: codeMessage[status] || statusText
-    };
-  }
-  // 异常状态下，把错误信息返回去
-  return {
-    status: -404,
-    msg: '网络异常'
-  };
-}
-
 axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
 axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
@@ -153,7 +153,7 @@ export default function request(url, {
 }) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  headers = Object.assign({
+  const formatHeaders = Object.assign({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   }, headers);
 
@@ -164,12 +164,12 @@ export default function request(url, {
     params: data,
     data,
     timeout,
-    headers,
+    headers: formatHeaders,
     responseType: dataType
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
     if (data !== undefined) {
       defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
@@ -177,15 +177,15 @@ export default function request(url, {
       defaultConfig.params = {_t: (new Date()).getTime()};
     }
   } else {
-    delete defaultConfig.params;
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 
     if (typeof contentType !== 'undefined') {
-      if (~contentType.indexOf('multipart')) {
+      if (contentType.indexOf('multipart') !== -1) {
         // 类型 `multipart/form-data;`
         defaultConfig.data = data;
-      } else if (~contentType.indexOf('json')) {
+      } else if (contentType.indexOf('json') !== -1) {
         // 类型 `application/json`
         // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
         defaultConfig.data = JSON.stringify(data);

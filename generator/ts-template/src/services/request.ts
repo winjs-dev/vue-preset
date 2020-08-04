@@ -156,7 +156,7 @@ export default function request(url, {
 }) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  headers = Object.assign({
+  const formatHeaders = Object.assign({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   }, headers);
 
@@ -167,21 +167,21 @@ export default function request(url, {
     params: data,
     data,
     timeout,
-    headers,
+    headers: formatHeaders,
     responseType: dataType
   };
 
   if (method === 'get') {
-    delete defaultConfig.data;
+    defaultConfig.data = {};
 
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (data !== undefined) {
-      defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
+    if (Object.keys(data).length) {
+      defaultConfig.params = Object.assign(defaultConfig.params, { _t: (new Date()).getTime() });
     } else {
-      defaultConfig.params = {_t: (new Date()).getTime()};
+      defaultConfig.params = { _t: (new Date()).getTime() };
     }
   } else {
-    delete defaultConfig.params;
+    defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
 
