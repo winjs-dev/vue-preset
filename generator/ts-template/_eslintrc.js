@@ -1,8 +1,4 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true,
-  },
   extends: [
     '@winner-fed/eslint-config-win',
     '@winner-fed/eslint-config-win/vue',
