@@ -8,7 +8,7 @@ module.exports = (api, options, rootOptions) => {
     api.extendPackage({
       scripts: {
         'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
-        'serve': 'vue-cli-service serve',
+        'serve': 'vue-cli-service serve & node ./scripts/watchSvgFiles.js',
         'build': 'node build/index.js',
         'zip': 'node build/zip.js',
         'lint': 'vue-cli-service lint',
@@ -71,7 +71,7 @@ module.exports = (api, options, rootOptions) => {
     api.extendPackage({
       scripts: {
         'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
-        'serve': 'vue-cli-service serve',
+        'serve': 'vue-cli-service serve & node ./scripts/watchSvgFiles.js',
         'build': 'node build/index.ts',
         'zip': 'node build/zip.ts',
         'lint': 'vue-cli-service lint',
