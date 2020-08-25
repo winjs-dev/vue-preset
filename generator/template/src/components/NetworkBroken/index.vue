@@ -18,7 +18,7 @@
 <script>
   export default {
     methods: {
-      refresh() {
+      refresh () {
         window.location.reload();
       }
     }

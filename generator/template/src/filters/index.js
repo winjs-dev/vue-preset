@@ -6,7 +6,7 @@
  */
 
 import Vue from 'vue';
-import {formatDate} from 'utils';
+import { formatDate } from 'utils';
 
 /**
  * [formateTime description]

@@ -104,7 +104,7 @@ const axiosResponse = {
     return checkStatus(response);
   },
   error: (error) => {
-    const {response, code} = error;
+    const { response, code } = error;
     if (axios.isCancel(error)) {
       console.error('repeated request: ' + error.message);
     } else {
@@ -143,7 +143,7 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request(url, {
+export default function request (url, {
   method = 'post',
   timeout = TIMEOUT,
   prefix = HOME_PREFIX,
@@ -153,9 +153,7 @@ export default function request(url, {
 }) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  const formatHeaders = Object.assign({
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  }, headers);
+  const formatHeaders = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', ...headers };
 
   const defaultConfig = {
     baseURL,
@@ -172,9 +170,9 @@ export default function request(url, {
     defaultConfig.data = {};
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
     if (Object.keys(data).length) {
-      defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
+      defaultConfig.params = Object.assign(defaultConfig.params, { _t: (new Date()).getTime() });
     } else {
-      defaultConfig.params = {_t: (new Date()).getTime()};
+      defaultConfig.params = { _t: (new Date()).getTime() };
     }
   } else {
     defaultConfig.params = {};
@@ -205,6 +203,6 @@ export const uploadFile = (url, formData) => {
   return request(url, {
     method: 'post',
     data: formData,
-    headers: {'Content-Type': 'multipart/form-data'}
+    headers: { 'Content-Type': 'multipart/form-data' }
   });
 };

@@ -2,12 +2,12 @@ import Vue from 'vue';
 import request from './request';
 import urls from './RESTFULURL';
 
-let FUNS = {};
+const FUNS = {};
 
 Object.keys(urls).forEach((key) => {
   FUNS[key] = (options = {}) => {
     return request(urls[key], options);
-  }
+  };
 });
 
 // 将services挂载到vue的原型上
