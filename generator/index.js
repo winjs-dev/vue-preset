@@ -37,7 +37,7 @@ module.exports = (api, options, rootOptions) => {
         '@winner-fed/magicless': '*',
         'axios': '0.19.2',
         'normalize.css': '8.0.1',
-        'vue': '2.6.11',
+        'vue': '^2.6.11',
         'vue-router': '3.1.5',
         'vue-svgicon': '3.2.6'
       },
@@ -61,7 +61,7 @@ module.exports = (api, options, rootOptions) => {
         'stylelint': '^13.6.1',
         'svn-info': '^1.0.0',
         'tasksfile': '^5.1.0',
-        'vue-template-compiler': '^2.6.10',
+        'vue-template-compiler': '^2.6.11',
         'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0'
       }
@@ -101,7 +101,7 @@ module.exports = (api, options, rootOptions) => {
         'axios': '^0.19.1',
         'normalize.css': '^8.0.1',
         'register-service-worker': '^1.6.2',
-        'vue': '^2.6.10',
+        'vue': '^2.6.11',
         'vue-class-component': '^7.2.2',
         'vue-property-decorator': '^8.3.0',
         'vue-router': '^3.1.3',
@@ -136,7 +136,7 @@ module.exports = (api, options, rootOptions) => {
         'svn-info': '^1.0.0',
         'tasksfile': '^5.1.0',
         'typescript': '~3.7.5',
-        'vue-template-compiler': '^2.6.10',
+        'vue-template-compiler': '^2.6.11',
         'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0'
       }
