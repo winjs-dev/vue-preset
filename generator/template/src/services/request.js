@@ -168,12 +168,6 @@ export default function request (url, {
 
   if (method === 'get') {
     defaultConfig.data = {};
-    // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (Object.keys(data).length) {
-      defaultConfig.params = Object.assign(defaultConfig.params, { _t: (new Date()).getTime() });
-    } else {
-      defaultConfig.params = { _t: (new Date()).getTime() };
-    }
   } else {
     defaultConfig.params = {};
 

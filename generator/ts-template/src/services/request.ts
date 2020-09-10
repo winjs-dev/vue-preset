@@ -173,22 +173,7 @@ export default function request(url, {
 
   if (method === 'get') {
     defaultConfig.data = {};
-
-    // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-    if (Object.keys(data).length) {
-<<<<<<< HEAD
-      defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
-=======
-      defaultConfig.params = Object.assign(defaultConfig.params, { _t: (new Date()).getTime() });
->>>>>>> 1274401105c75a99aa2fbba1207305d710e06c6b
-    } else {
-      defaultConfig.params = { _t: (new Date()).getTime() };
-    }
   } else {
-<<<<<<< HEAD
-    // @ts-ignore
-=======
->>>>>>> 1274401105c75a99aa2fbba1207305d710e06c6b
     defaultConfig.params = {};
 
     const contentType = headers['Content-Type'];
