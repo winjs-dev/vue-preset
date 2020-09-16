@@ -181,7 +181,7 @@ module.exports = (api, options, rootOptions) => {
   if (options.application === 'offline') {
     api.extendPackage({
       dependencies: {
-        'light-sdk': '^1.0.61',
+        'light-sdk': '^2.0.4',
         '@winner-fed/native-bridge-methods': '*'
       }
     });
