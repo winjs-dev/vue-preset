@@ -159,7 +159,7 @@ module.exports = {
       alias: {
         '@': resolve('src'),
         '@assets': resolve('src/assets'),
-        '@less': resolve('src/assets/less'),
+        '@style': resolve('src/assets/style'),
         '@js': resolve('src/assets/js'),
         '@components': resolve('src/components'),
         '@mixins': resolve('src/mixins'),
