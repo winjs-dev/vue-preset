@@ -19,7 +19,7 @@
       },
       second: {
         default: 60,
-        validator(val) {
+        validator (val) {
           return /^\d*$/.test(val);
         }
       },

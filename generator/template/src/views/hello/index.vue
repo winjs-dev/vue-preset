@@ -68,7 +68,7 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         message: '现在时间是：' + formatDate(Date.now())
-      }
+      };
     },
 
     created () {

@@ -18,7 +18,7 @@
     name: 'Icons',
     data () {
       return {
-        iconsMap: icons,
+        iconsMap: icons
       };
     },
     methods: {
