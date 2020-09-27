@@ -61,22 +61,22 @@
    * 以下仅为事例代码，可以随意扩展修改
    */
   // 工具类
-  import {formatDate} from 'utils';
+  import { formatDate } from 'utils';
 
   export default {
-    data() {
+    data () {
       return {
         msg: 'Welcome to Your Vue.js App',
         message: '现在时间是：' + formatDate(Date.now())
-      }
+      };
     },
 
-    created() {
+    created () {
       this.movieComingSoon();
     },
 
     methods: {
-      movieComingSoon() {
+      movieComingSoon () {
         const data = {};
         this.$services.octocat({
           method: 'get',
@@ -88,7 +88,7 @@
         });
       }
     }
-  }
+  };
 </script>
 
 <style lang="less" rel="stylesheet/less">

@@ -16,13 +16,13 @@
 
   export default {
     name: 'Icons',
-    data() {
+    data () {
       return {
-        iconsMap: icons,
+        iconsMap: icons
       };
     },
     methods: {
-      generateIconCode(symbol) {
+      generateIconCode (symbol) {
         return `<svg-icon name="${symbol}" />`;
       }
     }

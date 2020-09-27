@@ -31,7 +31,7 @@ import LightSDK from 'light-sdk/dist/index.umd';
 window.LightSDK = LightSDK;
 <%_ } _%>
 
-import './assets/less/app.less';
+import './assets/style/app.less';
 
 // 注册钩子函数
 Component.registerHooks([

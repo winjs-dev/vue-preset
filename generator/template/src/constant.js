@@ -15,4 +15,4 @@ export {
   PAGE_NUM,
   UPLOAD_PREFIX,
   HOME_PREFIX
-}
+};

@@ -159,7 +159,7 @@ module.exports = {
       alias: {
         '@': resolve('src'),
         '@assets': resolve('src/assets'),
-        '@less': resolve('src/assets/less'),
+        '@style': resolve('src/assets/style'),
         '@js': resolve('src/assets/js'),
         '@components': resolve('src/components'),
         '@mixins': resolve('src/mixins'),
@@ -169,7 +169,7 @@ module.exports = {
 
         // 文件别名
         'services': resolve('src/services'),
-        'variable': resolve('src/assets/less/variable.less'),
+        'variable': resolve('src/assets/style/variable.less'),
         'utils': resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
         'mixins': resolve('node_modules/@winner-fed/magicless/magicless.less'),
         <%_ if (options.application === 'offline') { _%>
