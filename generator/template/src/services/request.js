@@ -10,7 +10,7 @@
 import Qs from 'qs';
 import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { TIMEOUT } from '@/constant';
 import { addPending, removePending } from './pending';
 
 const codeMessage = {
@@ -146,7 +146,7 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 export default function request (url, {
   method = 'post',
   timeout = TIMEOUT,
-  prefix = HOME_PREFIX,
+  prefix = '',
   data = {},
   headers = {},
   dataType = 'json'
