@@ -4,7 +4,51 @@
  * @date    2019-04-29 09:31
  * @version $ IIFE
  */
+const pcUI = [
+  {
+    name: 'Element UI',
+    value: 'element-ui'
+  },
+  {
+    name: 'ant-design-vue',
+    value: 'ant'
+  },
+  {
+    name: 'none',
+    value: 'none'
+  }
+];
+
+// 没有用vue3实现
+const pcUI2 = [
+  ...pcUI,
+  {
+    name: 'h_ui',
+    value: 'hui'
+  },
+  {
+    name: 'iView',
+    value: 'iview'
+  }
+];
+
 module.exports = [
+  {
+    name: 'preset',
+    type: 'list',
+    message: 'Please pick a preset',
+    choices: [
+      {
+        name: 'Vue 2',
+        value: 'v2'
+      },
+      {
+        name: 'Vue 3 Preview',
+        value: 'v3'
+      }
+    ],
+    default: 'v2'
+  },
   {
     name: 'language',
     type: 'list',
@@ -65,28 +109,7 @@ module.exports = [
     name: 'ui-framework',
     type: 'list',
     message: 'Choice UI Framework(default:none)',
-    choices: [
-      {
-        name: 'Element UI',
-        value: 'element-ui'
-      },
-      {
-        name: 'iView',
-        value: 'iview'
-      },
-      {
-        name: 'ant-design-vue',
-        value: 'ant'
-      },
-      {
-        name: 'h_ui',
-        value: 'hui'
-      },
-      {
-        name: 'none',
-        value: 'none'
-      }
-    ],
+    choices: answers => answers.preset === 'v2' ? pcUI2 : pcUI,
     when: answers => answers.application === 'pc',
     default: 'none'
   },
@@ -112,5 +135,5 @@ module.exports = [
     type: 'confirm',
     message: 'Whether it is an internal project of the company?',
     initial: true
-  },
+  }
 ];

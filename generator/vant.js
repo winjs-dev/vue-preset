@@ -10,18 +10,36 @@ module.exports = (api, options, rootOptions) => {
     };
   }
 
-  api.extendPackage({
-    dependencies: {
-      vant: '^2.8.7'
-    },
-    devDependencies
-  });
-  if (options.language === 'js') {
-    api.render('../ui/vant');
+  if (options.preset === 'v2') {
+    api.extendPackage({
+      dependencies: {
+        vant: '^2.8.7'
+      },
+      devDependencies
+    });
   } else {
-    api.render('../ui/vant-ts');
+    api.extendPackage({
+      dependencies: {
+        vant: '^3.0.0-beta.1'
+      },
+      devDependencies
+    });
   }
 
+  if (options.language === 'js') {
+    if (options.preset === 'v2') {
+      api.render('../ui/vant');
+    } else {
+      api.render('../ui/vant-v3');
+    }
+  } else {
+    if (options.preset === 'v2') {
+      api.render('../ui/vant-ts');
+    } else {
+      api.render('../ui/vant-ts-v3');
+    }
+  }
+  api.injectImports('src/vendor/index.js', `import './vant.js'`);
   api.onCreateComplete(() => {
   });
 };
