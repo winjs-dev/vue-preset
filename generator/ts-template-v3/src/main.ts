@@ -11,15 +11,15 @@ import { setGlobalProperties } from '@/services';
 import './pwa/register-service-worker';
 import setupSvgIcon from './icons';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>
-import { setupVendor } from './vendor/element';
+import setupVendor from './vendor/element';
 <%_ } else if (options['ui-framework'] === 'iview') { _%>
 import './vendor/iview';
 <%_ } else if (options['ui-framework'] === 'ant') { _%>
-import { setupVendor } from './vendor/ant';
+import setupVendor from './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
-import { setupVendor } from './vendor/vant';
+import setupVendor from './vendor/vant';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
@@ -34,7 +34,7 @@ import './assets/style/app.less';
 const app = createApp(App);
 
 setGlobalProperties(app);
-<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['ui-framework'] === 'vant') { _%>
+<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['mobile-ui-framework'] === 'vant') { _%>
 setupVendor(app);
 <%_ } _%>
 setupSvgIcon(app);

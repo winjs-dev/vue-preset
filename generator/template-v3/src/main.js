@@ -11,15 +11,15 @@ import { setGlobalProperties } from '@/services';
 import setupSvgIcon from './icons';
 import { setApp } from './useApp';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>
-import { setupVendor } from './vendor/element';
+import setupVendor from './vendor/element';
 <%_ } else if (options['ui-framework'] === 'iview') { _%>
 import './vendor/iview';
 <%_ } else if (options['ui-framework'] === 'ant') { _%>
-import { setupVendor } from './vendor/ant';
+import setupVendor from './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
-import { setupVendor } from './vendor/vant';
+import setupVendor from './vendor/vant';
 <%_ } _%>
 import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
 import '@yzfe/svgicon/lib/svgicon.css';
@@ -35,7 +35,7 @@ import './assets/style/app.less';
 const app = createApp(App);
 
 setGlobalProperties(app);
-<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['ui-framework'] === 'vant') { _%>
+<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['mobile-ui-framework'] === 'vant') { _%>
 setupVendor(app);
 <%_ } _%>
 setupSvgIcon(app);
