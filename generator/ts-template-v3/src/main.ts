@@ -5,7 +5,7 @@ import 'lib-flexible';
 <%_ } _%>
 import { createApp } from 'vue';
 import App from './App.vue';
-import { setupRouter} from './router';
+import { setupRouter } from './router';
 import './router/router.interceptor';
 import { setGlobalProperties } from '@/services';
 import './pwa/register-service-worker';

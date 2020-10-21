@@ -5,7 +5,7 @@ import 'lib-flexible';
 <%_ } _%>
 import { createApp } from 'vue';
 import App from './App.vue';
-import { setupRouter} from './router';
+import { setupRouter } from './router';
 import './router/router.interceptor';
 import { setGlobalProperties } from '@/services';
 import setupSvgIcon from './icons';
@@ -21,8 +21,6 @@ import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
 import setupVendor from './vendor/vant';
 <%_ } _%>
-import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
-import '@yzfe/svgicon/lib/svgicon.css';
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
 import LightSDK from 'light-sdk/dist/index.umd';
@@ -52,3 +50,5 @@ if (isLightOS()) {
 <%_ } else { _%>
 app.mount('#app');
 <%_ } _%>
+
+setApp(app);
