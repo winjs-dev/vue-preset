@@ -5,20 +5,21 @@ import 'lib-flexible';
 <%_ } _%>
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
-import FUNS from '@/services';
+import { setupRouter} from './router';
 import './router/router.interceptor';
+import { setGlobalProperties } from '@/services';
 import './pwa/register-service-worker';
+import setupSvgIcon from './icons';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>
-import './vendor/element';
+import { setupVendor } from './vendor/element';
 <%_ } else if (options['ui-framework'] === 'iview') { _%>
 import './vendor/iview';
 <%_ } else if (options['ui-framework'] === 'ant') { _%>
-import './vendor/ant';
+import { setupVendor } from './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
-import './vendor/vant';
+import { setupVendor } from './vendor/vant';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';
@@ -26,21 +27,18 @@ import LightSDK from 'light-sdk/dist/index.umd';
 
 window.LightSDK = LightSDK;
 <%_ } _%>
-import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
-import '@yzfe/svgicon/lib/svgicon.css';
+import { setApp } from './useApp';
 
 import './assets/style/app.less';
 
 const app = createApp(App);
 
-app.config.globalProperties.$services = FUNS;
-
-// use 插件
-app
-  .use(router)
-  .use(VueSvgIconPlugin, {
-    tagName: 'svg-icon'
-  });
+setGlobalProperties(app);
+<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['ui-framework'] === 'vant') { _%>
+setupVendor(app);
+<%_ } _%>
+setupSvgIcon(app);
+setupRouter(app);
 
 <%_ if (options.application === 'offline') { _%>
 if (isLightOS()) {
@@ -53,6 +51,7 @@ if (isLightOS()) {
 <%_ } else { _%>
 app.mount('#app');
 <%_ } _%>
+setApp(app);
 
 
 

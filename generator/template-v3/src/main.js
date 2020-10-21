@@ -5,20 +5,21 @@ import 'lib-flexible';
 <%_ } _%>
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
+import { setupRouter} from './router';
 import './router/router.interceptor';
-import FUNS from '@/services';
-import './components/global';
+import { setGlobalProperties } from '@/services';
+import setupSvgIcon from './icons';
+import { setApp } from './useApp';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>
-import './vendor/element';
+import { setupVendor } from './vendor/element';
 <%_ } else if (options['ui-framework'] === 'iview') { _%>
 import './vendor/iview';
 <%_ } else if (options['ui-framework'] === 'ant') { _%>
-import './vendor/ant';
+import { setupVendor } from './vendor/ant';
 <%_ } else if (options['ui-framework'] === 'hui') { _%>
 import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
-import './vendor/vant';
+import { setupVendor } from './vendor/vant';
 <%_ } _%>
 import { VueSvgIconPlugin } from '@yzfe/vue3-svgicon';
 import '@yzfe/svgicon/lib/svgicon.css';
@@ -32,14 +33,13 @@ window.LightSDK = LightSDK;
 import './assets/style/app.less';
 
 const app = createApp(App);
-app.config.globalProperties.$services = FUNS;
 
-// use 插件
-app
-  .use(router)
-  .use(VueSvgIconPlugin, {
-    tagName: 'svg-icon'
-  });
+setGlobalProperties(app);
+<%_ if (options['ui-framework'] === 'element-ui' || options['ui-framework'] === 'ant' || options['ui-framework'] === 'vant') { _%>
+setupVendor(app);
+<%_ } _%>
+setupSvgIcon(app);
+setupRouter(app);
 
 <%_ if (options.application === 'offline') { _%>
 if (isLightOS()) {
