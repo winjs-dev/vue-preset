@@ -1,6 +1,6 @@
 {
   "name": "vue-preset",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
   "main": "./generator/index.js",
   "directories": {
@@ -17,7 +17,9 @@
     "url": "git+https://github.com/cklwblove/vue-preset.git"
   },
   "keywords": [
-    "vue-cli3",
+    "vue-cli4",
+    "vue2",
+    "vue3",
     "preset"
   ],
   "author": "liwb",

@@ -1,146 +1,156 @@
 module.exports = (api, options, rootOptions) => {
   const utils = require('./utils')(api);
 
-  // 开发语言选择
-  // JavaScript
-  if (options.language === 'js') {
-    // 命令
-    api.extendPackage({
-      scripts: {
-        'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
-        'serve': 'vue-cli-service serve',
-        'build': 'node build/index.js',
-        'zip': 'node build/zip.js',
-        'lint': 'vue-cli-service lint',
-        'lint:style': 'vue-cli-service lint:style',
-        'lint:prettier': 'check-prettier lint',
-        'report': 'vue-cli-service build --report',
-        'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
-        'new': 'plop',
-        'deploy': 'npm run build && npm run zip',
-        'prettier': 'node ./scripts/prettier.js',
-        'release': 'sh build/release.sh',
-        'inspect': 'vue inspect > output.js --verbose'
-      },
-      'scripts-info': {
-        'serve': '运行开发服务器',
-        'build': '生产环境执行构建',
-        'analyz': '生产环境执行构建打包分析',
-        'deploy': '生产环境执行构建并压缩zip包'
-      }
-    });
+  // 命令
+  api.extendPackage({
+    scripts: {
+      'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
+      'serve': 'vue-cli-service serve',
+      'lint': 'vue-cli-service lint',
+      'lint:style': 'vue-cli-service lint:style',
+      'lint:prettier': 'check-prettier lint',
+      'report': 'vue-cli-service build --report',
+      'new': 'plop',
+      'deploy': 'npm run build && npm run zip',
+      'prettier': 'node ./scripts/prettier.js',
+      'release': 'sh build/release.sh',
+      'inspect': 'vue inspect > output.js --verbose'
+    },
+    'scripts-info': {
+      'serve': '运行开发服务器',
+      'build': '生产环境执行构建',
+      'analyz': '生产环境执行构建打包分析',
+      'deploy': '生产环境执行构建并压缩zip包'
+    }
+  });
 
-    // 安装一些基础公共库
-    api.extendPackage({
-      dependencies: {
-        '@winner-fed/cloud-utils': '*',
-        '@winner-fed/magicless': '*',
-        'axios': '0.19.2',
-        'normalize.css': '8.0.1',
-        'vue': '^2.6.11',
-        'vue-router': '3.1.5',
-        'vue-svgicon': '3.2.6'
-      },
-      devDependencies: {
-        '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
-        '@winner-fed/eslint-config-win': '^1.0.2',
-        '@vue/eslint-config-prettier': '^6.0.0',
-        '@winner-fed/stylelint-config-win': '^0.1.0',
-        '@winner-fed/vue-cli-plugin-eslint': '^1.0.2',
-        '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
-        'add-asset-html-webpack-plugin': '^3.1.3',
-        'archiver': '^3.0.0',
-        'babel-eslint': '^10.0.1',
-        'chalk': '^2.4.1',
-        'check-prettier': '^1.0.3',
-        'compression-webpack-plugin': '^3.0.0',
-        'eslint': '^7.6.0',
-        'plop': '^2.3.0',
-        'prettier': '^1.18.2',
-        'script-ext-html-webpack-plugin': '^2.1.3',
-        'stylelint': '^13.6.1',
-        'svn-info': '^1.0.0',
-        'tasksfile': '^5.1.0',
-        'vue-template-compiler': '^2.6.11',
-        'webpackbar': '^4.0.0',
-        'webstorm-disable-index': '^1.2.0'
-      }
-    });
-  } else {
-    // 命令
+  if (options.language === 'ts') {
     api.extendPackage({
       scripts: {
-        'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
-        'serve': 'vue-cli-service serve',
         'build': 'node build/index.ts',
-        'zip': 'node build/zip.ts',
-        'lint': 'vue-cli-service lint',
-        'lint:style': 'vue-cli-service lint:style',
-        'lint:prettier': 'check-prettier lint',
-        'report': 'vue-cli-service build --report',
-        'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
-        'new': 'plop',
-        'deploy': 'npm run build && npm run zip',
-        'prettier': 'node ./scripts/prettier.js',
-        'release': 'sh build/release.sh',
-        'inspect': 'vue inspect > output.js --verbose'
-      },
-      'scripts-info': {
-        'serve': '运行开发服务器',
-        'build': '生产环境执行构建',
-        'analyz': '生产环境执行构建打包分析',
-        'deploy': '生产环境执行构建并压缩zip包'
+        'zip': 'node build/zip.ts'
       }
-    });
+    })
+  } else {
+    api.extendPackage({
+      scripts: {
+        'build': 'node build/index.js',
+        'zip': 'node build/zip.js'
+      }
+    })
+  }
 
-    // 安装一些基础公共库
+  api.extendPackage({
+    dependencies: {
+      '@winner-fed/cloud-utils': '*',
+      '@winner-fed/magicless': '*',
+      'axios': '0.19.2',
+      'normalize.css': '8.0.1'
+    },
+    devDependencies: {
+      '@winner-fed/eslint-config-win': '^1.0.2',
+      '@vue/eslint-config-prettier': '^6.0.0',
+      '@winner-fed/stylelint-config-win': '^0.1.0',
+      '@winner-fed/vue-cli-plugin-eslint': '^1.0.2',
+      '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
+      'add-asset-html-webpack-plugin': '^3.1.3',
+      'archiver': '^3.0.0',
+      'babel-eslint': '^10.0.1',
+      'chalk': '^2.4.1',
+      'check-prettier': '^1.0.3',
+      'compression-webpack-plugin': '^3.0.0',
+      'eslint': '^7.6.0',
+      'plop': '^2.3.0',
+      'prettier': '^1.19.1',
+      'script-ext-html-webpack-plugin': '^2.1.3',
+      'stylelint': '^13.6.1',
+      'svn-info': '^1.0.0',
+      'tasksfile': '^5.1.0',
+      'webpackbar': '^4.0.0',
+      'webstorm-disable-index': '^1.2.0'
+    }
+  });
+
+  if (options.language === 'ts') {
     api.extendPackage({
       dependencies: {
-        '@winner-fed/cloud-utils': '*',
-        '@winner-fed/magicless': '*',
-        'axios': '^0.19.1',
-        'normalize.css': '^8.0.1',
-        'register-service-worker': '^1.6.2',
-        'vue': '^2.6.11',
-        'vue-class-component': '^7.2.2',
-        'vue-property-decorator': '^8.3.0',
-        'vue-router': '^3.1.3',
-        'vue-svgicon': '^3.2.6'
+        'register-service-worker': '^1.7.1',
       },
       devDependencies: {
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
-        '@typescript-eslint/eslint-plugin': '^2.18.0',
-        '@typescript-eslint/parser': '^2.18.0',
-        '@vue/cli-plugin-pwa': '^4.2.0',
-        '@vue/cli-plugin-router': '^4.2.0',
-        '@vue/cli-plugin-typescript': '^4.2.0',
-        '@vue/cli-service': '~4.4.0',
-        '@vue/eslint-config-prettier': '^6.0.0',
-        '@vue/eslint-config-typescript': '^5.0.1',
-        '@winner-fed/eslint-config-win': '^1.0.2',
-        '@winner-fed/stylelint-config-win': '^0.1.0',
-        '@winner-fed/vue-cli-plugin-eslint': '^1.0.0',
-        '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
-        'add-asset-html-webpack-plugin': '^3.1.3',
-        'archiver': '^3.0.0',
-        'chalk': '^2.4.1',
-        'check-prettier': '^1.0.3',
-        'compression-webpack-plugin': '^3.0.0',
-        'eslint': '^7.6.0',
-        "eslint-plugin-prettier": "^3.1.4",
-        "eslint-plugin-vue": "^6.2.2",
-        'prettier': '^1.19.1',
-        'script-ext-html-webpack-plugin': '^2.1.3',
-        'stylelint': '^13.6.1',
-        'svn-info': '^1.0.0',
-        'tasksfile': '^5.1.0',
-        'typescript': '~3.7.5',
-        'vue-template-compiler': '^2.6.11',
-        'webpackbar': '^4.0.0',
-        'webstorm-disable-index': '^1.2.0'
+        '@typescript-eslint/eslint-plugin': '^2.33.0',
+        '@typescript-eslint/parser': '^2.33.0',
+        '@vue/cli-plugin-pwa': '~4.5.0',
+        '@vue/cli-plugin-typescript': '~4.5.0',
+        '@vue/eslint-config-typescript': '^5.0.2'
       }
     });
+  }
+
+  // vue preset 版本
+  if (options.preset === 'v2') {
+    api.extendPackage({
+      dependencies: {
+        'vue-router': '^3.1.5',
+        'vue-svgicon': '3.2.6'
+      },
+      devDependencies: {
+        '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2'
+      }
+    });
+
+    api.extendPackage({
+      scripts: {
+        'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
+      }
+    })
+
+    if(options.language === 'ts') {
+      api.extendPackage({
+        dependencies: {
+          'vue-class-component': '^7.2.2',
+          'vue-property-decorator': '^8.3.0'
+        }
+      })
+    }
+  } else { // v3
+    // vue3 不需要 vue-template-compiler
+    // 因此移除 vue2 及 vue-template-compiler
+    // 消除 warning
+    api.extendPackage({
+        dependencies: {
+          'vue': null
+        },
+        devDependencies: {
+          'vue-template-compiler': null
+        }
+      },
+      {
+        prune: true
+      });
+
+    api.extendPackage({
+      dependencies: {
+        '@yzfe/svgicon': '^1.0.1',
+        '@yzfe/vue3-svgicon': '^1.0.1',
+        'vue': '^3.0.0',
+        'vue-router': '^4.0.0-0'
+      },
+      devDependencies: {
+        '@vue/compiler-sfc': '^3.0.0',
+        '@yzfe/svgicon-loader': '^1.0.1',
+        '@yzfe/vue-cli-plugin-svgicon': '~1.0.1'
+      }
+    });
+
+    if (options.language === 'ts') {
+      api.extendPackage({
+        devDependencies: {
+          'typescript': '~3.9.3'
+        }
+      });
+    }
   }
 
   // postcss
@@ -206,12 +216,22 @@ module.exports = (api, options, rootOptions) => {
     require('./vant.js')(api, options);
   }
 
-  if (options.language === 'js') {
-    // 公共基础目录和文件
-    api.render('./template');
+  if (options.preset === 'v2') {
+    if (options.language === 'js') {
+      // 公共基础目录和文件
+      api.render('./template');
+    } else {
+      api.render('./ts-template');
+    }
   } else {
-    api.render('./ts-template');
+    if (options.language === 'js') {
+      // 公共基础目录和文件
+      api.render('./template-v3');
+    } else {
+      api.render('./ts-template-v3');
+    }
   }
+
 
   // 屏蔽 generator 之后的文件写入操作
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
