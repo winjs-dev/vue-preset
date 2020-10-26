@@ -1,12 +1,12 @@
 // 移动端调试工具
 if (window.LOCAL_CONFIG.IS_OPEN_VCONSOLE) {
   function dynamicLoadScript(src, callback, options) {
-    const existingScript = document.getElementById(src);
-    const cb = callback || function () {
+    var existingScript = document.getElementById(src);
+    var cb = callback || function () {
     };
 
     if (!existingScript) {
-      const script = document.createElement('script');
+      var script = document.createElement('script');
       script.src = src; // src url for the third-party library being loaded.
       script.id = options.id || src;
       if (options.crossorigin) {
@@ -21,7 +21,7 @@ if (window.LOCAL_CONFIG.IS_OPEN_VCONSOLE) {
 
       document.body.appendChild(script);
 
-      const onEnd = 'onload' in script ? stdOnEnd : ieOnEnd;
+      var onEnd = 'onload' in script ? stdOnEnd : ieOnEnd;
       onEnd(script, cb);
     }
 
