@@ -33,19 +33,15 @@ const getSvnInfo = () => {
 
 const genPlugins = () => {
   const plugins = [
-    new WebpackBar(),
+    new WebpackBar()<%_ if (options.application !== 'pc') { _%>,
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin([
-      {
-        filepath: path.resolve(__dirname, './public/config.local.js'),
-        hash: true,
-      }<%_ if (options.application !== 'pc') { _%>,
       {
         filepath: path.resolve(__dirname, './public/console.js'),
         hash: true,
       }
+    ])
   <%_ } _%>
-    ]),
   ];
 
   if (isProd()) {
