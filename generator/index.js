@@ -14,7 +14,8 @@ module.exports = (api, options, rootOptions) => {
       'deploy': 'npm run build && npm run zip',
       'prettier': 'node ./scripts/prettier.js',
       'release': 'sh build/release.sh',
-      'inspect': 'vue inspect > output.js --verbose'
+      'inspect': 'vue inspect > output.js --verbose',
+      'reinstall': 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap'
     },
     'scripts-info': {
       'serve': '运行开发服务器',
@@ -30,14 +31,14 @@ module.exports = (api, options, rootOptions) => {
         'build': 'node build/index.ts',
         'zip': 'node build/zip.ts'
       }
-    })
+    });
   } else {
     api.extendPackage({
       scripts: {
         'build': 'node build/index.js',
         'zip': 'node build/zip.js'
       }
-    })
+    });
   }
 
   api.extendPackage({
@@ -59,6 +60,7 @@ module.exports = (api, options, rootOptions) => {
       'chalk': '^2.4.1',
       'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
+      'rimraf': '^3.0.2',
       'eslint': '^7.6.0',
       'plop': '^2.3.0',
       'prettier': '^1.19.1',
@@ -74,7 +76,7 @@ module.exports = (api, options, rootOptions) => {
   if (options.language === 'ts') {
     api.extendPackage({
       dependencies: {
-        'register-service-worker': '^1.7.1',
+        'register-service-worker': '^1.7.1'
       },
       devDependencies: {
         '@types/node': '^10.14.17',
@@ -102,17 +104,17 @@ module.exports = (api, options, rootOptions) => {
 
     api.extendPackage({
       scripts: {
-        'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6',
+        'svg': 'vsvg -s ./src/icons/svg -t ./src/icons/components --ext js --es6'
       }
-    })
+    });
 
-    if(options.language === 'ts') {
+    if (options.language === 'ts') {
       api.extendPackage({
         dependencies: {
           'vue-class-component': '^7.2.2',
           'vue-property-decorator': '^8.3.0'
         }
-      })
+      });
     }
   } else { // v3
     // vue3 不需要 vue-template-compiler
