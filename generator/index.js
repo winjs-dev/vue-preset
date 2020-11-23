@@ -30,6 +30,9 @@ module.exports = (api, options, rootOptions) => {
       scripts: {
         'build': 'node build/index.ts',
         'zip': 'node build/zip.ts'
+      },
+      devDependencies: {
+        'typescript': '~3.9.3'
       }
     });
   } else {
@@ -145,14 +148,6 @@ module.exports = (api, options, rootOptions) => {
         '@yzfe/vue-cli-plugin-svgicon': '~1.0.1'
       }
     });
-
-    if (options.language === 'ts') {
-      api.extendPackage({
-        devDependencies: {
-          'typescript': '~3.9.3'
-        }
-      });
-    }
   }
 
   // postcss
