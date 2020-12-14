@@ -9,6 +9,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const svnInfo = require('svn-info');
 
 const N = '\n';
@@ -64,6 +65,22 @@ const genPlugins = () => {
             N}@version: ${pkg.version}${
             N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
           `
+      }),
+      new WebpackManifestPlugin({
+        fileName: path.resolve(
+          __dirname,
+          'dist',
+          `manifest.${Date.now()}.json`
+        ),
+        generate (seed, files, entries) {
+          return files.reduce((manifest, {name, path: manifestFilePath}) => {
+            const {root, dir, base} = path.parse(manifestFilePath);
+            return {
+              ...manifest,
+              [name + '-' + base]: {path: manifestFilePath, root, dir}
+            };
+          }, seed);
+        }
       })<%_ if (options.application !== 'offline') { _%>,
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
