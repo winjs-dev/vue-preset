@@ -21,7 +21,8 @@ module.exports = (api, options, rootOptions) => {
       'serve': '运行开发服务器',
       'build': '生产环境执行构建',
       'analyz': '生产环境执行构建打包分析',
-      'deploy': '生产环境执行构建并压缩zip包'
+      'deploy': '生产环境执行构建并压缩zip包',
+      'see:package': '生成 see 平台部署发布物'
     }
   });
 
@@ -44,6 +45,7 @@ module.exports = (api, options, rootOptions) => {
     });
   }
 
+  // 公共依赖包
   api.extendPackage({
     dependencies: {
       '@winner-fed/cloud-utils': '*',
@@ -160,6 +162,18 @@ module.exports = (api, options, rootOptions) => {
     }
   });
 
+  // 支持see平台发布物
+  if(options['see-package']) {
+    api.extendPackage({
+      scripts: {
+        'see:package': 'npm run build && node build/package/see.js',
+      },
+      devDependencies: {
+        '@winner-fed/winner-deploy': '*',
+      }
+    })
+  }
+
   // application 应用类型为 mobile
   if (options.application === 'mobile' || options.application === 'offline') {
     api.extendPackage({
@@ -246,6 +260,10 @@ module.exports = (api, options, rootOptions) => {
     if (!options['mirror-source']) {
       utils.deleteFile('./.npmrc');
       utils.deleteFile('./.yarnrc');
+    }
+    // 是否支持see平台发布物
+    if(!options['see-package']) {
+      utils.deleteFile('./build/package');
     }
     // PC项目
     if (options['application'] === 'pc') {

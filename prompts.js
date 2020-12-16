@@ -135,5 +135,11 @@ module.exports = [
     type: 'confirm',
     message: 'Whether it is an internal project of the company?',
     initial: true
+  },
+  {
+    name: 'see-package',
+    type: 'confirm',
+    message: 'Whether to support the generation of see platform publications?',
+    initial: true
   }
 ];
