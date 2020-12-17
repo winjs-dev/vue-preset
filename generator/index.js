@@ -22,7 +22,7 @@ module.exports = (api, options, rootOptions) => {
       'build': '生产环境执行构建',
       'analyz': '生产环境执行构建打包分析',
       'deploy': '生产环境执行构建并压缩zip包',
-      'see:package': '生成 see 平台部署发布物'
+      'see': '生成 see 平台部署发布物'
     }
   });
 
@@ -166,7 +166,7 @@ module.exports = (api, options, rootOptions) => {
   if(options['see-package']) {
     api.extendPackage({
       scripts: {
-        'see:package': 'npm run build && node build/package/see.js',
+        'see': 'npm run build && node build/package/see.js',
       },
       devDependencies: {
         '@winner-fed/winner-deploy': '*',
