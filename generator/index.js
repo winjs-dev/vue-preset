@@ -263,7 +263,7 @@ module.exports = (api, options, rootOptions) => {
     }
     // 是否支持see平台发布物
     if(!options['see-package']) {
-      utils.deleteFile('./build/package');
+      utils.deleteDir('./build/package');
     }
     // PC项目
     if (options['application'] === 'pc') {
