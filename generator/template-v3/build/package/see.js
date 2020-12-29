@@ -2,17 +2,17 @@ const {generateSeePackageZip} = require('@winner-fed/winner-deploy');
 const {name, version} = require('../../package.json');
 // 系统分类默认为
 const system = 'winner-front';
-// 子系统
-const type = 'subsystem';
+// 应用类型
+const type = 'bizframe';
 const configName = 'config.local';
 const templateFunc = () => {
-  if (type === 'subsystem') {
+  if (type === 'bizframe') {
     return `./dist/config.local.js`;
   }
 };
 
 const variablesFunc = () => {
-  if (type === 'subsystem') {
+  if (type === 'bizframe') {
     try {
       const {variables} = require(`./variables.js`);
 
