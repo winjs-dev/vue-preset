@@ -169,7 +169,7 @@ module.exports = (api, options, rootOptions) => {
         'see': 'npm run build && node build/package/see.js',
       },
       devDependencies: {
-        '@winner-fed/winner-deploy': '*',
+        '@winner-fed/winner-deploy': '^2.0.0',
       }
     })
   }
