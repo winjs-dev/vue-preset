@@ -7,28 +7,28 @@
  * import 'babel-polyfill';
  */
 
-import Qs from "qs";
-import axios, { AxiosRequestConfig } from "axios";
-import autoMatchBaseUrl from "./autoMatchBaseUrl";
-import { TIMEOUT } from "@/constant";
-import { addPending, removePending } from "./pending";
+import Qs from 'qs';
+import axios, { AxiosRequestConfig } from 'axios';
+import autoMatchBaseUrl from './autoMatchBaseUrl';
+import { TIMEOUT } from '@/constant';
+import { addPending, removePending } from './pending';
 
 const codeMessage: object = {
-  200: "服务器成功返回请求的数据。",
-  201: "新建或修改数据成功。",
-  202: "一个请求已经进入后台排队（异步任务）。",
-  204: "删除数据成功。",
-  400: "发出的请求有错误，服务器没有进行新建或修改数据的操作。",
-  401: "用户没有权限（令牌、用户名、密码错误）。",
-  403: "用户得到授权，但是访问是被禁止的。",
-  404: "发出的请求针对的是不存在的记录，服务器没有进行操作。",
-  406: "请求的格式不可得。",
-  410: "请求的资源被永久删除，且不会再得到的。",
-  422: "当创建一个对象时，发生一个验证错误。",
-  500: "服务器发生错误，请检查服务器。",
-  502: "网关错误。",
-  503: "服务不可用，服务器暂时过载或维护。",
-  504: "网关超时。"
+  200: '服务器成功返回请求的数据。',
+  201: '新建或修改数据成功。',
+  202: '一个请求已经进入后台排队（异步任务）。',
+  204: '删除数据成功。',
+  400: '发出的请求有错误，服务器没有进行新建或修改数据的操作。',
+  401: '用户没有权限（令牌、用户名、密码错误）。',
+  403: '用户得到授权，但是访问是被禁止的。',
+  404: '发出的请求针对的是不存在的记录，服务器没有进行操作。',
+  406: '请求的格式不可得。',
+  410: '请求的资源被永久删除，且不会再得到的。',
+  422: '当创建一个对象时，发生一个验证错误。',
+  500: '服务器发生错误，请检查服务器。',
+  502: '网关错误。',
+  503: '服务不可用，服务器暂时过载或维护。',
+  504: '网关超时。'
 };
 
 // 检测请求状态
@@ -48,24 +48,24 @@ function checkStatus(response) {
   // 异常状态下，把错误信息返回去
   return {
     status: -404,
-    msg: "网络异常"
+    msg: '网络异常'
   };
 }
 
 function responseLog(response) {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === 'development') {
     const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
       Math.random() * 255
     )},${Math.round(Math.random() * 255)})`;
     console.log(
-      "%c┍------------------------------------------------------------------┑",
+      '%c┍------------------------------------------------------------------┑',
       `color:${randomColor};`
     );
-    console.log("| 请求地址：", response.config.url);
-    console.log("| 请求参数：", Qs.parse(response.config.data));
-    console.log("| 返回数据：", response.data);
+    console.log('| 请求地址：', response.config.url);
+    console.log('| 请求参数：', Qs.parse(response.config.data));
+    console.log('| 返回数据：', response.data);
     console.log(
-      "%c┕------------------------------------------------------------------┙",
+      '%c┕------------------------------------------------------------------┙',
       `color:${randomColor};`
     );
   }
@@ -83,9 +83,9 @@ const axiosConfig = {
     addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
-    if (config["url"].indexOf("operatorQry") !== -1) {
-      config.headers["accessToken"] =
-        "de4738c67e1bb450be71b660f0716aa4675860cec1ff9bc23d800efb40519cf3";
+    if (config['url'].indexOf('operatorQry') !== -1) {
+      config.headers['accessToken'] =
+        'de4738c67e1bb450be71b660f0716aa4675860cec1ff9bc23d800efb40519cf3';
     }
     return config;
   },
@@ -102,20 +102,20 @@ const axiosResponse = {
     // 在请求结束后，移除本次请求
     removePending(response);
     responseLog(response);
-    window.$eventBus.$emit("isBrokenNetwork", false);
+    window.$eventBus.$emit('isBrokenNetwork', false);
     return checkStatus(response);
   },
   error: (error) => {
     const { response, code } = error;
     if (axios.isCancel(error)) {
-      console.error("repeated request: " + error.message);
+      console.error('repeated request: ' + error.message);
     } else {
       // handle error code
     }
     // 接口请求异常统一处理
-    if (code === "ECONNABORTED") {
+    if (code === 'ECONNABORTED') {
       // Timeout error
-      console.log("Timeout error", code);
+      console.log('Timeout error', code);
     }
     if (response) {
       // 请求已发出，但是不在2xx的范围
@@ -126,8 +126,8 @@ const axiosResponse = {
       // eg:请求超时或断网时，更新state的network状态
       // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
       // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
-      console.log("断网了~");
-      window.$eventBus.$emit("isBrokenNetwork", true);
+      console.log('断网了~');
+      window.$eventBus.$emit('isBrokenNetwork', true);
     }
   }
 };
@@ -149,19 +149,19 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 export default function request(
   url,
   {
-    method = "post",
+    method = 'post',
     timeout = TIMEOUT,
-    prefix = "",
+    prefix = '',
     data = {},
     headers = {},
-    dataType = "json"
+    dataType = 'json'
   }
 ) {
   const baseURL = autoMatchBaseUrl(prefix);
 
   const formatHeaders = Object.assign(
     {
-      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     },
     headers
   );
@@ -177,18 +177,18 @@ export default function request(
     responseType: dataType
   };
 
-  if (method === "get") {
+  if (method === 'get') {
     defaultConfig.data = {};
   } else {
     defaultConfig.params = {};
 
-    const contentType = headers["Content-Type"];
+    const contentType = headers['Content-Type'];
 
-    if (typeof contentType !== "undefined") {
-      if (contentType.indexOf("multipart") !== -1) {
+    if (typeof contentType !== 'undefined') {
+      if (contentType.indexOf('multipart') !== -1) {
         // 类型 `multipart/form-data;`
         defaultConfig.data = data;
-      } else if (contentType.indexOf("json") !== -1) {
+      } else if (contentType.indexOf('json') !== -1) {
         // 类型 `application/json`
         // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
         defaultConfig.data = JSON.stringify(data);
@@ -206,8 +206,8 @@ export default function request(
 // 上传文件封装
 export const uploadFile = (url, formData) => {
   return request(url, {
-    method: "post",
+    method: 'post',
     data: formData,
-    headers: { "Content-Type": "multipart/form-data" }
+    headers: { 'Content-Type': 'multipart/form-data' }
   });
 };

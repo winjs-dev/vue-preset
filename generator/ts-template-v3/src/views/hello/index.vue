@@ -62,16 +62,16 @@
   /**
    * 以下仅为事例代码，可以随意扩展修改
    */
-  import { defineComponent } from "vue";
+  import { defineComponent } from 'vue';
   // 工具类
-  import { formatDate } from "utils";
-  import cat from "@icon/cat.svg";
+  import { formatDate } from 'utils';
+  import cat from '@icon/cat.svg';
 
   export default defineComponent({
     data() {
       return {
         cat,
-        msg: "Welcome to Your Vue.js + TypeScript App",
+        msg: 'Welcome to Your Vue.js + TypeScript App',
         message: `现在时间是：${formatDate(Date.now())}`
       };
     },
@@ -83,14 +83,14 @@
         const data = {};
         this.$services
           .octocat({
-            method: "get",
+            method: 'get',
             data
           })
           .then((res) => {
-            console.log("接口请求成功：" + JSON.stringify(res, null, 2));
+            console.log('接口请求成功：' + JSON.stringify(res, null, 2));
           })
           .catch((err) => {
-            console.log("接口请求异常：" + err);
+            console.log('接口请求异常：' + err);
           });
       }
     }
@@ -98,5 +98,5 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import "./style.less";
+  @import './style.less';
 </style>

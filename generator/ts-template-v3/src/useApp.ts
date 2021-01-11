@@ -1,4 +1,4 @@
-import type { App } from "vue";
+import type { App } from 'vue';
 
 let app: App;
 export function setApp(_app: App): void {

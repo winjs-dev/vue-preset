@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
+  import { Component, Vue } from 'vue-property-decorator';
 
   @Component({
-    name: "ServiceWorkerUpdatePopup"
+    name: 'ServiceWorkerUpdatePopup'
   })
   export default class extends Vue {
     private refreshing = false;
-    private notificationText = "New content is available!";
-    private refreshButtonText = "Refresh";
+    private notificationText = 'New content is available!';
+    private refreshButtonText = 'Refresh';
     private registration: ServiceWorkerRegistration | null = null;
     $notify: any;
 
     created() {
       // Listen for swUpdated event and display refresh notification as required.
-      document.addEventListener("swUpdated", this.showRefreshUI, {
+      document.addEventListener('swUpdated', this.showRefreshUI, {
         once: true
       });
       // Refresh all open app tabs when a new service worker is installed.
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (this.refreshing) return;
         this.refreshing = true;
         window.location.reload();
@@ -37,12 +37,12 @@
       this.registration = (e as CustomEvent).detail;
       // $notify 需要UI库支持，比如 element-ui
       this.$notify.info({
-        title: "Update available",
-        message: h("div", { class: "sw-update-popup" }, [
+        title: 'Update available',
+        message: h('div', { class: 'sw-update-popup' }, [
           this.notificationText,
-          h("br"),
+          h('br'),
           h(
-            "button",
+            'button',
             {
               on: {
                 click: (e: Event) => {
@@ -54,7 +54,7 @@
             this.refreshButtonText
           )
         ]),
-        position: "bottom-right",
+        position: 'bottom-right',
         duration: 0
       });
     }
@@ -62,7 +62,7 @@
     private refreshApp() {
       // Protect against missing registration.waiting.
       if (!this.registration || !this.registration.waiting) return;
-      this.registration.waiting.postMessage("skipWaiting");
+      this.registration.waiting.postMessage('skipWaiting');
     }
   }
 </script>

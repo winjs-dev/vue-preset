@@ -4,18 +4,18 @@
 
 <script>
   export default {
-    name: "SendCode",
+    name: 'SendCode',
     data() {
       return {
         timer: null,
         isStart: false,
-        text: "获取短信验证码"
+        text: '获取短信验证码'
       };
     },
     props: {
       initText: {
         type: String,
-        default: "获取验证码"
+        default: '获取验证码'
       },
       second: {
         default: 60,
@@ -25,11 +25,11 @@
       },
       runText: {
         type: String,
-        default: "{%s}秒后重新获取"
+        default: '{%s}秒后重新获取'
       },
       resetText: {
         type: String,
-        default: "重新获取验证码"
+        default: '重新获取验证码'
       },
       value: {
         type: Boolean,
@@ -62,7 +62,7 @@
       },
       stop() {
         this.text = this.resetText;
-        this.$emit("input", false);
+        this.$emit('input', false);
         clearInterval(this.timer);
       },
       getText(second) {

@@ -6,11 +6,11 @@
  *----------*****--------------
  */
 
-const prettier = require("prettier");
-const fs = require("fs");
-const getPrettierFiles = require("./getPrettierFiles");
-const prettierConfigPath = require.resolve("../.prettierrc");
-const chalk = require("chalk");
+const prettier = require('prettier');
+const fs = require('fs');
+const getPrettierFiles = require('./getPrettierFiles');
+const prettierConfigPath = require.resolve('../.prettierrc');
+const chalk = require('chalk');
 
 let didError = false;
 
@@ -25,14 +25,14 @@ files.forEach((file) => {
     return;
   }
   try {
-    const input = fs.readFileSync(file, "utf8");
+    const input = fs.readFileSync(file, 'utf8');
     const withParserOptions = {
       ...options,
       parser: fileInfo.inferredParser
     };
     const output = prettier.format(input, withParserOptions);
     if (output !== input) {
-      fs.writeFileSync(file, output, "utf8");
+      fs.writeFileSync(file, output, 'utf8');
       console.log(chalk.green(`${file} is prettier`));
     }
   } catch (e) {
@@ -43,4 +43,4 @@ files.forEach((file) => {
 if (didError) {
   process.exit(1);
 }
-console.log(chalk.hex("#1890FF")("prettier success!"));
+console.log(chalk.hex('#1890FF')('prettier success!'));

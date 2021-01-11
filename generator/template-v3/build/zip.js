@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const archiver = require("archiver");
-const { formatDate } = require("@winner-fed/cloud-utils");
+const fs = require('fs');
+const path = require('path');
+const archiver = require('archiver');
+const { formatDate } = require('@winner-fed/cloud-utils');
 
-const DEST_DIR = path.join(__dirname, "../dist");
-const DEST_ZIP_DIR = path.join(__dirname, "../dist-zip");
+const DEST_DIR = path.join(__dirname, '../dist');
+const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip');
 
 const extractExtensionData = () => {
-  const extPackageJson = require("../package.json");
+  const extPackageJson = require('../package.json');
 
   return {
     name: extPackageJson.name,
@@ -46,16 +46,16 @@ const makeDestZipDirIfNotExists = () => {
 const buildZip = (src, dist, zipFilename) => {
   console.info(`Building ${zipFilename}...`);
 
-  const archive = archiver("zip", { zlib: { level: 9 } });
+  const archive = archiver('zip', { zlib: { level: 9 } });
   const stream = fs.createWriteStream(path.join(dist, zipFilename));
 
   return new Promise((resolve, reject) => {
     archive
       .directory(src, false)
-      .on("error", (err) => reject(err))
+      .on('error', (err) => reject(err))
       .pipe(stream);
 
-    stream.on("close", () => resolve());
+    stream.on('close', () => resolve());
     archive.finalize();
   });
 };
@@ -64,13 +64,13 @@ const main = () => {
   const { name, version } = extractExtensionData();
   const zipFilename = `${name}-v${version}_${formatDate(
     new Date(),
-    "yyyy-MM-dd_HH-mm-ss"
+    'yyyy-MM-dd_HH-mm-ss'
   )}.zip`;
 
   makeDestZipDirIfNotExists();
 
   buildZip(DEST_DIR, DEST_ZIP_DIR, zipFilename)
-    .then(() => console.info("OK"))
+    .then(() => console.info('OK'))
     .catch(console.err);
 };
 

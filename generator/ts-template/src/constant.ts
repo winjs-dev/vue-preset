@@ -7,7 +7,7 @@
 
 const TIMEOUT: number = 25000;
 const PAGE_NUM: number = 15;
-const UPLOAD_PREFIX: string = "upload/";
-const HOME_PREFIX: string = "home/";
+const UPLOAD_PREFIX: string = 'upload/';
+const HOME_PREFIX: string = 'home/';
 
 export { TIMEOUT, PAGE_NUM, UPLOAD_PREFIX, HOME_PREFIX };

@@ -1,5 +1,5 @@
-import request from "./request";
-import urls from "./RESTFULURL";
+import request from './request';
+import urls from './RESTFULURL';
 
 const FUNS = {};
 

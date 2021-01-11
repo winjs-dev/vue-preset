@@ -12,10 +12,10 @@
 </template>
 
 <script>
-  import icons from "@/icons/requireIcons";
+  import icons from '@/icons/requireIcons';
 
   export default {
-    name: "Icons",
+    name: 'Icons',
     data() {
       return {
         iconsMap: icons

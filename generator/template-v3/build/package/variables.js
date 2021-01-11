@@ -6,22 +6,22 @@
  */
 
 module.exports = {
-  version: "1.0.0",
-  "style-isolate": false,
+  version: '1.0.0',
+  'style-isolate': false,
   prefetch: true,
   variables: [
     {
-      type: "input",
-      label: "服务基础路径",
-      name: "API_HOME",
-      default: "http://121.12.154.243:9080/h5-api-f/"
+      type: 'input',
+      label: '服务基础路径',
+      name: 'API_HOME',
+      default: 'http://121.12.154.243:9080/h5-api-f/'
     },
     {
-      type: "switch",
-      label: "是否启用调试工具",
-      name: "IS_OPEN_VCONSOLE",
-      options: "true:是;false:否",
-      default: "true"
+      type: 'switch',
+      label: '是否启用调试工具',
+      name: 'IS_OPEN_VCONSOLE',
+      options: 'true:是;false:否',
+      default: 'true'
     }
   ]
 };

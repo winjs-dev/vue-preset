@@ -11,7 +11,7 @@
  所以一般在vue生命周期 beforeDestroy或者 destroyed中，需要用vue实例的 $off方法清除 eventBus
  可当你有多个 eventBus时，就需要重复性劳动 $off销毁这件事儿。这时候封装一个 eventBus就是更佳的解决方案。
  */
-import Vue from "vue";
+import Vue from 'vue';
 
 class EventBus {
   private handles: any;
@@ -19,7 +19,7 @@ class EventBus {
   private readonly eventMapUid: object;
   constructor(vue) {
     if (!this.handles) {
-      Object.defineProperty(this, "handles", {
+      Object.defineProperty(this, 'handles', {
         value: {},
         enumerable: false
       });

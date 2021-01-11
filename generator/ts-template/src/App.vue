@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from "vue-property-decorator";
-  import ServiceWorkerUpdatePopup from "@/pwa/components/ServiceWorkerUpdatePopup.vue";
+  import { Vue, Component } from 'vue-property-decorator';
+  import ServiceWorkerUpdatePopup from '@/pwa/components/ServiceWorkerUpdatePopup.vue';
 
   @Component({
-    name: "App",
+    name: 'App',
     components: {
       ServiceWorkerUpdatePopup
     }

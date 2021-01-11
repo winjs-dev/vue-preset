@@ -3,14 +3,14 @@
 </template>
 
 <script>
-  import { reactive, onMounted, onUnmounted, watch } from "vue";
+  import { reactive, onMounted, onUnmounted, watch } from 'vue';
 
   export default {
-    name: "SendCode",
+    name: 'SendCode',
     props: {
       initText: {
         type: String,
-        default: "获取验证码"
+        default: '获取验证码'
       },
       second: {
         default: 60,
@@ -20,11 +20,11 @@
       },
       runText: {
         type: String,
-        default: "{%s}秒后重新获取"
+        default: '{%s}秒后重新获取'
       },
       resetText: {
         type: String,
-        default: "重新获取验证码"
+        default: '重新获取验证码'
       },
       start: {
         type: Boolean,
@@ -34,13 +34,13 @@
     setup(props, { emit }) {
       const state = reactive({
         isStart: false,
-        text: "获取短信验证码"
+        text: '获取短信验证码'
       });
       let timer = null;
 
       function stop() {
         state.text = props.resetText;
-        emit("input", false);
+        emit('input', false);
         clearInterval(timer);
       }
 

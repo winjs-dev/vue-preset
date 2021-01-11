@@ -1,8 +1,8 @@
 // 这里放置需要全局注册的组件
-import { getApp } from "@/useApp";
+import { getApp } from '@/useApp';
 
 // 自动加载 global 目录下的 .vue 结尾的文件
-const componentsContext = require.context("./", true, /\.vue$/);
+const componentsContext = require.context('./', true, /\.vue$/);
 
 export function registerGlobComp() {
   componentsContext.keys().forEach((component) => {
