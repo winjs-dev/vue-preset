@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/cklwblove/vue-preset#readme",
   "devDependencies": {
+    "@vue/eslint-config-prettier": "^6.0.0",
     "husky": "^4.3.7",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",

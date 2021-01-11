@@ -5,9 +5,9 @@
  * @description 定义过滤器模块
  */
 
-import Vue from 'vue';
+import Vue from "vue";
 
-import { formatDate } from 'utils';
+import { formatDate } from "utils";
 /**
  * [formateTime description]
  * @param  {[type]} timeStamp [description]
@@ -20,7 +20,7 @@ export function formatTime(timeStamp: number, fmt?: string) {
 
 // register global utility filters.
 const filters = {
-  formatDate,
+  formatDate
 };
 
 Object.keys(filters).forEach((key) => {

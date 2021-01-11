@@ -2,7 +2,7 @@
   <div class="page page-hello">
     <div class="page-content">
       <!-- 静态资源路径写法事例 -->
-      <img src="~@assets/img/logo.png">
+      <img src="~@assets/img/logo.png" />
       <h1 v-text="msg"></h1>
       <h2 v-text="message"></h2>
       <svg-icon icon-class="cat"></svg-icon>
@@ -62,13 +62,13 @@
   /**
    * 以下仅为事例代码，可以随意扩展修改
    */
-  import {Component, Vue} from 'vue-property-decorator';
+  import { Component, Vue } from "vue-property-decorator";
   // 工具类
-  import {formatDate} from 'utils';
+  import { formatDate } from "utils";
 
   @Component
   export default class Hello extends Vue {
-    private msg: string = 'Welcome to Your Vue.js + TypeScript App';
+    private msg: string = "Welcome to Your Vue.js + TypeScript App";
     private message: string = `现在时间是：${formatDate(Date.now())}`;
 
     private created() {
@@ -77,14 +77,17 @@
 
     private movieComingSoon() {
       const data = {};
-      this.$services.octocat({
-        method: 'get',
-        data
-      }).then((res) => {
-        console.log('接口请求成功：' + JSON.stringify(res, null, 2));
-      }).catch((err) => {
-        console.log('接口请求异常：' + err);
-      });
+      this.$services
+        .octocat({
+          method: "get",
+          data
+        })
+        .then((res) => {
+          console.log("接口请求成功：" + JSON.stringify(res, null, 2));
+        })
+        .catch((err) => {
+          console.log("接口请求异常：" + err);
+        });
     }
   }
 </script>

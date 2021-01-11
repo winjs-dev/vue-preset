@@ -5,8 +5,8 @@
  * @description 定义路由模块
  */
 
-import Vue, { AsyncComponent } from 'vue';
-import Router, { RouteConfig } from 'vue-router';
+import Vue, { AsyncComponent } from "vue";
+import Router, { RouteConfig } from "vue-router";
 
 Vue.use(Router);
 
@@ -15,17 +15,17 @@ const loadView = (view: string): AsyncComponent => (): any =>
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
-    name: 'hello',
-    component: loadView('hello'),
+    path: "/",
+    name: "hello",
+    component: loadView("hello")
   },
   {
-    path: '*',
-    redirect: '/',
-  },
+    path: "*",
+    redirect: "/"
+  }
 ];
 
 export default new Router({
-  mode: 'hash',
-  routes,
+  mode: "hash",
+  routes
 });

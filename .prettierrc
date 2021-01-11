@@ -1,4 +1,11 @@
 {
-    "tabWidth": 2,
-    "endOfLine": "lf"
+  "semi": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "none",
+  "proseWrap": "never",
+  "arrowParens": "always",
+  "vueIndentScriptAndStyle": true,
+  "endOfLine": "lf"
 }

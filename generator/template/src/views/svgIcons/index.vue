@@ -3,7 +3,7 @@
     <div class="icons-wrapper">
       <div v-for="item of iconsMap" :key="item" :title="generateIconCode(item)">
         <div class="icon-item">
-          <svg-icon :name="item" class-name="disabled"/>
+          <svg-icon :name="item" class-name="disabled" />
           <span>{{ item }}</span>
         </div>
       </div>
@@ -12,17 +12,17 @@
 </template>
 
 <script>
-  import icons from '@/icons/requireIcons';
+  import icons from "@/icons/requireIcons";
 
   export default {
-    name: 'Icons',
-    data () {
+    name: "Icons",
+    data() {
       return {
         iconsMap: icons
       };
     },
     methods: {
-      generateIconCode (symbol) {
+      generateIconCode(symbol) {
         return `<svg-icon name="${symbol}" />`;
       }
     }

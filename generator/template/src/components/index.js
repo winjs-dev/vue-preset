@@ -1,8 +1,5 @@
 // tree shaking
-import SendCode from './SendCode';
-import NetworkBroken from './NetworkBroken';
+import SendCode from "./SendCode";
+import NetworkBroken from "./NetworkBroken";
 
-export {
-  SendCode,
-  NetworkBroken
-};
+export { SendCode, NetworkBroken };

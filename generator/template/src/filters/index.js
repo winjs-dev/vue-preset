@@ -5,8 +5,8 @@
  * @description 定义过滤器模块
  */
 
-import Vue from 'vue';
-import { formatDate } from 'utils';
+import Vue from "vue";
+import { formatDate } from "utils";
 
 /**
  * [formateTime description]
@@ -14,7 +14,7 @@ import { formatDate } from 'utils';
  * @param  {[type]} fmt       [description]
  * @return {[type]}           [description]
  */
-export function formatTime (timeStamp, fmt) {
+export function formatTime(timeStamp, fmt) {
   return formatDate(timeStamp, fmt);
 }
 
