@@ -1,46 +1,46 @@
 {
-    "name": "vue-preset",
-    "version": "1.0.6",
-    "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
-    "main": "./generator/index.js",
-    "directories": {
-        "doc": "docs"
-    },
-    "scripts": {
-        "docs:dev": "vuepress dev docs",
-        "docs:build": "vuepress build docs",
-        "deploy": "bash ./docs/deploy.sh",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.md": "prettier --write",
-        "*.{js,vue,less,css,ts,tsx}": "prettier --write"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cklwblove/vue-preset.git"
-    },
-    "keywords": [
-        "vue-cli4",
-        "vue2",
-        "vue3",
-        "preset"
-    ],
-    "author": "liwb",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/cklwblove/vue-preset/issues"
-    },
-    "homepage": "https://github.com/cklwblove/vue-preset#readme",
-    "devDependencies": {
-        "husky": "^4.3.7",
-        "lint-staged": "^10.5.3",
-        "prettier": "^2.2.1",
-        "vuepress": "^0.14.8"
+  "name": "vue-preset",
+  "version": "1.0.7",
+  "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
+  "main": "./generator/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "deploy": "bash ./docs/deploy.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.md": "prettier --write",
+    "*.{js,vue,less,css,ts,tsx}": "prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cklwblove/vue-preset.git"
+  },
+  "keywords": [
+    "vue-cli4",
+    "vue2",
+    "vue3",
+    "preset"
+  ],
+  "author": "liwb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cklwblove/vue-preset/issues"
+  },
+  "homepage": "https://github.com/cklwblove/vue-preset#readme",
+  "devDependencies": {
+    "husky": "^4.3.7",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "vuepress": "^0.14.8"
+  }
 }
