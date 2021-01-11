@@ -93,5 +93,5 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import './style.less';
+  @import "./style.less";
 </style>
