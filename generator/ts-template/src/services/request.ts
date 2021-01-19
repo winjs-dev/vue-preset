@@ -68,6 +68,10 @@ function responseLog(response) {
       '%c┕------------------------------------------------------------------┙',
       `color:${randomColor};`
     );
+  } else {
+    console.log('| 请求地址：', response.config.url);
+    console.log('| 请求参数：', Qs.parse(response.config.data));
+    console.log('| 返回数据：', response.data);
   }
 }
 
