@@ -57,6 +57,9 @@ class EventBus {
     currentEvents.forEach((event) => {
       this.$off(event);
     });
+    if (currentEvents.length) {
+      delete this.eventMapUid[uid];
+    }
   }
 
   $off(eventName) {
