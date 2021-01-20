@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
-const {formatDate} = require('@winner-fed/cloud-utils');
+const { formatDate } = require('@winner-fed/cloud-utils');
 
 const DEST_DIR = path.join(__dirname, '../dist');
 const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip');
@@ -46,7 +46,7 @@ const makeDestZipDirIfNotExists = () => {
 const buildZip = (src, dist, zipFilename) => {
   console.info(`Building ${zipFilename}...`);
 
-  const archive = archiver('zip', {zlib: {level: 9}});
+  const archive = archiver('zip', { zlib: { level: 9 } });
   const stream = fs.createWriteStream(path.join(dist, zipFilename));
 
   return new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ const buildZip = (src, dist, zipFilename) => {
 };
 
 const main = () => {
-  const {name, version} = extractExtensionData();
+  const { name, version } = extractExtensionData();
   const zipFilename = `${name}-v${version}_${formatDate(
     new Date(),
     'yyyy-MM-dd_HH-mm-ss'

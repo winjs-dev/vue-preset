@@ -14,7 +14,7 @@ import { formatDate } from 'utils';
  * @param  {[type]} fmt       [description]
  * @return {[type]}           [description]
  */
-export function formatTime (timeStamp, fmt) {
+export function formatTime(timeStamp, fmt) {
   return formatDate(timeStamp, fmt);
 }
 

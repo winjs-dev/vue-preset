@@ -17,15 +17,15 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'hello',
-    component: loadView('hello'),
+    component: loadView('hello')
   },
   {
     path: '*',
-    redirect: '/',
-  },
+    redirect: '/'
+  }
 ];
 
 export default new Router({
   mode: 'hash',
-  routes,
+  routes
 });

@@ -21,7 +21,7 @@ class EventBus {
     if (!this.handles) {
       Object.defineProperty(this, 'handles', {
         value: {},
-        enumerable: false,
+        enumerable: false
       });
     }
     this.Vue = vue;
@@ -74,7 +74,7 @@ $EventBus.install = (Vue) => {
     beforeDestroy() {
       // 拦截beforeDestroy钩子自动销毁自身所有订阅的事件
       this.$eventBus.$offVmEvent(this._uid);
-    },
+    }
   });
 };
 

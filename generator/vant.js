@@ -40,6 +40,5 @@ module.exports = (api, options, rootOptions) => {
     }
   }
   api.injectImports('src/vendor/index.js', `import './vant.js'`);
-  api.onCreateComplete(() => {
-  });
+  api.onCreateComplete(() => {});
 };

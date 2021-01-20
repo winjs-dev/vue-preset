@@ -17,6 +17,5 @@ module.exports = (api, options, rootOptions) => {
   } else {
     api.render('../ui/element-v3');
   }
-  api.onCreateComplete(() => {
-  });
+  api.onCreateComplete(() => {});
 };

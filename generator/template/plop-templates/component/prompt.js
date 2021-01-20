@@ -1,22 +1,24 @@
-const {notEmpty} = require('../utils.js');
+const { notEmpty } = require('../utils.js');
 
 module.exports = {
   description: 'generate vue component',
-  prompts: [{
-    type: 'input',
-    name: 'name',
-    message: 'component name please',
-    validate: notEmpty('name')
-  },
+  prompts: [
+    {
+      type: 'input',
+      name: 'name',
+      message: 'component name please',
+      validate: notEmpty('name')
+    },
     {
       type: 'checkbox',
       name: 'blocks',
       message: 'Blocks:',
-      choices: [{
-        name: '<template>',
-        value: 'template',
-        checked: true
-      },
+      choices: [
+        {
+          name: '<template>',
+          value: 'template',
+          checked: true
+        },
         {
           name: '<script>',
           value: 'script',
@@ -29,7 +31,10 @@ module.exports = {
         }
       ],
       validate(value) {
-        if (value.indexOf('script') === -1 && value.indexOf('template') === -1) {
+        if (
+          value.indexOf('script') === -1 &&
+          value.indexOf('template') === -1
+        ) {
           return 'Components require at least a <script> or <template> tag.';
         }
         return true;
@@ -58,7 +63,8 @@ module.exports = {
           name: name,
           templateType: 'component'
         }
-      }];
+      }
+    ];
 
     return actions;
   }

@@ -4,7 +4,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 const utils = require('@winner-fed/cloud-utils');
 const pkg = require('../package.json');
-const outDir = `${path.resolve(__dirname, '../')}/${pkg.name}_${utils.formatDate(new Date(), 'yyyy-MM-dd_HH:mm:ss')}.zip`;
+const outDir = `${path.resolve(__dirname, '../')}/${
+  pkg.name
+}_${utils.formatDate(new Date(), 'yyyy-MM-dd_HH:mm:ss')}.zip`;
 
 // create a file to stream archive data to.
 const output = fs.createWriteStream(outDir);
@@ -16,7 +18,9 @@ const archive = archiver('zip', {
 // 'close' event is fired only when a file descriptor is involved
 output.on('close', () => {
   console.log(archive.pointer() + ' total bytes');
-  console.log('archiver has been finalized and the output file descriptor has closed.');
+  console.log(
+    'archiver has been finalized and the output file descriptor has closed.'
+  );
 });
 
 // This event is fired when the data source is drained no matter what was the data source.

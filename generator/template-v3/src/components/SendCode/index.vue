@@ -14,7 +14,7 @@
       },
       second: {
         default: 60,
-        validator (val) {
+        validator(val) {
           return /^\d*$/.test(val);
         }
       },
@@ -31,24 +31,24 @@
         default: false
       }
     },
-    setup (props, { emit }) {
+    setup(props, { emit }) {
       const state = reactive({
         isStart: false,
         text: '获取短信验证码'
       });
       let timer = null;
 
-      function stop () {
+      function stop() {
         state.text = props.resetText;
         emit('input', false);
         clearInterval(timer);
       }
 
-      function getText (second) {
+      function getText(second) {
         return props.runText.replace(/\{([^{]*?)%s(.*?)\}/g, second);
       }
 
-      function run () {
+      function run() {
         let second = props.second;
 
         state.text = getText(props.second);

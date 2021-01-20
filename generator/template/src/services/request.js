@@ -31,7 +31,7 @@ const codeMessage = {
   504: '网关超时。'
 };
 
-function responseLog (response) {
+function responseLog(response) {
   if (process.env.NODE_ENV === 'development') {
     const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
       Math.random() * 255
@@ -47,10 +47,14 @@ function responseLog (response) {
       '%c┕------------------------------------------------------------------┙',
       `color:${randomColor};`
     );
+  } else {
+    console.log('| 请求地址：', response.config.url);
+    console.log('| 请求参数：', Qs.parse(response.config.data));
+    console.log('| 返回数据：', response.data);
   }
 }
 
-function checkStatus (response) {
+function checkStatus(response) {
   // 如果http状态码正常，则直接返回数据
   if (response) {
     const { status, statusText } = response;
@@ -143,17 +147,23 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request (url, {
-  method = 'post',
-  timeout = TIMEOUT,
-  prefix = '',
-  data = {},
-  headers = {},
-  dataType = 'json'
-}) {
+export default function request(
+  url,
+  {
+    method = 'post',
+    timeout = TIMEOUT,
+    prefix = '',
+    data = {},
+    headers = {},
+    dataType = 'json'
+  }
+) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  const formatHeaders = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', ...headers };
+  const formatHeaders = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    ...headers
+  };
 
   const defaultConfig = {
     baseURL,
@@ -179,7 +189,7 @@ export default function request (url, {
         defaultConfig.data = data;
       } else if (contentType.indexOf('json') !== -1) {
         // 类型 `application/json`
-        // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
+        // 服务器收到的raw body(原始数据) '{name:'jhon',sex:'man'}'（普通字符串）
         defaultConfig.data = JSON.stringify(data);
       } else {
         // 类型 `application/x-www-form-urlencoded`

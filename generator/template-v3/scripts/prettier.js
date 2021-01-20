@@ -18,7 +18,7 @@ const files = getPrettierFiles();
 
 files.forEach((file) => {
   const options = prettier.resolveConfig.sync(file, {
-    config: prettierConfigPath,
+    config: prettierConfigPath
   });
   const fileInfo = prettier.getFileInfo.sync(file);
   if (fileInfo.ignored) {
@@ -28,7 +28,7 @@ files.forEach((file) => {
     const input = fs.readFileSync(file, 'utf8');
     const withParserOptions = {
       ...options,
-      parser: fileInfo.inferredParser,
+      parser: fileInfo.inferredParser
     };
     const output = prettier.format(input, withParserOptions);
     if (output !== input) {

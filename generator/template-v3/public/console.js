@@ -2,8 +2,7 @@
 if (window.LOCAL_CONFIG.IS_OPEN_VCONSOLE) {
   function dynamicLoadScript(src, callback, options) {
     var existingScript = document.getElementById(src);
-    var cb = callback || function () {
-    };
+    var cb = callback || function () {};
 
     if (!existingScript) {
       var script = document.createElement('script');
@@ -59,12 +58,12 @@ if (window.LOCAL_CONFIG.IS_OPEN_VCONSOLE) {
       }
       try {
         var vconsole = new VConsole();
-        vconsole.setOption({maxLogNumber: 5000});
+        vconsole.setOption({ maxLogNumber: 5000 });
         console.log('当前 url', window.location.href);
       } catch (err) {
         console.error('new VConsole() 出现异常');
       }
     },
-    {async: true}
+    { async: true }
   );
 }

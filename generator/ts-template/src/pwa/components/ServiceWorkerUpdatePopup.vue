@@ -13,7 +13,9 @@
 
     created() {
       // Listen for swUpdated event and display refresh notification as required.
-      document.addEventListener('swUpdated', this.showRefreshUI, {once: true});
+      document.addEventListener('swUpdated', this.showRefreshUI, {
+        once: true
+      });
       // Refresh all open app tabs when a new service worker is installed.
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (this.refreshing) return;
@@ -36,17 +38,21 @@
       // $notify 需要UI库支持，比如 element-ui
       this.$notify.info({
         title: 'Update available',
-        message: h('div', {class: 'sw-update-popup'}, [
+        message: h('div', { class: 'sw-update-popup' }, [
           this.notificationText,
           h('br'),
-          h('button', {
-            on: {
-              click: (e: Event) => {
-                e.preventDefault();
-                this.refreshApp();
+          h(
+            'button',
+            {
+              on: {
+                click: (e: Event) => {
+                  e.preventDefault();
+                  this.refreshApp();
+                }
               }
-            }
-          }, this.refreshButtonText)
+            },
+            this.refreshButtonText
+          )
         ]),
         position: 'bottom-right',
         duration: 0

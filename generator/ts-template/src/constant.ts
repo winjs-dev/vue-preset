@@ -10,9 +10,4 @@ const PAGE_NUM: number = 15;
 const UPLOAD_PREFIX: string = 'upload/';
 const HOME_PREFIX: string = 'home/';
 
-export {
-  TIMEOUT,
-  PAGE_NUM,
-  UPLOAD_PREFIX,
-  HOME_PREFIX
-};
+export { TIMEOUT, PAGE_NUM, UPLOAD_PREFIX, HOME_PREFIX };

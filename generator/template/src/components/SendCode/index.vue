@@ -5,7 +5,7 @@
 <script>
   export default {
     name: 'SendCode',
-    data () {
+    data() {
       return {
         timer: null,
         isStart: false,
@@ -19,7 +19,7 @@
       },
       second: {
         default: 60,
-        validator (val) {
+        validator(val) {
           return /^\d*$/.test(val);
         }
       },
@@ -37,21 +37,21 @@
       }
     },
     watch: {
-      value (val) {
+      value(val) {
         this.isStart = val;
         val && this.run();
       }
     },
-    mounted () {
+    mounted() {
       if (this.initText) {
         this.text = this.initText;
       }
     },
-    destroyed () {
+    destroyed() {
       this.stop();
     },
     methods: {
-      run () {
+      run() {
         let second = this.second;
         this.text = this.getText(this.second);
         this.timer = setInterval(() => {
@@ -60,12 +60,12 @@
           second <= 0 && this.stop();
         }, 1000);
       },
-      stop () {
+      stop() {
         this.text = this.resetText;
         this.$emit('input', false);
         clearInterval(this.timer);
       },
-      getText (second) {
+      getText(second) {
         return this.runText.replace(/\{([^{]*?)%s(.*?)\}/g, second);
       }
     }

@@ -9,7 +9,7 @@ Object.keys(urls).forEach((key) => {
   };
 });
 
-export function setGlobalProperties (app) {
+export function setGlobalProperties(app) {
   app.config.globalProperties.$services = FUNS;
 }
 

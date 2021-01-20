@@ -1,3 +1,3 @@
 /* eslint-disable */
-import './cat'
-import './dog'
+import './cat';
+import './dog';

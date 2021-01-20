@@ -1,6 +1,6 @@
 {
   "name": "vue-preset",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
   "main": "./generator/index.js",
   "directories": {
@@ -11,6 +11,15 @@
     "docs:build": "vuepress build docs",
     "deploy": "bash ./docs/deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.md": "prettier --write",
+    "*.{js,vue,less,css,ts,tsx}": "prettier --write"
   },
   "repository": {
     "type": "git",
@@ -29,6 +38,10 @@
   },
   "homepage": "https://github.com/cklwblove/vue-preset#readme",
   "devDependencies": {
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "husky": "^4.3.7",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "vuepress": "^0.14.8"
   }
 }

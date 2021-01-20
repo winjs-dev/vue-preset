@@ -20,7 +20,7 @@ export function formatTime(timeStamp: number, fmt?: string) {
 
 // register global utility filters.
 const filters = {
-  formatDate,
+  formatDate
 };
 
 Object.keys(filters).forEach((key) => {

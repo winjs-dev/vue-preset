@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     ready() {
       console.log(
         'App is being served from cache by a service worker.\n' +
-        'For more details, visit https://goo.gl/AFskqB'
+          'For more details, visit https://goo.gl/AFskqB'
       );
     },
     registered(registration) {
@@ -29,11 +29,13 @@ if (process.env.NODE_ENV === 'production') {
       // Used to display of a 'refresh' banner following a service worker update.
       // Set the event payload to the service worker registration object.
       document.dispatchEvent(
-        new CustomEvent('swUpdated', {detail: registration})
+        new CustomEvent('swUpdated', { detail: registration })
       );
     },
     offline() {
-      console.log('No internet connection found. App is running in offline mode.');
+      console.log(
+        'No internet connection found. App is running in offline mode.'
+      );
     },
     error(error) {
       console.error('Error during service worker registration:', error);

@@ -18,6 +18,5 @@ module.exports = (api, options, rootOptions) => {
     api.render('../ui/ant-design-vue-v3');
   }
   api.injectImports('src/vendor/index.js', `import './ant.js'`);
-  api.onCreateComplete(() => {
-  });
+  api.onCreateComplete(() => {});
 };

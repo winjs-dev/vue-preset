@@ -8,7 +8,9 @@ import { RouteLocationNormalized } from 'vue-router';
 import router from './index';
 import { clearPending } from '@/services/pending';
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
-  clearPending();
-  next();
-});
+router.beforeEach(
+  (to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
+    clearPending();
+    next();
+  }
+);
