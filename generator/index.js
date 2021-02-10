@@ -84,7 +84,7 @@ module.exports = (api, options, rootOptions) => {
   if (options.language === 'ts') {
     api.extendPackage({
       dependencies: {
-        'register-service-worker': '^1.7.1'
+        'register-service-worker': '1.7.2'
       },
       devDependencies: {
         '@types/node': '^10.14.17',
@@ -102,7 +102,7 @@ module.exports = (api, options, rootOptions) => {
   if (options.preset === 'v2') {
     api.extendPackage({
       dependencies: {
-        'vue-router': '^3.1.5',
+        'vue-router': '3.5.1',
         'vue-svgicon': '3.2.6'
       },
       devDependencies: {
@@ -119,8 +119,8 @@ module.exports = (api, options, rootOptions) => {
     if (options.language === 'ts') {
       api.extendPackage({
         dependencies: {
-          'vue-class-component': '^7.2.2',
-          'vue-property-decorator': '^8.3.0'
+          'vue-class-component': '7.2.6',
+          'vue-property-decorator': '9.1.2'
         }
       });
     }
@@ -145,10 +145,10 @@ module.exports = (api, options, rootOptions) => {
 
     api.extendPackage({
       dependencies: {
-        '@yzfe/svgicon': '^1.0.1',
-        '@yzfe/vue3-svgicon': '^1.0.1',
-        vue: '^3.0.0',
-        'vue-router': '^4.0.0-0'
+        '@yzfe/svgicon': '1.0.1',
+        '@yzfe/vue3-svgicon': '1.0.1',
+        vue: '3.0.5',
+        'vue-router': '4.0.3'
       },
       devDependencies: {
         '@vue/compiler-sfc': '^3.0.0',
@@ -183,7 +183,7 @@ module.exports = (api, options, rootOptions) => {
   if (options.application === 'mobile' || options.application === 'offline') {
     api.extendPackage({
       dependencies: {
-        'lib-flexible': '^0.3.2'
+        'lib-flexible': '0.3.2'
       },
       devDependencies: {
         'postcss-pxtorem': '^4.0.1'
