@@ -1,6 +1,6 @@
 {
   "name": "vue-preset",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板",
   "main": "./generator/index.js",
   "directories": {
@@ -42,6 +42,7 @@
     "husky": "^4.3.7",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
     "vuepress": "^0.14.8"
   }
 }
