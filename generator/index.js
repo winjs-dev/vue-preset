@@ -67,6 +67,7 @@ module.exports = (api, options, rootOptions) => {
       chalk: '^2.4.1',
       'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
+      'less-loader': '^7.3.0',
       rimraf: '^3.0.2',
       eslint: '^7.6.0',
       plop: '^2.3.0',
@@ -277,7 +278,7 @@ module.exports = (api, options, rootOptions) => {
       utils.deleteFile('./.yarnrc');
     }
     // 是否支持see平台发布物
-    if (!options['see-package']) {
+    if (!options['mirror-source'] || !options['see-package']) {
       utils.deleteDir('./build/package');
     }
     // PC项目
