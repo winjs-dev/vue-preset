@@ -165,7 +165,12 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: isProd() ? true : false,
     // css预设器配置项
-    loaderOptions: {}
+    loaderOptions: {
+      less: {
+        // 全局注入变量及mixins
+        additionalData: `@import "@/assets/style/variable.less";@import "@winner-fed/magicless/magicless.less";`,
+      }
+    }
   },
   configureWebpack: () => ({
     name: `${pkg.name}`,
