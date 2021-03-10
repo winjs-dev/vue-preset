@@ -1,6 +1,4 @@
 module.exports = (api, options, rootOptions) => {
-  const utils = require('./utils')(api);
-
   // 命令
   api.extendPackage({
     scripts: {
@@ -261,30 +259,37 @@ module.exports = (api, options, rootOptions) => {
     }
   }
 
+  api.postProcessFiles((files) => {
+    Object.keys(files).forEach((name) => {
+      // 只有离线包才有这个文件
+      if (options.application !== 'offline') {
+        delete files['offlinePackage.json'];
+      }
+
+      // 是否为公司内部项目
+      if (!options['mirror-source']) {
+        delete files['.npmrc'];
+        delete files['.yarnrc'];
+      }
+
+      // 是否支持see平台发布物
+      if (!options['mirror-source'] || !options['see-package']) {
+        // 删除 build/package 文件夹
+        if (/^build\/package[/$]/.test(name)) {
+          delete files[name];
+        }
+      }
+      // PC项目
+      if (options['application'] === 'pc') {
+        delete files['public/console.js'];
+        delete files['public/vconsole.min.js'];
+      }
+    });
+  });
+
   // 屏蔽 generator 之后的文件写入操作
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
   api.onCreateComplete(() => {
     process.env.VUE_CLI_SKIP_WRITE = true;
-    if (options['mobile-ui-framework'] === 'none') {
-      utils.deleteDir('./src/vendor');
-    }
-    // 只有离线包才有这个文件
-    if (options.application !== 'offline') {
-      utils.deleteFile('./offlinePackage.json');
-    }
-    // 是否为公司内部项目
-    if (!options['mirror-source']) {
-      utils.deleteFile('./.npmrc');
-      utils.deleteFile('./.yarnrc');
-    }
-    // 是否支持see平台发布物
-    if (!options['mirror-source'] || !options['see-package']) {
-      utils.deleteDir('./build/package');
-    }
-    // PC项目
-    if (options['application'] === 'pc') {
-      utils.deleteFile('./public/console.js');
-      utils.deleteFile('./public/vconsole.min.js');
-    }
   });
 };
