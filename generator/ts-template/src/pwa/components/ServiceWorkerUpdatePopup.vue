@@ -4,7 +4,7 @@
   @Component({
     name: 'ServiceWorkerUpdatePopup'
   })
-  export default class extends Vue {
+  export default class ServiceWorkerUpdatePopup extends Vue {
     private refreshing = false;
     private notificationText = 'New content is available!';
     private refreshButtonText = 'Refresh';
