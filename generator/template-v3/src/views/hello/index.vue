@@ -2,7 +2,7 @@
   <div class="page page-hello">
     <div class="page-content">
       <!-- 静态资源路径写法事例 -->
-      <img src="~@assets/img/logo.png" />
+      <img src="@/assets/img/logo.png" />
       <h1 v-text="msg"></h1>
       <h2 v-text="message"></h2>
       <!--      svg 写法示例-->
@@ -99,5 +99,5 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import "./style.less";
+  @import './style.less';
 </style>

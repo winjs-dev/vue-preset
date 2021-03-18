@@ -4,7 +4,9 @@ const path = require('path');
 const webpack = require('webpack');
 const {formatDate} = require('@winner-fed/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+<%_ if (options.application !== 'pc') { _%>
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+<%_ } _%>
 const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
