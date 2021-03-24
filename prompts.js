@@ -45,6 +45,10 @@ module.exports = [
       {
         name: 'Vue 3',
         value: 'v3'
+      },
+      {
+        name: 'miniprogram',
+        value: 'mini'
       }
     ],
     default: 'v2'
@@ -53,6 +57,7 @@ module.exports = [
     name: 'language',
     type: 'list',
     message: 'Choose whether your develop language is a JS or TS(default:JS)',
+    when: (answers) => answers.preset !== 'mini',
     choices: [
       {
         name: 'JS',
@@ -69,6 +74,7 @@ module.exports = [
     name: 'application',
     type: 'list',
     message: 'Choose whether your app is a PC or a mobile(default:mobile)',
+    when: (answers) => answers.preset !== 'mini',
     choices: [
       {
         name: 'PC',
@@ -94,7 +100,8 @@ module.exports = [
         ? true
         : '请输入4-8位的小写英文字母或数字，注意唯一性';
     },
-    when: (answers) => answers.application === 'offline',
+    when: (answers) =>
+      answers.preset !== 'mini' && answers.application === 'offline',
     default: '离线包 ID'
   },
   {
@@ -106,7 +113,8 @@ module.exports = [
         ? true
         : '请输入1-10位的中英文字符或数字';
     },
-    when: (answers) => answers.application === 'offline',
+    when: (answers) =>
+      answers.preset !== 'mini' && answers.application === 'offline',
     default: '离线包中文描述'
   },
   {
@@ -114,7 +122,8 @@ module.exports = [
     type: 'list',
     message: 'Choice UI Framework(default:none)',
     choices: (answers) => (answers.preset === 'v2' ? pcUI2 : pcUI),
-    when: (answers) => answers.application === 'pc',
+    when: (answers) =>
+      answers.preset !== 'mini' && answers.application === 'pc',
     default: 'none'
   },
   {
@@ -132,20 +141,23 @@ module.exports = [
       }
     ],
     when: (answers) =>
-      answers.application === 'mobile' || answers.application === 'offline',
+      answers.preset !== 'mini' &&
+      (answers.application === 'mobile' || answers.application === 'offline'),
     default: 'none'
   },
   {
     name: 'mirror-source',
     type: 'confirm',
     message: 'Whether it is an internal project of the company?',
+    when: (answers) => answers.preset !== 'mini',
     initial: true
   },
   {
     name: 'see-package',
     type: 'confirm',
     message: 'Whether to support the generation of see platform publications?',
-    when: (answers) => answers['mirror-source'] === true,
+    when: (answers) =>
+      answers.preset !== 'mini' && answers['mirror-source'] === true,
     initial: true
   }
 ];
