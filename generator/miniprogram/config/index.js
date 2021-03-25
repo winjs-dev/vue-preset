@@ -1,7 +1,7 @@
 const path = require('path');
 
 const config = {
-  projectName: 'myApp',
+  projectName: 'miniprogram',
   date: '2021-3-23',
   designWidth: 750,
   deviceRatio: {
@@ -29,8 +29,44 @@ const config = {
     options: {}
   },
   framework: 'vue',
+  weapp: {
+    postcss: {
+      autoprefixer: {
+        enable: true,
+        config: {
+          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
+        }
+      },
+      pxtransform: {
+        enable: true,
+        config: {}
+      },
+      url: {
+        enable: true,
+        config: {
+          limit: 10240 // 设定转换尺寸上限
+        }
+      },
+      cssModules: {
+        enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+        config: {
+          namingPattern: 'module', // 转换模式，取值为 global/module
+          generateScopedName: '[name]__[local]___[hash:base64:5]'
+        }
+      }
+    },
+    sassLoaderOption: {
+      additionalData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
+    }
+  },
   mini: {
     postcss: {
+      autoprefixer: {
+        enable: true,
+        config: {
+          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
+        }
+      },
       pxtransform: {
         enable: true,
         config: {}
@@ -48,15 +84,32 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
+    },
+    sassLoaderOption: {
+      additionalData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
     }
   },
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
+    output: {
+      filename: 'js/[name].[hash].js',
+      chunkFilename: 'js/[name].[chunkhash].js'
+    },
+    imageUrlLoaderOption: {
+      limit: 5000,
+      name: 'static/images/[name].[hash].[ext]'
+    },
+    miniCssExtractPluginOption: {
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[name].[chunkhash].css'
+    },
     postcss: {
       autoprefixer: {
         enable: true,
-        config: {}
+        config: {
+          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
+        }
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -65,6 +118,9 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
+    },
+    sassLoaderOption: {
+      prependData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
     }
   }
 };
