@@ -25,3 +25,25 @@ declare const process: {
     [key: string]: any;
   };
 };
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    TARO_ENV:
+      | 'weapp'
+      | 'swan'
+      | 'alipay'
+      | 'h5'
+      | 'rn'
+      | 'tt'
+      | 'quickapp'
+      | 'qq'
+      | 'jd';
+  }
+  interface Global {
+    globalData: object;
+  }
+}
+
+declare const IS_H5: any;
+declare const IS_WEAPP: any;
+declare const IS_RN: any;

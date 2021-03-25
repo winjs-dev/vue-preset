@@ -12,7 +12,11 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [],
-  defineConstants: {},
+  defineConstants: {
+    IS_H5: process.env.TARO_ENV === 'h5',
+    IS_RN: process.env.TARO_ENV === 'rn',
+    IS_WEAPP: process.env.TARO_ENV === 'weapp'
+  },
   alias: {
     '@/components': path.resolve(__dirname, '..', 'src/components'),
     '@/constants': path.resolve(__dirname, '..', 'src/constants'),

@@ -1,9 +1,15 @@
 const globalData = {};
 
-export function set(key, val) {
-  globalData[key] = val;
+if (IS_RN) {
+  global.globalData = {};
 }
 
-export function get(key) {
-  return globalData[key];
-}
+const setGlobalData = (key: string, val: any) => {
+  (IS_RN ? global.globalData : globalData)[key] = val;
+};
+
+const getGlobalData = (key: string) => {
+  return (IS_RN ? global.globalData : globalData)[key];
+};
+
+export { setGlobalData, getGlobalData };
