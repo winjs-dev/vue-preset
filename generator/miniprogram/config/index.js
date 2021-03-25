@@ -1,7 +1,7 @@
 const path = require('path');
 
 const config = {
-  projectName: 'miniprogram',
+  projectName: 'myApp',
   date: '2021-3-23',
   designWidth: 750,
   deviceRatio: {
@@ -33,9 +33,7 @@ const config = {
     postcss: {
       autoprefixer: {
         enable: true,
-        config: {
-          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
-        }
+        config: {}
       },
       pxtransform: {
         enable: true,
@@ -63,9 +61,7 @@ const config = {
     postcss: {
       autoprefixer: {
         enable: true,
-        config: {
-          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
-        }
+        config: {}
       },
       pxtransform: {
         enable: true,
@@ -107,9 +103,7 @@ const config = {
     postcss: {
       autoprefixer: {
         enable: true,
-        config: {
-          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
-        }
+        config: {}
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
