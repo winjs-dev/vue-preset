@@ -15,6 +15,7 @@
   import 'taro-ui-vue/dist/style/components/toast.scss';
   import 'taro-ui-vue/dist/style/components/noticebar.scss';
   import services from '@/services/index.ts';
+  import log from '@/utils/log.ts';
   import './index.scss';
 
   export default {
@@ -31,6 +32,7 @@
     },
     mounted() {
       this.movieComingSoon();
+      log.info('调试信息');
     },
     methods: {
       movieComingSoon() {
