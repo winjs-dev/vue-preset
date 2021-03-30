@@ -1,6 +1,106 @@
 module.exports = (api, options, rootOptions) => {
-  const utils = require('./utils')(api);
+  // 小程序
+  if (options.preset === 'mini') {
+    api.extendPackage(
+      {
+        scripts: {
+          serve: null,
+          build: null
+        },
+        dependencies: {
+          vue: null
+        },
+        devDependencies: {
+          '@vue/cli-plugin-babel': null,
+          'vue-cli-plugin-qrcode': null,
+          '@vue/cli-service': null,
+          chalk: null,
+          'internal-ip': null,
+          less: null,
+          'less-loader': null,
+          'qrcode-terminal': null
+        }
+      },
+      {
+        prune: true
+      }
+    );
 
+    api.extendPackage({
+      name: 'miniprogram',
+      version: '1.0.0',
+      private: true,
+      description: 'mini program app',
+      templateInfo: {
+        name: 'taro-ui-vue',
+        typescript: true,
+        css: 'sass'
+      },
+      scripts: {
+        'build:weapp': 'taro build --type weapp',
+        'build:swan': 'taro build --type swan',
+        'build:alipay': 'taro build --type alipay',
+        'build:tt': 'taro build --type tt',
+        'build:h5': 'taro build --type h5',
+        'build:rn': 'taro build --type rn',
+        'build:qq': 'taro build --type qq',
+        'build:jd': 'taro build --type jd',
+        'build:quickapp': 'taro build --type quickapp',
+        'dev:weapp': 'npm run build:weapp -- --watch',
+        'dev:swan': 'npm run build:swan -- --watch',
+        'dev:alipay': 'npm run build:alipay -- --watch',
+        'dev:tt': 'npm run build:tt -- --watch',
+        'dev:h5': 'npm run build:h5 -- --watch',
+        'dev:rn': 'npm run build:rn -- --watch',
+        'dev:qq': 'npm run build:qq -- --watch',
+        'dev:jd': 'npm run build:jd -- --watch',
+        'dev:quickapp': 'npm run build:quickapp -- --watch'
+      },
+      browserslist: ['last 3 versions', 'Android >= 4.1', 'ios >= 8'],
+      author: 'winner-fed',
+      dependencies: {
+        '@babel/runtime': '^7.7.7',
+        '@tarojs/cli': '3.1.4',
+        '@tarojs/components': '3.1.4',
+        '@tarojs/runtime': '3.1.4',
+        '@tarojs/taro': '3.1.4',
+        lodash: '4.17.15',
+        'vue-template-compiler': '^2.5.0',
+        vue: '^2.5.0',
+        'taro-ui-vue': '^1.0.0-alpha.5'
+      },
+      devDependencies: {
+        '@babel/core': '^7.8.0',
+        '@tarojs/mini-runner': '3.1.4',
+        '@tarojs/webpack-runner': '3.1.4',
+        '@types/webpack-env': '^1.13.6',
+        'babel-preset-taro': '3.1.4',
+        eslint: '^6.8.0',
+        'vue-loader': '^15.9.2',
+        'eslint-plugin-vue': '^6.x',
+        'eslint-config-taro': '3.1.4',
+        stylelint: '9.3.0',
+        '@typescript-eslint/parser': '^2.x',
+        '@typescript-eslint/eslint-plugin': '^2.x',
+        typescript: '^3.7.0'
+      }
+    });
+
+    // 删除 vue-cli3 默认目录
+    api.render((files) => {
+      Object.keys(files)
+        .filter((path) => path.startsWith('src/') || path.startsWith('public/'))
+        .forEach((path) => delete files[path]);
+    });
+
+    api.render('./miniprogram');
+    // 屏蔽 generator 之后的文件写入操作
+    // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
+    api.onCreateComplete(() => {
+      process.env.VUE_CLI_SKIP_WRITE = true;
+    });
+    return;
+  }
   // 命令
   api.extendPackage({
     scripts: {
@@ -67,6 +167,7 @@ module.exports = (api, options, rootOptions) => {
       chalk: '^2.4.1',
       'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
+      'less-loader': '^7.3.0',
       rimraf: '^3.0.2',
       eslint: '^7.6.0',
       plop: '^2.3.0',
@@ -260,30 +361,37 @@ module.exports = (api, options, rootOptions) => {
     }
   }
 
+  api.postProcessFiles((files) => {
+    Object.keys(files).forEach((name) => {
+      // 只有离线包才有这个文件
+      if (options.application !== 'offline') {
+        delete files['offlinePackage.json'];
+      }
+
+      // 是否为公司内部项目
+      if (!options['mirror-source']) {
+        delete files['.npmrc'];
+        delete files['.yarnrc'];
+      }
+
+      // 是否支持see平台发布物
+      if (!options['mirror-source'] || !options['see-package']) {
+        // 删除 build/package 文件夹
+        if (/^build\/package[/$]/.test(name)) {
+          delete files[name];
+        }
+      }
+      // PC项目
+      if (options['application'] === 'pc') {
+        delete files['public/console.js'];
+        delete files['public/vconsole.min.js'];
+      }
+    });
+  });
+
   // 屏蔽 generator 之后的文件写入操作
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过
   api.onCreateComplete(() => {
     process.env.VUE_CLI_SKIP_WRITE = true;
-    if (options['mobile-ui-framework'] === 'none') {
-      utils.deleteDir('./src/vendor');
-    }
-    // 只有离线包才有这个文件
-    if (options.application !== 'offline') {
-      utils.deleteFile('./offlinePackage.json');
-    }
-    // 是否为公司内部项目
-    if (!options['mirror-source']) {
-      utils.deleteFile('./.npmrc');
-      utils.deleteFile('./.yarnrc');
-    }
-    // 是否支持see平台发布物
-    if (!options['see-package']) {
-      utils.deleteDir('./build/package');
-    }
-    // PC项目
-    if (options['application'] === 'pc') {
-      utils.deleteFile('./public/console.js');
-      utils.deleteFile('./public/vconsole.min.js');
-    }
   });
 };

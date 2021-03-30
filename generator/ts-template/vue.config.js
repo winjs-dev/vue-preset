@@ -4,7 +4,9 @@ const path = require('path');
 const webpack = require('webpack');
 const {formatDate} = require('@winner-fed/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+<%_ if (options.application !== 'pc') { _%>
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+<%_ } _%>
 const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
@@ -165,7 +167,12 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: isProd() ? true : false,
     // css预设器配置项
-    loaderOptions: {}
+    loaderOptions: {
+      less: {
+        // 全局注入变量及mixins
+        additionalData: `@import "@/assets/style/variable.less";@import "@winner-fed/magicless/magicless.less";`,
+      }
+    }
   },
   configureWebpack: () => ({
     name: `${pkg.name}`,
