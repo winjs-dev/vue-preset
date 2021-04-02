@@ -117,7 +117,7 @@ module.exports = (api, options, rootOptions) => {
       release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
       reinstall:
-        'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap'
+        'rimraf node_modules && rimraf yarn.lock && rimraf package-lock.json && npm run bootstrap'
     },
     'scripts-info': {
       serve: '运行开发服务器',
