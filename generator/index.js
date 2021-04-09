@@ -291,6 +291,15 @@ module.exports = (api, options, rootOptions) => {
       },
       postcss: {
         plugins: {
+          autoprefixer: {
+            overrideBrowserslist: [
+              "Android 4.4",
+              "iOS 9.0",
+              "Chrome > 43",
+              "ff > 34",
+              "ie >= 10"
+            ]
+          },
           'postcss-pxtorem': {
             rootValue: 37.5,
             unitPrecision: 2,
