@@ -192,6 +192,7 @@ module.exports = {
     // https://github.com/cklwblove/vue-cli3-template/issues/12
     optimization: getOptimization()
   }),
+  transpileDependencies: ['vue', 'vue-router', '@vue'],
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
