@@ -116,15 +116,16 @@ module.exports = (api, options, rootOptions) => {
       prettier: 'node ./scripts/prettier.js',
       release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
-      reinstall:
-        'rimraf node_modules && rimraf yarn.lock && rimraf package-lock.json && npm run bootstrap'
+      reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
+      escheck: 'es-check'
     },
     'scripts-info': {
       serve: '运行开发服务器',
       build: '生产环境执行构建',
       analyz: '生产环境执行构建打包分析',
       deploy: '生产环境执行构建并压缩zip包',
-      see: '生成 see 平台部署发布物'
+      see: '生成 see 平台部署发布物',
+      escheck: '检测是否含有 ES6+ 语法'
     }
   });
 
@@ -169,6 +170,7 @@ module.exports = (api, options, rootOptions) => {
       'compression-webpack-plugin': '^3.0.0',
       'less-loader': '^7.3.0',
       rimraf: '^3.0.2',
+      'es-check': '^5.2.3',
       eslint: '^7.6.0',
       plop: '^2.3.0',
       prettier: '^1.19.1',
@@ -293,11 +295,11 @@ module.exports = (api, options, rootOptions) => {
         plugins: {
           autoprefixer: {
             overrideBrowserslist: [
-              "Android 4.4",
-              "iOS 9.0",
-              "Chrome > 43",
-              "ff > 34",
-              "ie >= 10"
+              'Android 4.4',
+              'iOS 9.0',
+              'Chrome > 43',
+              'ff > 34',
+              'ie >= 10'
             ]
           },
           'postcss-pxtorem': {
