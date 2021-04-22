@@ -116,8 +116,7 @@ module.exports = (api, options, rootOptions) => {
       prettier: 'node ./scripts/prettier.js',
       release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
-      reinstall:
-        'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
+      reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
       escheck: 'es-check'
     },
     'scripts-info': {
