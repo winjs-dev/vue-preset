@@ -16,6 +16,7 @@ const merge = require('webpack-merge');
 <%_ } _%>
 const svnInfo = require('svn-info');
 const pkg = require('./package.json');
+const svgFilePath = ['src/icons/svg'].map((v) => path.resolve(v));
 
 const N = '\n';
 const resolve = (dir) => {
@@ -206,6 +207,20 @@ module.exports = {
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: (config) => {
     // module
+    // svg icon
+    config.module
+      .rule('vue-svgicon')
+      .include.add(svgFilePath)
+      .end()
+      .test(/\.svg$/)
+      .use('svgicon')
+      .loader('@winner-fed/svgicon-loader')
+      .options({
+        svgFilePath
+      });
+    config.module.rule('svg').exclude.add(svgFilePath).end();
+    config.resolve.alias.set('@icon', svgFilePath[0]);
+
   <%_ if (options.language === 'ts' && options['mobile-ui-framework'] === 'vant') { _%>
     config.module
       .rule('ts')
