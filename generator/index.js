@@ -250,13 +250,12 @@ module.exports = (api, options, rootOptions) => {
       dependencies: {
         '@yzfe/svgicon': '1.0.1',
         '@yzfe/vue3-svgicon': '1.0.1',
-        vue: '3.0.5',
-        'vue-router': '4.0.3'
+        vue: '^3.0.5',
+        'vue-router': '^4.0.3'
       },
       devDependencies: {
         '@vue/compiler-sfc': '^3.0.0',
-        '@yzfe/svgicon-loader': '^1.0.1',
-        '@yzfe/vue-cli-plugin-svgicon': '~1.0.1'
+        '@winner-fed/svgicon-loader': '^1.0.1'
       }
     });
   }
