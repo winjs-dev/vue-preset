@@ -98,6 +98,6 @@
   };
 </script>
 
-<style lang="less" rel="stylesheet/less">
+<style lang="less" scoped>
   @import "./style.less";
 </style>

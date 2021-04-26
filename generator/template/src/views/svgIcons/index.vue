@@ -29,7 +29,7 @@
   };
 </script>
 
-<style rel="stylesheet/less" lang="less" scoped>
+<style lang="less" scoped>
   .icons-container {
     margin: 15px;
     overflow: hidden;
