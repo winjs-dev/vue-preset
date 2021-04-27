@@ -106,6 +106,7 @@ module.exports = (api, options, rootOptions) => {
     scripts: {
       bootstrap:
         'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
+      build: 'node build/index.js',
       serve: 'vue-cli-service serve',
       lint: 'vue-cli-service lint',
       'lint:style': 'vue-cli-service lint:style',
@@ -117,7 +118,8 @@ module.exports = (api, options, rootOptions) => {
       release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
       reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
-      escheck: 'es-check'
+      escheck: 'es-check',
+      zip: 'node build/zip.js'
     },
     'scripts-info': {
       serve: '运行开发服务器',
@@ -128,25 +130,6 @@ module.exports = (api, options, rootOptions) => {
       escheck: '检测是否含有 ES6+ 语法'
     }
   });
-
-  if (options.language === 'ts') {
-    api.extendPackage({
-      scripts: {
-        build: 'node build/index.ts',
-        zip: 'node build/zip.ts'
-      },
-      devDependencies: {
-        typescript: '~3.9.3'
-      }
-    });
-  } else {
-    api.extendPackage({
-      scripts: {
-        build: 'node build/index.js',
-        zip: 'node build/zip.js'
-      }
-    });
-  }
 
   // 公共依赖包
   api.extendPackage({
@@ -196,7 +179,8 @@ module.exports = (api, options, rootOptions) => {
         '@typescript-eslint/parser': '^2.33.0',
         '@vue/cli-plugin-pwa': '~4.5.0',
         '@vue/cli-plugin-typescript': '~4.5.0',
-        '@vue/eslint-config-typescript': '^5.0.2'
+        '@vue/eslint-config-typescript': '^5.0.2',
+        typescript: '~3.9.3'
       }
     });
   }
@@ -255,16 +239,25 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         '@vue/compiler-sfc': '^3.0.0',
-        '@winner-fed/svgicon-loader': '^1.0.1'
+        '@winner-fed/svgicon-loader': '^1.0.0'
       }
     });
   }
 
   // postcss
+  // pc
   api.extendPackage({
     postcss: {
       plugins: {
-        autoprefixer: {}
+        autoprefixer: {
+          overrideBrowserslist: [
+            'Android 4.4',
+            'iOS 9.0',
+            'Chrome > 43',
+            'ff > 34',
+            'ie >= 10'
+          ]
+        }
       }
     }
   });
@@ -355,19 +348,21 @@ module.exports = (api, options, rootOptions) => {
     require('./vant.js')(api, options);
   }
 
+  // 创建模板
+  api.render('./template-base', options);
   if (options.preset === 'v2') {
     if (options.language === 'js') {
       // 公共基础目录和文件
-      api.render('./template');
+      api.render('./template-vue2');
     } else {
-      api.render('./ts-template');
+      api.render('./template-vue2-ts');
     }
   } else {
     if (options.language === 'js') {
       // 公共基础目录和文件
-      api.render('./template-v3');
+      api.render('./template-vue3');
     } else {
-      api.render('./ts-template-v3');
+      api.render('./template-vue3-ts');
     }
   }
 
