@@ -1,4 +1,7 @@
 module.exports = (api, options, rootOptions) => {
+  // 是否需要 vite 作为开发调试工具
+  const isNeedVite = options['build-tools'];
+
   // 小程序
   if (options.preset === 'mini') {
     api.extendPackage(
@@ -193,7 +196,7 @@ module.exports = (api, options, rootOptions) => {
         'vue-svgicon': '3.2.6'
       },
       devDependencies: {
-        '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2'
+        '@winner-fed/vue-router-invoke-webpack-plugin': '^1.0.0'
       }
     });
 
@@ -329,6 +332,21 @@ module.exports = (api, options, rootOptions) => {
     });
   }
 
+  // 是否需要 vite
+  if (isNeedVite) {
+    api.extendPackage({
+      scripts: {
+        'dev': 'vite'
+      },
+      devDependencies: {
+        'vite': '^2.2.3',
+        'vite-plugin-components': '^0.8.4',
+        'vite-plugin-html': '^2.0.3',
+        'vite-plugin-style-import': '^0.10.0',
+        'vite-plugin-vue2': '^1.4.4'
+      }
+    });
+  }
   // 删除 vue-cli3 默认目录
   api.render((files) => {
     Object.keys(files)
@@ -349,17 +367,20 @@ module.exports = (api, options, rootOptions) => {
   }
 
   // 创建模板
+  // 基础模板
   api.render('./template-base', options);
   if (options.preset === 'v2') {
     if (options.language === 'js') {
-      // 公共基础目录和文件
-      api.render('./template-vue2');
+      if(isNeedVite) {
+        api.render('./template-vue2-vite');
+      } else {
+        api.render('./template-vue2');
+      }
     } else {
       api.render('./template-vue2-ts');
     }
   } else {
     if (options.language === 'js') {
-      // 公共基础目录和文件
       api.render('./template-vue3');
     } else {
       api.render('./template-vue3-ts');
@@ -390,6 +411,13 @@ module.exports = (api, options, rootOptions) => {
       if (options['application'] === 'pc') {
         delete files['public/console.js'];
         delete files['public/vconsole.min.js'];
+      }
+
+      // vite
+      if(isNeedVite) {
+        delete files['public/index.html'];
+      } else {
+        delete files['index.html'];
       }
     });
   });

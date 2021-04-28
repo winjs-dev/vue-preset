@@ -71,6 +71,12 @@ module.exports = [
     default: 'js'
   },
   {
+    name: 'build-tools',
+    type: 'confirm',
+    message: 'Whether you need to add the build tool Vite?',
+    initial: true
+  },
+  {
     name: 'application',
     type: 'list',
     message: 'Choose whether your app is a PC or a mobile(default:mobile)',

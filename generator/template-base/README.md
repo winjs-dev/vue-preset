@@ -31,12 +31,10 @@
     │   ├── fonts      # 字体文件
     │   ├── img
     │   ├── js         # 不经过 npm 或 yarn 下载的第三方依赖包
-    │   └── less       # reset 样式，及定义的常量文件等
+    │   └── style       # reset 样式，及定义的常量文件等
     ├── components
     │   ├── SendCode   # tree shaking 组件
-    │   └── global     # 全局注册组件
-    │       └── SvgIcon
-    ├── filters        # 全局过滤器
+    ├── filters        # 全局过滤器(vue2,vue3没有)
     ├── icons          # svg 文件
     │   └── svg
     ├── router         # 路由及拦截器
@@ -49,9 +47,6 @@
 
 ## 开发及发布
 ```
-# 克隆项目
-git clone git@github.com:cklwblove/vue-cli3-template.git
-
 # 安装依赖
 yarn install
 
@@ -59,7 +54,10 @@ yarn install
 yarn install --registry=https://registry.npm.taobao.org
 
 # 启动服务
+## vue-cli
 yarn run serve
+## vite
+yarn run dev
 
 # 构建生产环境
 yarn run build
@@ -86,10 +84,8 @@ yarn run report
 
 ## 相关链接
 
-- [vue-cli3官方文档](https://cli.vuejs.org/zh/)
-- [vue-cli 3.0 配置](https://blog.csdn.net/qq_35844177/article/details/81099492)
+- [vue-cli4官方文档](https://cli.vuejs.org/zh/)
+- [vue-cli4.0 配置](https://blog.csdn.net/qq_35844177/article/details/81099492)
 - [chainWebpack](https://github.com/neutrinojs/webpack-chain#getting-started)
-- [[Vue CLI 3] 配置 webpack-bundle-analyzer 插件](https://segmentfault.com/a/1190000016247872)
-## License
+- [[Vue CLI 4] 配置 webpack-bundle-analyzer 插件](https://segmentfault.com/a/1190000016247872)
 
-[MIT](https://github.com/cklwblove/vue-cli3-template/blob/master/LICENSE)
