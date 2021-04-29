@@ -28,11 +28,13 @@ export default defineConfig({
     }
   },
   plugins: [
-    createVuePlugin(),
+    createVuePlugin({}),
     injectHtml({
       injectData: genHtmlOptions('vite'),
     }),
-    ViteComponents(),
+    ViteComponents({
+      transformer: 'vue2'
+    }),
     styleImport({
       libs: libs
     })

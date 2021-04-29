@@ -74,6 +74,7 @@ module.exports = [
     name: 'build-tools',
     type: 'confirm',
     message: 'Whether you need to add the build tool Vite?',
+    when: (answers) => answers.preset === 'v2',
     initial: true
   },
   {

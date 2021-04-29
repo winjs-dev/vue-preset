@@ -35,5 +35,6 @@ npm run docs:build
 - [x] 引入 vant-ui
 - [x] 新增**TS**模板
 - [x] 新增离线包相关特性
-- [x] 支持vue3.0 
+- [x] 支持vue3.0
 - [x] 支持生成see平台发布物，一键上传see平台
+- [x] vue2.x 支持新的构建工具 vite

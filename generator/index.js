@@ -190,6 +190,15 @@ module.exports = (api, options, rootOptions) => {
 
   // vue preset 版本
   if (options.preset === 'v2') {
+    // vue2
+    if (isNeedVite) {
+      api.extendPackage({
+        scripts: {
+          dev: 'vite'
+        }
+      });
+    }
+
     api.extendPackage({
       dependencies: {
         'vue-router': '3.5.1',
@@ -213,6 +222,14 @@ module.exports = (api, options, rootOptions) => {
           'vue-property-decorator': '9.1.2'
         }
       });
+      // vue2 ts
+      if (isNeedVite) {
+        api.extendPackage({
+          scripts: {
+            dev: 'tsc --noEmit && vite'
+          }
+        });
+      }
     }
   } else {
     // v3
@@ -335,9 +352,6 @@ module.exports = (api, options, rootOptions) => {
   // 是否需要 vite
   if (isNeedVite) {
     api.extendPackage({
-      scripts: {
-        'dev': 'vite'
-      },
       devDependencies: {
         'vite': '^2.2.3',
         'vite-plugin-components': '^0.8.4',
@@ -371,7 +385,7 @@ module.exports = (api, options, rootOptions) => {
   api.render('./template-base', options);
   if (options.preset === 'v2') {
     if (options.language === 'js') {
-      if(isNeedVite) {
+      if (isNeedVite) {
         api.render('./template-vue2-vite');
       } else {
         api.render('./template-vue2');
@@ -414,7 +428,7 @@ module.exports = (api, options, rootOptions) => {
       }
 
       // vite
-      if(isNeedVite) {
+      if (isNeedVite) {
         delete files['public/index.html'];
       } else {
         delete files['index.html'];

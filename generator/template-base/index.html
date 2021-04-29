@@ -86,7 +86,12 @@
   document.write(unescape("%3Cscript src='./config.local.js?_t="+ Math.random() +"' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <%% if (process.env.TOOL_NAME === 'vite') { %%>
+<%_ if (options.language === 'ts') { _%>
+<script type="module" src="/src/main.ts"></script>
+<%_ } _%>
+<%_ if (options.language === 'js') { _%>
 <script type="module" src="/src/main.js"></script>
+<%_ } _%>
 <%_ if (options.application !== 'pc') { _%>
 <script src="./console.js"></script>
 <%_ } _%>

@@ -7,8 +7,7 @@ plugins.push(
     libraryDirectory: 'es',
     style: true
   }, 'vant']
-);
-<%_ } _%>
+);<%_ } _%>
 
 module.exports = {
   presets: [
