@@ -10,7 +10,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 <%_ } _%>
 const WebpackBar = require('webpackbar');
 <%_ if (options.preset === 'v2') { _%>
-const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
+const VueRouterInvokeWebpackPlugin = require('@winner-fed/vue-router-invoke-webpack-plugin');
 <%_ } _%>
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
@@ -19,6 +19,25 @@ const tsImportPluginFactory = require('ts-import-plugin');
 const merge = require('webpack-merge');
 <%_ } _%>
 const svnInfo = require('svn-info');
+<%_ if (options['build-tools']) { _%>
+const {readFileSync, writeFileSync, existsSync, mkdirSync} = require('fs');
+const {genHtmlOptions} = require('./build/utils');
+
+const indexPath = path.resolve(__dirname, './index.html');
+const tmpDir = path.resolve(__dirname, 'node_modules/.tmp/build');
+/**
+ * 创建文件夹
+ * @param {String} pathStr 文件夹路径
+ */
+function mkdirSyncRecursive(pathStr) {
+  if (existsSync(pathStr)) return true;
+  mkdirSync(pathStr, {
+    recursive: true
+  });
+}
+
+mkdirSyncRecursive(tmpDir);
+<%_ } _%>
 <%_ if (options.preset === 'v3') { _%>
 const svgFilePath = ['src/icons/svg'].map((v) => path.resolve(v));
 <%_ } _%>
@@ -182,6 +201,9 @@ module.exports = {
     }
   },
   <%_ } _%>
+  <%_ if (options.language === 'js' && options.preset === 'v3') { _%>
+  transpileDependencies: ['vue', 'vue-router', '@vue'],
+  <%_ } _%>
   // css相关配置
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
@@ -243,7 +265,6 @@ module.exports = {
       config.module.rule('svg').exclude.add(svgFilePath).end();
       config.resolve.alias.set('@icon', svgFilePath[0]);
     <%_ } _%>
-
     <%_ if (options.preset === 'v2') { _%>
     // svg
     // exclude icons
@@ -258,8 +279,8 @@ module.exports = {
       .end()
       .use('url-loader')
       .loader('url-loader')
-      .end();<%_ } _%>
-
+      .end();
+    <%_ } _%>
   <%_ if (options.language === 'ts' && options['mobile-ui-framework'] === 'vant') { _%>
     config.module
       .rule('ts')
@@ -315,6 +336,35 @@ module.exports = {
     config
       .plugin('html')
       .tap((args) => {
+      <%_ if (options['build-tools']) { _%>
+          const htmlOptions = genHtmlOptions();
+          const htmlStr = readFileSync(indexPath).toString();
+          const tmpHtmlPath = path.resolve(tmpDir, './index.html');
+
+          writeFileSync(tmpHtmlPath, htmlStr);
+
+          args[0].template = tmpHtmlPath;
+          args[0].title = htmlOptions.title;
+
+          args[0].filename = './index.html';
+          args[0].templateParameters = (
+            compilation,
+            assets,
+            assetTags,
+            options
+          ) => {
+            return {
+              compilation,
+              webpackConfig: compilation.options,
+              htmlWebpackPlugin: {
+                tags: assetTags,
+                files: assets,
+                options,
+              },
+              ...htmlOptions,
+            };
+          };
+        <%_ } _%>
         args[0].minify = {
           removeComments: true,
           collapseWhitespace: true,

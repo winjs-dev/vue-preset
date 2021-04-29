@@ -25,3 +25,19 @@ exports.getCurrentVersion = function () {
 
   return pkg.name;
 };
+
+<%_ if (options['build-tools']) { _%>
+exports.genHtmlOptions = function (env) {
+  const options = {
+    title: pkg.name,
+  };
+  if (env === 'vite') {
+    process.env.TOOL_NAME = 'vite';
+    options.process = {
+      // 注入env
+      env: process.env,
+    };
+  }
+  return options;
+};
+<%_ } _%>
