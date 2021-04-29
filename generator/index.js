@@ -432,6 +432,12 @@ module.exports = (api, options, rootOptions) => {
         delete files['public/index.html'];
       } else {
         delete files['index.html'];
+        delete files['vite.config.js'];
+      }
+
+      // v3
+      if(options.preset === 'v3') {
+        delete files['vite.config.js'];
       }
     });
   });

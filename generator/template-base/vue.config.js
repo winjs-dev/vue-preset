@@ -10,7 +10,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 <%_ } _%>
 const WebpackBar = require('webpackbar');
 <%_ if (options.preset === 'v2') { _%>
-const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
+const VueRouterInvokeWebpackPlugin = require('@winner-fed/vue-router-invoke-webpack-plugin');
 <%_ } _%>
 const TerserPlugin = require('terser-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
@@ -265,7 +265,6 @@ module.exports = {
       config.module.rule('svg').exclude.add(svgFilePath).end();
       config.resolve.alias.set('@icon', svgFilePath[0]);
     <%_ } _%>
-
     <%_ if (options.preset === 'v2') { _%>
     // svg
     // exclude icons
@@ -280,8 +279,8 @@ module.exports = {
       .end()
       .use('url-loader')
       .loader('url-loader')
-      .end();<%_ } _%>
-
+      .end();
+    <%_ } _%>
   <%_ if (options.language === 'ts' && options['mobile-ui-framework'] === 'vant') { _%>
     config.module
       .rule('ts')
