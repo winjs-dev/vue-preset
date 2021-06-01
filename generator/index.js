@@ -104,6 +104,32 @@ module.exports = (api, options, rootOptions) => {
     });
     return;
   }
+
+  // 版本控制工具
+  // svn or git
+  if (options['version-control'] === 'git') {
+    api.extendPackage({
+      scripts: {
+        'gen:log': 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
+        'lint:ls-lint': 'ls-lint',
+        'lint:lint-staged': 'lint-staged -c ./.husky/lintstagedrc.js',
+        'install:husky': 'is-ci || husky install',
+        'lint:pretty': 'pretty-quick --staged',
+        'postinstall': 'npm run install:husky'
+      },
+      devDependencies: {
+        '@commitlint/cli': '^11.0.0',
+        '@commitlint/config-conventional': '^11.0.0',
+        '@ls-lint/ls-lint': '^1.9.2',
+        'commitizen': '^4.2.3',
+        'conventional-changelog-cli': '^2.1.1',
+        'husky': '^5.0.9',
+        'is-ci': '^2.0.0',
+        'lint-staged': '^10.5.4'
+      }
+    });
+  }
+
   // 命令
   api.extendPackage({
     scripts: {
@@ -160,6 +186,7 @@ module.exports = (api, options, rootOptions) => {
       eslint: '^7.6.0',
       plop: '^2.3.0',
       prettier: '^1.19.1',
+      'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
       stylelint: '^13.6.1',
       'svn-info': '^1.0.0',
@@ -408,6 +435,15 @@ module.exports = (api, options, rootOptions) => {
         delete files['offlinePackage.json'];
       }
 
+      // 版本控制工具 git
+      if (options['version-control'] !== 'git') {
+        if (/^\.husky[/$]/.test(name)) {
+          delete files[name];
+        }
+        delete files['.ls-lint.yml'];
+        delete files['commitlint.config.js'];
+      }
+
       // 是否为公司内部项目
       if (!options['mirror-source']) {
         delete files['.npmrc'];
@@ -436,7 +472,7 @@ module.exports = (api, options, rootOptions) => {
       }
 
       // v3
-      if(options.preset === 'v3') {
+      if (options.preset === 'v3') {
         delete files['vite.config.js'];
       }
     });
