@@ -18,7 +18,9 @@ const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const merge = require('webpack-merge');
 <%_ } _%>
+<%_ if (options['version-control'] === 'svn') { _%>
 const svnInfo = require('svn-info');
+<%_ } _%>
 <%_ if (options['build-tools']) { _%>
 const {readFileSync, writeFileSync, existsSync, mkdirSync} = require('fs');
 const {genHtmlOptions} = require('./build/utils');
@@ -49,15 +51,15 @@ const resolve = (dir) => {
 const isProd = () => {
   return process.env.NODE_ENV === 'production';
 };
-
-// 获取 svn 信息
+<%_ if (options['version-control'] === 'svn') { _%>
+  // 获取 svn 信息
 const getSvnInfo = () => {
   const svnURL = '';
   if (svnURL) return svnInfo.sync(svnURL, 'HEAD').lastChangedRev;
 
   return 'unknown';
 };
-
+<%_ } _%>
 const genPlugins = () => {
   const plugins = [
     new WebpackBar()<%_ if (options.preset === 'v2') { _%>,
@@ -92,7 +94,7 @@ const genPlugins = () => {
         banner:
           `@author: Winner FED${
             N}@version: ${pkg.version}${
-            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
+            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}<%_ if (options['version-control'] === 'svn') { _%> and svn version ${getSvnInfo()}<%_ } _%>
           `
       }),
       new WebpackManifestPlugin({

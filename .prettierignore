@@ -1,4 +1,4 @@
 **/*.svg
 package.json
 output.js
-generator/**/vue.config.js
+generator/

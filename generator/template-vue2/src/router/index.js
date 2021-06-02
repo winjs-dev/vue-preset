@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);
-export const routes = [
-  {
+export const routes = [{
     component: () => import('@/views/hello/index.vue'),
     name: 'hello',
-    path: '/hello'
+    path: '/hello',
   },
   {
     component: () => import('@/views/svgIcons/index.vue'),
@@ -15,10 +14,10 @@ export const routes = [
   {
     path: '/',
     redirect: '/hello'
-  }
+  },
 ];
 const router = new Router({
   mode: 'hash',
-  routes
+  routes,
 });
 export default router;

@@ -153,6 +153,22 @@ module.exports = [
     default: 'none'
   },
   {
+    name: 'version-control',
+    type: 'list',
+    message: 'Choice the Version control tool(default:svn)?',
+    choices: [
+      {
+        name: 'SVN',
+        value: 'svn'
+      },
+      {
+        name: 'Git',
+        value: 'git'
+      }
+    ],
+    default: 'svn'
+  },
+  {
     name: 'mirror-source',
     type: 'confirm',
     message: 'Whether it is an internal project of the company?',
