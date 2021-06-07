@@ -192,8 +192,7 @@ module.exports = (api, options, rootOptions) => {
       'svn-info': '^1.0.0',
       tasksfile: '^5.1.0',
       'webpack-manifest-plugin': '^3.0.0',
-      webpackbar: '^4.0.0',
-      'webstorm-disable-index': '^1.2.0'
+      webpackbar: '^4.0.0'
     }
   });
 
