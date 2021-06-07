@@ -5,7 +5,7 @@ import 'lib-flexible';
 <%_ } _%>
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router/.invoke/router.js';
+import router from './router/index.js';
 import './router/router.interceptor';
 import './components/global';
 import './icons';
