@@ -186,7 +186,7 @@ export default function request(
   } else {
     defaultConfig.params = {};
 
-    const contentType = headers['Content-Type'];
+    const contentType = formatHeaders['Content-Type'];
 
     if (typeof contentType !== 'undefined') {
       if (contentType.indexOf('multipart') !== -1) {
