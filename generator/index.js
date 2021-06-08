@@ -115,7 +115,7 @@ module.exports = (api, options, rootOptions) => {
         'lint:lint-staged': 'lint-staged -c ./.husky/lintstagedrc.js',
         'install:husky': 'is-ci || husky install',
         'lint:pretty': 'pretty-quick --staged',
-        'postinstall': 'npm run install:husky'
+        'postinstall': 'npm run install:husky && npm run prettier && npm run lint && npm run lint:style'
       },
       devDependencies: {
         '@commitlint/cli': '^11.0.0',
@@ -148,7 +148,8 @@ module.exports = (api, options, rootOptions) => {
       inspect: 'vue inspect > output.js --verbose',
       reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
       escheck: 'es-check',
-      zip: 'node build/zip.js'
+      zip: 'node build/zip.js',
+      postinstall: 'npm run prettier && npm run lint && npm run lint:style'
     },
     'scripts-info': {
       serve: '运行开发服务器',
