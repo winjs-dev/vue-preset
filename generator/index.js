@@ -115,7 +115,7 @@ module.exports = (api, options, rootOptions) => {
         'lint:lint-staged': 'lint-staged -c ./.husky/lintstagedrc.js',
         'install:husky': 'is-ci || husky install',
         'lint:pretty': 'pretty-quick --staged',
-        'postinstall': 'npm run install:husky && npm run prettier && npm run lint && npm run lint:style'
+        'postinstall': 'node ./tools/init.js'
       },
       devDependencies: {
         '@commitlint/cli': '^11.0.0',

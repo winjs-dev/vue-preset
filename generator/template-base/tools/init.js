@@ -23,12 +23,15 @@ function removeItems () {
   console.log('\n');
 }
 
-
 /**
  * Calls any external programs to finish setting up the library
  */
 function finalize () {
   console.log(chalk.white('Finalizing'));
+  // git
+  <%_ if (options['version-control'] === 'git') { _%>
+  exec('npm run install:husky');
+  <%_ } _%>
   exec('npm run prettier');
   exec('npm run lint');
   exec('npm run lint:style');
