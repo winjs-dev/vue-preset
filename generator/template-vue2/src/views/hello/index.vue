@@ -94,6 +94,4 @@
   };
 </script>
 
-<style lang="less" scoped>
-  @import "./style.less";
-</style>
+<style lang="less" scoped src="./style.less"></style>
