@@ -149,7 +149,7 @@ module.exports = (api, options, rootOptions) => {
       reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
       escheck: 'es-check',
       zip: 'node build/zip.js',
-      postinstall: 'npm run prettier && npm run lint && npm run lint:style'
+      postinstall: 'node ./tools/init.js'
     },
     'scripts-info': {
       serve: '运行开发服务器',
