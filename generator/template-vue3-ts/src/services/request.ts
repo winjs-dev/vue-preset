@@ -1,10 +1,8 @@
 /**
  *
  * @authors liwb (lwbhtml@gmail.com)
- * @date    2018/6/5 上午10:43
- * @description https://github.com/mzabriskie/axios
- * 安卓4.4.3一下的手机还是不支持Promise的,需要引入npm install babel-polyfill和npm install babel-runtime，在入口文件上加上即可
- * import 'babel-polyfill';
+ * @date    2021/6/15 上午10:43
+ * @description https://github.com/axios/axios
  */
 
 import Qs from 'qs';
@@ -79,7 +77,7 @@ function responseLog(response) {
  * 全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
  */
-const axiosConfig = {
+const axiosRequest = {
   success: (config) => {
     // 在请求开始前，对之前的请求做检查取消操作
     removePending(config);
@@ -135,7 +133,7 @@ const axiosResponse = {
   }
 };
 
-axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
+axios.interceptors.request.use(axiosRequest.success, axiosRequest.error);
 axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
