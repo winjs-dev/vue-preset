@@ -379,7 +379,7 @@ module.exports = (api, options, rootOptions) => {
   if (isNeedVite) {
     api.extendPackage({
       devDependencies: {
-        'vite': '^2.2.3',
+        vite: '^2.2.3',
         'vite-plugin-components': '^0.8.4',
         'vite-plugin-html': '^2.0.3',
         'vite-plugin-style-import': '^0.10.0',

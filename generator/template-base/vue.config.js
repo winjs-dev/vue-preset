@@ -235,10 +235,10 @@ module.exports = {
         '@views': resolve('src/views'),
 
         // 文件别名
-        'services': resolve('src/services'),
-        'variable': resolve('src/assets/style/variable.less'),
-        'utils': resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
-        'mixins': resolve('node_modules/@winner-fed/magicless/magicless.less'),
+        services: resolve('src/services'),
+        variable: resolve('src/assets/style/variable.less'),
+        utils: resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
+        mixins: resolve('node_modules/@winner-fed/magicless/magicless.less'),
         <%_ if (options.application === 'offline') { _%>
         'native-bridge-methods': resolve('node_modules/@winner-fed/native-bridge-methods/dist/native-bridge-methods.esm')
         <%_ } _%>
