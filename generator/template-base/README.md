@@ -1,10 +1,6 @@
-# [vue-cli3-template](https://github.com/cklwblove/vue-cli3-template)
+# [vue-template](https://github.com/cklwblove/vue-cli3-template)
 
-[![license](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
-[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/cklwblove/vue-cli3-template/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/cklwblove/vue-cli3-template.svg?branch=master)](https://travis-ci.org/cklwblove/vue-cli3-template)
-
-基于 vue-cli3 搭建的前端模板
+基于 vue-cli 搭建的前端模板
 
 ## 特性
 
@@ -63,7 +59,7 @@ yarn run dev
 yarn run build
 
 # 压缩 dist 文件夹，生成 zip 包
-yarn run deploy
+yarn run zip
 
 ```
 
@@ -74,7 +70,7 @@ yarn run deploy
 # --svgo svg精简压缩
 yarn run svgo
 
-# --analyz 基于 webpack-bundle-analyzer 插件分析打包的文件构成及大小(vue ui 界面上的分析不习惯)
+# --analyz 基于 webpack-bundle-analyzer 插件分析打包的文件构成及大小
 yarn run analyz
 
 # --report 生成静态报告文件
