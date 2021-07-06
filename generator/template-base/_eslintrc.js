@@ -3,8 +3,8 @@
 
 module.exports = {
   extends: [
-    '@winner-fed/eslint-config-win',
-    '@winner-fed/eslint-config-win/vue'
+    '@winner-fed/win',
+    '@winner-fed/win/vue'
   ]<%_ if (options['language'] === 'ts') { _%>,
   parserOptions: {
     ecmaVersion: 2020
