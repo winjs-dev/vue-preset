@@ -7,6 +7,7 @@ module.exports = {
     '@winner-fed/win/vue'
   ]<%_ if (options['language'] === 'ts') { _%>,
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     ecmaVersion: 2020
   },
   rules: {
