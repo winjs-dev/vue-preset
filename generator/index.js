@@ -204,8 +204,8 @@ module.exports = (api, options, rootOptions) => {
       devDependencies: {
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
-        '@typescript-eslint/eslint-plugin': '^2.33.0',
-        '@typescript-eslint/parser': '^2.33.0',
+        '@typescript-eslint/eslint-plugin': '^4.28.0',
+        '@typescript-eslint/parser': '^4.28.0',
         '@vue/cli-plugin-pwa': '~4.5.0',
         '@vue/cli-plugin-typescript': '~4.5.0',
         '@vue/eslint-config-typescript': '^5.0.2',
