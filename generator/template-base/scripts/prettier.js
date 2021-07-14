@@ -16,7 +16,7 @@ let didError = false;
 
 const files = getPrettierFiles();
 
-files.forEach((file) => {
+Array.isArray(files) && files.forEach((file) => {
   const options = prettier.resolveConfig.sync(file, {
     config: prettierConfigPath
   });
@@ -36,6 +36,7 @@ files.forEach((file) => {
       console.log(chalk.green(`${file} is prettier`));
     }
   } catch (e) {
+    console.log('format error', e);
     didError = true;
   }
 });

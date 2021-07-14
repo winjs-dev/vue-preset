@@ -185,7 +185,7 @@ module.exports = (api, options, rootOptions) => {
       'es-check': '^5.2.3',
       eslint: '^7.6.0',
       plop: '^2.3.0',
-      prettier: '^1.19.1',
+      prettier: '^2.3.2',
       'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
       stylelint: '^13.6.1',
@@ -204,12 +204,12 @@ module.exports = (api, options, rootOptions) => {
       devDependencies: {
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
-        '@typescript-eslint/eslint-plugin': '^2.33.0',
-        '@typescript-eslint/parser': '^2.33.0',
+        '@typescript-eslint/eslint-plugin': '^4.28.0',
+        '@typescript-eslint/parser': '^4.28.0',
         '@vue/cli-plugin-pwa': '~4.5.0',
         '@vue/cli-plugin-typescript': '~4.5.0',
         '@vue/eslint-config-typescript': '^5.0.2',
-        typescript: '~3.9.3'
+        typescript: '4.3.5'
       }
     });
   }
