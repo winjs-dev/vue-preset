@@ -172,8 +172,6 @@ module.exports = (api, options, rootOptions) => {
       '@winner-fed/eslint-config-win': '^1.0.2',
       '@vue/eslint-config-prettier': '^6.0.0',
       '@winner-fed/stylelint-config-win': '^0.1.0',
-      '@winner-fed/vue-cli-plugin-eslint': '^1.0.2',
-      '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
       'add-asset-html-webpack-plugin': '^3.1.3',
       archiver: '^3.0.0',
       'babel-eslint': '^10.0.1',
