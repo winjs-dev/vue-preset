@@ -12,6 +12,10 @@ Object.keys(urls).forEach((key) => {
 
 // 将services挂载到vue的原型上
 // views引用的方法：this.$services.接口名（小驼峰）
-Object.defineProperty(Vue.prototype, '$services', { value: FUNS });
+Object.defineProperty(Vue.prototype, '$services', {
+  get () {
+    return FUNS;
+  }
+});
 
 export default FUNS;
