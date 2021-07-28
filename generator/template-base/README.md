@@ -159,7 +159,7 @@ export default {
 ```json
   "scripts": {
     # 开发调试，基于 webpack
-		"serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     # 构建打包
     "build": "node build/index.js",
     # .js、.vue、.jsx 文件的编码规范检测，自带修复。基于 @winner-fed/vue-cli-plugin-eslint 实现
