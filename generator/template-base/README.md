@@ -46,7 +46,6 @@
         └── svgIcons
 ```
 
-
 - build - 构建工具（如webpack） 及 node 命令行工具相关配置
    - index.js - 利用 tasksfile 插件，自定义打包构建之后的异常，便于捕获。
    - zip.js - 将构建的 dist 包压缩成 zip 格式。
@@ -66,64 +65,62 @@
       - 纯前端的 BFF 层，视图和业务逻辑的胶水层。
    - router - 路由及路由拦截器
    - services - 网络请求库的封装。对 http 协议接口做的封装。
-      - autoMatchBaseUrl.js - 项目中若存在多个服务端接口的对接，则需要在 config.local.js 里定义多个接口请求路径，此文件就是针对配置不同的 prefix，做自动适配的。
+      - autoMatchBaseUrl.js - 项目中若存在多个服务端接口的对接，则需要在 config.local.js 里定义多个接口请求路径，此文件就是针对配置不同的 prefix，做自动适配的。可参考下面一段示例： *autoMatchBaseUrl与config.local.js配合使用*
+      - pending.js - 在开发中，经常会遇到接口重复请求导致的各种问题。无论从用户体验或者从业务严谨方面来说，取消无用的请求确实是需要避免的。
+      - 对于重复的 get 请求，会导致页面更新多次，发生页面抖动的现象，影响用户体验。
+      - 对于重复的 post 请求，会导致在服务端生成两次记录（例如生成两条订单记录）。
+      - 如果当前页面请求还未响应完成，就切换到了下一个路由，那么这些请求直到响应返回才会中止。
+      - request.js - 针对 axios 的封装，主要函数是 request(url, options)、uploadFile(url, formData)
+      - RESTFULURL.js - 所有服务端接口的映射表，对应的 value 值不建议添加接口具体的 path，可参考下面一段示例： *RESTFULURL.js* 示例， 如标准的 URL `http://xx.com/v1/func_get_user_info`
+          - http 协议路径 [http://xx.com/](http://xx.com/)
+          - path 路径：v1/
+          - 接口名：`[func_get_user_info](http://xx.com/v1/func_get_user_info)`
+          - 因为有时候开发环境和生产环境接口对应 path 会有修改，所以在配置 API_HOME 的时候，尽量是 http 协议路径 + path 路径。
+
 ```javascript
+// autoMatchBaseUrl与config.local.js配合使用
 // config.local.js
 window.LOCAL_CONFIG = {
-  API_HOME: 'http://10.20.37.227:8088/', // 粉丝端接口默认
-  IFS_API_HOME: 'http://10.20.37.228:80/', // 领投保接口
-  MALL_API_HOME: 'http://10.26.210.81:8101/', // 服务商城接口
-  QUOTE_HOME: 'http://sandbox.hscloud.cn/quote/', // 行情接口
+  API_HOME: 'http://api.github.com/',
+  CLINET_API_HOME: 'http://client.github.com/',
+  MALL_API_HOME: 'http://mall.github.com/'
 }
 
 // constant.js
 const QUOTE_PREFIX = 'v1/';
 const CLIENT_PREFIX = 'client/';
 const MALL_PREFIX = 'shop/';
-const TRANS_PREFIX = 'trans/';
 export {
   QUOTE_PREFIX,
   CLIENT_PREFIX,
-  MALL_PREFIX,
-  TRANS_PREFIX
+  MALL_PREFIX
 }
 
 // autoMatchBaseUrl.js
-export default function autoMatchBaseUrl(prefix: string) {
-  const options: any = {};
+export default function autoMatchBaseUrl(prefix) {
+  const options = {};
   switch (prefix) {
-    case QUOTE_PREFIX: // 行情
+    case QUOTE_PREFIX:
       options.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       options.baseUrl = window.LOCAL_CONFIG.QUOTE_HOME + QUOTE_PREFIX;
       break;
-    case CLIENT_PREFIX: // 领投保client接口
+    case CLIENT_PREFIX:
       options.data = {
-        user_token: store.getters.ltbToken
-        // access_token: window.vm.$store.getters.accessToken
+        user_token: store.getters.clientToken
       };
       options.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       options.baseUrl = window.LOCAL_CONFIG.IFS_API_HOME + CLIENT_PREFIX;
       break;
-    case TRANS_PREFIX: // 领投保trans接口
+    case MALL_PREFIX:
       options.data = {
-        user_token: store.getters.ltbToken
-        // access_token: window.vm.$store.getters.accessToken
-      };
-      options.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-      options.baseUrl = window.LOCAL_CONFIG.IFS_API_HOME + TRANS_PREFIX;
-      break;
-    case MALL_PREFIX: // 服务商城接口
-      options.data = {
-        fansToken: encrypt.encrypt(store.getters.userInfo.fund_account)
+        fansToken: encrypt.encrypt(store.getters.userInfo.fundAccount)
       };
       options.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       options.baseUrl = window.LOCAL_CONFIG.MALL_API_HOME + MALL_PREFIX;
       break;
     default: // 默认
       options.data = {
-        // 有工作室的接口，但是要传领投保的token
-        user_token: store.getters.stuToken
-        // access_token: window.vm.$store.getters.accessToken
+        user_token: store.getters.apiToken
       };
       options.headers = {
         'Accept': 'application/json',
@@ -131,86 +128,23 @@ export default function autoMatchBaseUrl(prefix: string) {
       };
       options.baseUrl = window.LOCAL_CONFIG.API_HOME + HOME_PREFIX;
   }
-  console.log('baseUrl', options.baseUrl);
+
   return options;
 }
 ```
 
-      - pending.js - 在开发中，经常会遇到接口重复请求导致的各种问题。无论从用户体验或者从业务严谨方面来说，取消无用的请求确实是需要避免的。
-         - 对于重复的 get 请求，会导致页面更新多次，发生页面抖动的现象，影响用户体验。
-         - 对于重复的 post 请求，会导致在服务端生成两次记录（例如生成两条订单记录）。
-         - 如果当前页面请求还未响应完成，就切换到了下一个路由，那么这些请求直到响应返回才会中止。
-      - request.js - 针对 axios 的封装，主要函数是 request(url, options)、uploadFile(url, formData)
-      - RESTFULURL.js - 所有服务端接口的映射表，对应的 value 值不建议添加接口具体的 path， 如
-
-`[http://10.20.37.227:8088/vipstu/v1/func_tenant_info_get](http://10.20.37.227:8088/vipstu/v1/func_tenant_info_get)`
-
-         - http 协议路径 [http://10.20.37.227:8088/](http://10.20.37.227:8088/)
-         - path 路径：vipstu/v1/
-         - 接口名：`[func_tenant_info_get](http://10.20.37.227:8088/vipstu/v1/func_tenant_info_get)`
 ```javascript
+// RESTFULURL.js
 export default {
   ....
-  // 登录模块
-  // http://10.20.37.227:8088/vipstu/v1/func_tenant_info_get
-  getTenantInfo: 'func_tenant_info_get',   // 获取租户信息（获取券商的company_id）
-  mobileLoginRegisterByTenant: 'func_mobile_login_register_by_tenant',   // 手机号登录（静默注册）
+  getUserInfo: 'func_get_user_info',
  ...
 }
 ```
 
-         - 因为有时候开发环境和生产环境接口对应 path 会有修改，所以在配置 API_HOME 的时候，尽量是 http 协议路径 + path 路径。
    - views - 视图层，数据的消费者。尽可能的让视图层更“轻”。
       - 统一采用小驼峰（切记），如 helloWorld
    - constant.js - 定义常量（大驼峰，单词之间以下划线连接）。编写业务程序时，会有一些所需要的常量值，比如订单状态，1,2,3...。一般情况下，这些值都是固定不变的。如果直接将这些值硬编码到代码里，就可以理解成“魔法值”。魔法值的存在，从语法上来说是合理的，但是从业务上却让人无法理解其中0，1，2，3的含义。对于这些魔法值，我们往往需要通过上下文推断出来逻辑，如果是非常复杂的业务或者10年前的代码那就更惨了，搞不好连文档注释也没有。为了可读性，所以我们要尽量避免出现魔法值。
-
-
-
-举个例子，如下
-```vue
-<!-- 服务期限 -->
-<!-- 组合-->
-<div class="card-subscription viability-info">
-  <div class="header">
-    <span>服务期限</span>
-  </div>
-  <div class="content">
-    <div v-if="+combinePrice.farePerMonth !== 999999999"
-         class="viability-box"
-         :class="{active: viability === '1' }"
-         @click="viability = '1'">
-      <p>1个月</p>
-      <p class="price"><b>￥</b>{{combinePrice.farePerMonth}}</p>
-    </div>
-    <div v-if="+combinePrice.farePerQuarter !== 999999999"
-         class="viability-box"
-         :class="{active: viability === '3' }"
-         @click="viability = '3'">
-      <p>3个月</p>
-      <p class="price"><b>￥</b>{{combinePrice.farePerQuarter}}</p>
-    </div>
-    <div v-if="+combinePrice.farePerHalfyear !== 999999999"
-         class="viability-box"
-         :class="{active: viability === '6' }"
-         @click="viability = '6'">
-      <p>6个月</p>
-      <p class="price"><b>￥</b>{{combinePrice.farePerHalfyear}}</p>
-    </div>
-</div>
-```
-`999999999` 是什么玩意。。。
-```javascript
-// constant.js
-...
-// 中台与前端做的协定
-// 特殊 999999999 价格，不做界面展示
-const SPECIAL_PRICE = 999999999;
-
-export {
-  ...
-  SPECIAL_PRICE
-};
-```
 
 - index.html - 遵循于 [EJS](https://ejs.co/) 嵌入式 JavaScript 模板引擎语法，比如 <%= EJS %>。可以动态设置并解析所定义的变量，借助于 html-webpack-plugin
    - 配置文件 config.local.js 的引用方式这里做下说明，由于之前生产环境上遇到过，更改配置文件并上传服务器更新后，有缓存的问题，因此用了 `document.write` 方式实现，用于清除此文件的缓存
@@ -383,4 +317,3 @@ yarn run report
 - [vue-cli4.0 配置](https://blog.csdn.net/qq_35844177/article/details/81099492)
 - [chainWebpack](https://github.com/neutrinojs/webpack-chain#getting-started)
 - [[Vue CLI 4] 配置 webpack-bundle-analyzer 插件](https://segmentfault.com/a/1190000016247872)
-
