@@ -17,57 +17,8 @@
     #app {
       width: 100%;
       height: 100%;
-    }
-
-    .cloud-loader {
-      position: relative;
-      left: 50%;
-      top: 50%;
-      width: 150px;
-      height: 150px;
-      margin: -75px 0 0 -75px;
-    }
-
-    .cloud-loader .outer,
-    .cloud-loader .middle,
-    .cloud-loader .inner {
-      border: 3px solid transparent;
-      border-top-color: #3cefff;
-      border-right-color: #3cefff;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-    }
-
-    .cloud-loader .outer {
-      width: 56px;
-      height: 56px;
-      margin-left: -28px;
-      margin-top: -28px;
-      animation: spin 2s linear infinite;
-    }
-
-    .cloud-loader .middle {
-      width: 34px;
-      height: 34px;
-      margin-left: -17px;
-      margin-top: -17px;
-      animation: spin 1.75s linear reverse infinite;
-    }
-
-    .cloud-loader .inner {
-      width: 14px;
-      height: 14px;
-      margin-left: -7px;
-      margin-top: -7px;
-      animation: spin 1.5s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      margin: 0 auto;
+      overflow-x: hidden;
     }
   </style>
 </head>
@@ -76,10 +27,111 @@
   <strong>很抱歉，如果没有启用JavaScript，此项目将无法正常运行。请启用它。</strong>
 </noscript>
 <div id="app">
-  <div class="cloud-loader">
-    <div class="outer"></div>
-    <div class="middle"></div>
-    <div class="inner"></div>
+  <style>
+    .app-loading {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .app-loading .app-loading-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: flex;
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%, -50%, 0);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .dot {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      margin-top: 30px;
+      font-size: 32px;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+      animation: antRotate 1.2s infinite linear;
+    }
+
+    .dot i {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: #3cefff;
+      border-radius: 100%;
+      opacity: 0.3;
+      transform: scale(0.75);
+      animation: antSpinMove 1s infinite linear alternate;
+      transform-origin: 50% 50%;
+    }
+
+    .dot i:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+
+    .dot i:nth-child(2) {
+      top: 0;
+      right: 0;
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+
+    .dot i:nth-child(3) {
+      right: 0;
+      bottom: 0;
+      -webkit-animation-delay: 0.8s;
+      animation-delay: 0.8s;
+    }
+
+    .dot i:nth-child(4) {
+      bottom: 0;
+      left: 0;
+      -webkit-animation-delay: 1.2s;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes antRotate {
+      to {
+        -webkit-transform: rotate(405deg);
+        transform: rotate(405deg);
+      }
+    }
+
+    @-webkit-keyframes antRotate {
+      to {
+        -webkit-transform: rotate(405deg);
+        transform: rotate(405deg);
+      }
+    }
+
+    @keyframes antSpinMove {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes antSpinMove {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+  <div class="app-loading">
+    <div class="app-loading-wrap">
+      <div class="app-loading-dots">
+        <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
   </div>
 </div>
 <script>
