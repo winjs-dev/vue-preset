@@ -24,7 +24,6 @@
     {
       "files": ["*.less", "*.css"],
       "options": {
-       "parser": "vue",
        "singleQuote": false
       }
     }
