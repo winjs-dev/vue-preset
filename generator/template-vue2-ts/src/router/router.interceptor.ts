@@ -6,9 +6,7 @@
  */
 import { Route } from 'vue-router';
 import router from './index';
-import { clearPending } from '@/services/pending';
 
 router.beforeEach((to: Route, from: Route, next: any) => {
-  clearPending();
   next();
 });
