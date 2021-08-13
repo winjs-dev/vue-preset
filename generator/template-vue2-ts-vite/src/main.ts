@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-<%_ if (options.application === 'mobile' || options.application === 'offline') { _%>
-import 'lib-flexible';
+<%_ if ((options.application === 'mobile' || options.application === 'offline') && options['layout-adapter'] !== 'vw') { _%>
+import 'amfe-flexible';
 <%_ } _%>
 import Vue from 'vue';
 import Component from 'vue-class-component';

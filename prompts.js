@@ -134,6 +134,23 @@ module.exports = [
     default: 'none'
   },
   {
+    name: 'layout-adapter',
+    type: 'list',
+    message: 'Choose a mobile layout adaptation plan(default:rem)',
+    when: (answers) => answers.preset !== 'mini' && answers.application === 'mobile',
+    choices: [
+      {
+        name: 'viewpoint',
+        value: 'vw'
+      },
+      {
+        name: 'rem',
+        value: 'rem'
+      }
+    ],
+    default: 'rem'
+  },
+  {
     name: 'mobile-ui-framework',
     type: 'list',
     message: 'Choice Mobile UI Framework(default:none)',
@@ -155,7 +172,7 @@ module.exports = [
   {
     name: 'version-control',
     type: 'list',
-    message: 'Choice the Version control tool(default:svn)?',
+    message: 'Choose the Version control tool(default:svn)?',
     choices: [
       {
         name: 'SVN',

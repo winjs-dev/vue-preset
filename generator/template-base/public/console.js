@@ -57,8 +57,8 @@ if (window.LOCAL_CONFIG.IS_OPEN_VCONSOLE) {
         return;
       }
       try {
-        var vconsole = new VConsole();
-        vconsole.setOption({ maxLogNumber: 5000 });
+        var vConsole = new VConsole();
+        vConsole.setOption({ maxLogNumber: 5000 });
         console.log('当前 url', window.location.href);
       } catch (err) {
         console.error('new VConsole() 出现异常');
