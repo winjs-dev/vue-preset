@@ -10,7 +10,7 @@
 
 - SVG 雪碧图：采用 `webpack` 插件 `svg-sprite-loader`,及 `svg` 精简压缩工具 `svgo`
 
-- 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `lib-flexible`，可以自由地用 px 去开发
+- 移动 web 的适配方案：目前提供了两种方案，`rem` 及 `vw`。分别引入了 `postcss-pxtorem` 及 `amfe-flexible` 和 `postcss-px-to-viewport`，可以自由地用 px 去开发
 
 - 常用的 js 工具类： [cloud-utils](https://cklwblove.github.io/cloud-utils/)
 
@@ -206,7 +206,7 @@ export default {
   "@winner-fed/magicless": "*",
   "axios": "0.19.2",
   "core-js": "^3.6.5",
-  "lib-flexible": "0.3.2",
+  "amfe-flexible": "0.3.2",
   "normalize.css": "8.0.1",
   "vue": "^2.6.11",
   "vue-router": "3.5.1",
