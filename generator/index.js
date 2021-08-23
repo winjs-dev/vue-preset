@@ -117,12 +117,12 @@ module.exports = (api, options, rootOptions) => {
         'lint:pretty': 'pretty-quick --staged'
       },
       devDependencies: {
-        '@commitlint/cli': '^11.0.0',
-        '@commitlint/config-conventional': '^11.0.0',
+        '@commitlint/cli': '^13.1.0',
+        '@commitlint/config-conventional': '^13.1.0',
         '@ls-lint/ls-lint': '^1.9.2',
         'commitizen': '^4.2.3',
         'conventional-changelog-cli': '^2.1.1',
-        'husky': '^5.0.9',
+        'husky': '^7.0.1',
         'is-ci': '^2.0.0',
         'lint-staged': '^10.5.4'
       }
