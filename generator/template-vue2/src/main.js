@@ -21,6 +21,8 @@ import './vendor/ant';
 import './vendor/hui';
 <%_ } else if (options['mobile-ui-framework'] === 'vant') { _%>
 import './vendor/vant';
+<%_ } else if (options['mobile-ui-framework'] === 'wui') { _%>
+import './vendor/wui';
 <%_ } _%>
 <%_ if (options.application === 'offline') { _%>
 import {isLightOS, nativeReady} from '@winner-fed/native-bridge-methods';

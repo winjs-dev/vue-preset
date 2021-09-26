@@ -450,6 +450,8 @@ module.exports = (api, options, rootOptions) => {
     require('./hui.js')(api, options);
   } else if (options['mobile-ui-framework'] === 'vant') {
     require('./vant.js')(api, options);
+  } else if (options['mobile-ui-framework'] === 'wui') {
+    require('./wui.js')(api, options);
   }
 
   // 创建模板
