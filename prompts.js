@@ -153,21 +153,21 @@ module.exports = [
   {
     name: 'mobile-ui-framework',
     type: 'list',
-    message: 'Choice Mobile UI Framework(default:none)',
+    message: 'Choice Mobile UI Framework(default:WinUI)',
     choices: [
+      {
+        name: 'WinUI',
+        value: 'wui'
+      },
       {
         name: 'Vant',
         value: 'vant'
-      },
-      {
-        name: 'none',
-        value: 'none'
       }
     ],
     when: (answers) =>
       answers.preset !== 'mini' &&
       (answers.application === 'mobile' || answers.application === 'offline'),
-    default: 'none'
+    default: 'wui'
   },
   {
     name: 'version-control',
