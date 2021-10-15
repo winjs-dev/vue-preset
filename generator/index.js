@@ -165,7 +165,7 @@ module.exports = (api, options, rootOptions) => {
     dependencies: {
       '@winner-fed/cloud-utils': '*',
       '@winner-fed/magicless': '*',
-      axios: '0.19.2',
+      axios: '^0.23.0',
       'normalize.css': '8.0.1'
     },
     devDependencies: {
