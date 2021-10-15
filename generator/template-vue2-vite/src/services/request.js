@@ -159,7 +159,18 @@ export default function request(
     data,
     timeout,
     headers: formatHeaders,
-    responseType: dataType
+    responseType: dataType,
+    // 这里将 response.data 为 string 做了 JSON.parse 的转换处理
+    transformResponse: axios.defaults.transformResponse.concat(function (data) {
+      if (typeof data === 'string' && data.length) {
+        try {
+          data = JSON.parse(data);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      return data;
+    }),
   };
 
   if (method === 'get') {
