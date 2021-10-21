@@ -8,7 +8,7 @@ module.exports = (api, options, rootOptions) => {
   } else {
     api.extendPackage({
       dependencies: {
-        'ant-design-vue': '^2.0.0-beta.10'
+        'ant-design-vue': '^2.2.8'
       }
     });
   }

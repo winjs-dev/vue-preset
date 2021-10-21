@@ -137,7 +137,7 @@ module.exports = [
     name: 'layout-adapter',
     type: 'list',
     message: 'Choose a mobile layout adaptation plan(default:rem)',
-    when: (answers) => answers.preset !== 'mini' && answers.application === 'mobile',
+    when: (answers) => answers.preset !== 'mini' && answers.application !== 'pc',
     choices: [
       {
         name: 'viewpoint',

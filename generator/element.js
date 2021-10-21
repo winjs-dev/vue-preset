@@ -2,13 +2,13 @@ module.exports = (api, options, rootOptions) => {
   if (options.preset === 'v2') {
     api.extendPackage({
       dependencies: {
-        'element-ui': '^2.8.2'
+        'element-ui': '^2.15.6'
       }
     });
   } else {
     api.extendPackage({
       dependencies: {
-        'element-plus': '^1.0.1-alpha.4'
+        'element-plus': '^1.1.0-beta.24'
       }
     });
   }
