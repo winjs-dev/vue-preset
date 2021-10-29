@@ -186,7 +186,7 @@ module.exports = (api, options, rootOptions) => {
       'eslint': '^7.24.0',
       'eslint-plugin-vue': '^7.13.0',
       plop: '^2.3.0',
-      prettier: '^2.3.2',
+      prettier: '^2.4.1',
       'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
       stylelint: '^13.6.1',
