@@ -165,7 +165,7 @@ module.exports = (api, options, rootOptions) => {
     dependencies: {
       '@winner-fed/cloud-utils': '*',
       '@winner-fed/magicless': '*',
-      axios: '0.19.2',
+      axios: '^0.23.0',
       'normalize.css': '8.0.1'
     },
     devDependencies: {
@@ -450,6 +450,8 @@ module.exports = (api, options, rootOptions) => {
     require('./hui.js')(api, options);
   } else if (options['mobile-ui-framework'] === 'vant') {
     require('./vant.js')(api, options);
+  } else if (options['mobile-ui-framework'] === 'wui') {
+    require('./wui.js')(api, options);
   }
 
   // 创建模板

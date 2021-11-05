@@ -7,7 +7,6 @@
   "trailingComma": "none",
   "proseWrap": "never",
   "arrowParens": "always",
-  "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
   "vueIndentScriptAndStyle": true,
   "htmlWhitespaceSensitivity": "strict",
