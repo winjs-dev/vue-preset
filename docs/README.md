@@ -94,7 +94,7 @@ vue create --preset my-preset.json my-project
 ## 项目特性
 - CSS 预编译语言：[less](http://lesscss.org/)
 
-- 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `lib-flexible`，可以自由地用 px 去开发
+- 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `amfe-flexible`，可以自由地用 px 去开发
 
 - 常用的 js 工具类： [cloud-utils](https://cklwblove.github.io/cloud-utils/)
 

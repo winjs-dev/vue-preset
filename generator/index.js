@@ -1,4 +1,7 @@
 module.exports = (api, options, rootOptions) => {
+  // 是否需要 vite 作为开发调试工具
+  const isNeedVite = options['build-tools'];
+
   // 小程序
   if (options.preset === 'mini') {
     api.extendPackage(
@@ -77,7 +80,7 @@ module.exports = (api, options, rootOptions) => {
         'babel-preset-taro': '3.1.4',
         eslint: '^6.8.0',
         'vue-loader': '^15.9.2',
-        'eslint-plugin-vue': '^6.x',
+        'eslint-plugin-vue': '^7.x',
         'eslint-config-taro': '3.1.4',
         stylelint: '9.3.0',
         '@typescript-eslint/parser': '^2.x',
@@ -101,11 +104,37 @@ module.exports = (api, options, rootOptions) => {
     });
     return;
   }
+
+  // 版本控制工具
+  // svn or git
+  if (options['version-control'] === 'git') {
+    api.extendPackage({
+      scripts: {
+        'gen:log': 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
+        'lint:ls-lint': 'ls-lint',
+        'lint:lint-staged': 'lint-staged -c ./.husky/lintstagedrc.js',
+        'install:husky': 'is-ci || husky install',
+        'lint:pretty': 'pretty-quick --staged'
+      },
+      devDependencies: {
+        '@commitlint/cli': '^13.1.0',
+        '@commitlint/config-conventional': '^13.1.0',
+        '@ls-lint/ls-lint': '^1.9.2',
+        'commitizen': '^4.2.3',
+        'conventional-changelog-cli': '^2.1.1',
+        'husky': '^7.0.1',
+        'is-ci': '^2.0.0',
+        'lint-staged': '^10.5.4'
+      }
+    });
+  }
+
   // 命令
   api.extendPackage({
     scripts: {
       bootstrap:
         'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
+      build: 'node build/index.js',
       serve: 'vue-cli-service serve',
       lint: 'vue-cli-service lint',
       'lint:style': 'vue-cli-service lint:style',
@@ -117,7 +146,9 @@ module.exports = (api, options, rootOptions) => {
       release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
       reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
-      escheck: 'es-check'
+      escheck: 'es-check',
+      zip: 'node build/zip.js',
+      postinstall: 'node ./tools/init.js'
     },
     'scripts-info': {
       serve: '运行开发服务器',
@@ -129,25 +160,6 @@ module.exports = (api, options, rootOptions) => {
     }
   });
 
-  if (options.language === 'ts') {
-    api.extendPackage({
-      scripts: {
-        build: 'node build/index.ts',
-        zip: 'node build/zip.ts'
-      },
-      devDependencies: {
-        typescript: '~3.9.3'
-      }
-    });
-  } else {
-    api.extendPackage({
-      scripts: {
-        build: 'node build/index.js',
-        zip: 'node build/zip.js'
-      }
-    });
-  }
-
   // 公共依赖包
   api.extendPackage({
     dependencies: {
@@ -157,6 +169,7 @@ module.exports = (api, options, rootOptions) => {
       'normalize.css': '8.0.1'
     },
     devDependencies: {
+      '@babel/eslint-parser': '^7.14.9',
       '@winner-fed/eslint-config-win': '^1.0.2',
       '@vue/eslint-config-prettier': '^6.0.0',
       '@winner-fed/stylelint-config-win': '^0.1.0',
@@ -164,23 +177,23 @@ module.exports = (api, options, rootOptions) => {
       '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
       'add-asset-html-webpack-plugin': '^3.1.3',
       archiver: '^3.0.0',
-      'babel-eslint': '^10.0.1',
       chalk: '^2.4.1',
       'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
       'less-loader': '^7.3.0',
       rimraf: '^3.0.2',
       'es-check': '^5.2.3',
-      eslint: '^7.6.0',
+      'eslint': '^7.24.0',
+      'eslint-plugin-vue': '^7.13.0',
       plop: '^2.3.0',
-      prettier: '^1.19.1',
+      prettier: '^2.3.2',
+      'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
       stylelint: '^13.6.1',
       'svn-info': '^1.0.0',
       tasksfile: '^5.1.0',
       'webpack-manifest-plugin': '^3.0.0',
-      webpackbar: '^4.0.0',
-      'webstorm-disable-index': '^1.2.0'
+      webpackbar: '^4.0.0'
     }
   });
 
@@ -192,24 +205,34 @@ module.exports = (api, options, rootOptions) => {
       devDependencies: {
         '@types/node': '^10.14.17',
         '@types/webpack-env': '^1.14.0',
-        '@typescript-eslint/eslint-plugin': '^2.33.0',
-        '@typescript-eslint/parser': '^2.33.0',
+        '@typescript-eslint/eslint-plugin': '^4.28.0',
+        '@typescript-eslint/parser': '^4.28.0',
         '@vue/cli-plugin-pwa': '~4.5.0',
         '@vue/cli-plugin-typescript': '~4.5.0',
-        '@vue/eslint-config-typescript': '^5.0.2'
+        '@vue/eslint-config-typescript': '^5.0.2',
+        typescript: '4.3.5'
       }
     });
   }
 
   // vue preset 版本
   if (options.preset === 'v2') {
+    // vue2
+    if (isNeedVite) {
+      api.extendPackage({
+        scripts: {
+          dev: 'vite'
+        }
+      });
+    }
+
     api.extendPackage({
       dependencies: {
         'vue-router': '3.5.1',
         'vue-svgicon': '3.2.6'
       },
       devDependencies: {
-        '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2'
+        '@winner-fed/vue-router-invoke-webpack-plugin': '^1.0.0'
       }
     });
 
@@ -226,6 +249,14 @@ module.exports = (api, options, rootOptions) => {
           'vue-property-decorator': '9.1.2'
         }
       });
+      // vue2 ts
+      if (isNeedVite) {
+        api.extendPackage({
+          scripts: {
+            dev: 'tsc --noEmit && vite'
+          }
+        });
+      }
     }
   } else {
     // v3
@@ -255,16 +286,25 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         '@vue/compiler-sfc': '^3.0.0',
-        '@winner-fed/svgicon-loader': '^1.0.1'
+        '@winner-fed/svgicon-loader': '^1.0.0'
       }
     });
   }
 
   // postcss
+  // pc
   api.extendPackage({
     postcss: {
       plugins: {
-        autoprefixer: {}
+        autoprefixer: {
+          overrideBrowserslist: [
+            'Android 4.4',
+            'iOS 9.0',
+            'Chrome > 43',
+            'ff > 34',
+            'ie >= 10'
+          ]
+        }
       }
     }
   });
@@ -284,12 +324,6 @@ module.exports = (api, options, rootOptions) => {
   // application 应用类型为 mobile
   if (options.application === 'mobile' || options.application === 'offline') {
     api.extendPackage({
-      dependencies: {
-        'lib-flexible': '0.3.2'
-      },
-      devDependencies: {
-        'postcss-pxtorem': '^4.0.1'
-      },
       postcss: {
         plugins: {
           autoprefixer: {
@@ -300,30 +334,81 @@ module.exports = (api, options, rootOptions) => {
               'ff > 34',
               'ie >= 10'
             ]
-          },
-          'postcss-pxtorem': {
-            rootValue: 37.5,
-            unitPrecision: 2,
-            propList: [
-              'height',
-              'line-height',
-              'width',
-              'padding',
-              'margin',
-              'top',
-              'left',
-              'right',
-              'bottom',
-              'font-size'
-            ],
-            selectorBlackList: [],
-            replace: true,
-            mediaQuery: false,
-            minPixelValue: 1
           }
         }
       }
     });
+    // 移动端适配方案
+    if (options['layout-adapter'] === 'vw') {
+      api.extendPackage({
+        devDependencies: {
+          'postcss-px-to-viewport': '^1.1.1'
+        },
+        postcss: {
+          plugins: {
+            'postcss-px-to-viewport': {
+              unitToConvert: 'px', // 要转化的单位
+              viewportWidth: 375, // UI设计稿的宽度
+              unitPrecision: 6, // 转换后的精度，即小数点位数
+              propList: [
+                'height',
+                'line-height',
+                'width',
+                'padding*',
+                'margin*',
+                'top',
+                'left',
+                'right',
+                'bottom',
+                'border*'
+              ], // 指定转换的css属性的单位，*代表全部css属性的单位都进行转换
+              viewportUnit: 'vw', // 指定需要转换成的视窗单位，默认vw
+              fontViewportUnit: 'vw', // 指定字体需要转换成的视窗单位，默认vw
+              selectorBlackList: ['wrap', '.ignore-', '.hairlines'], // 指定不转换为视窗单位的类名，
+              minPixelValue: 1, // 默认值1，小于或等于1px则不进行转换
+              mediaQuery: true, // 是否在媒体查询的css代码中也进行转换，默认false
+              replace: true, // 是否转换后直接更换属性值
+              exclude: [/node_modules/], // 设置忽略文件，用正则做目录名匹配
+              landscape: false, // 是否处理横屏情况,是否添加根据 landscapeWidth 生成的媒体查询条件 @media (orientation: landscape)
+              landscapeUnit: 'vw', //横屏时使用的单位
+              landscapeWidth: 1134 //横屏时使用的视口宽度
+            }
+          }
+        }
+      });
+    } else {
+      api.extendPackage({
+        dependencies: {
+          'amfe-flexible': '2.2.1'
+        },
+        devDependencies: {
+          'postcss-pxtorem': '^4.0.1'
+        },
+        postcss: {
+          plugins: {
+            'postcss-pxtorem': {
+              rootValue: 37.5,
+              unitPrecision: 2,
+              propList: [
+                'height',
+                'line-height',
+                'width',
+                'padding',
+                'margin',
+                'top',
+                'left',
+                'right',
+                'bottom'
+              ],
+              selectorBlackList: [],
+              replace: true,
+              mediaQuery: false,
+              minPixelValue: 1
+            }
+          }
+        }
+      });
+    }
   }
 
   // application 应用类型为 H5离线包
@@ -336,6 +421,18 @@ module.exports = (api, options, rootOptions) => {
     });
   }
 
+  // 是否需要 vite
+  if (isNeedVite) {
+    api.extendPackage({
+      devDependencies: {
+        vite: '^2.2.3',
+        'vite-plugin-components': '^0.8.4',
+        'vite-plugin-html': '^2.0.3',
+        'vite-plugin-style-import': '^0.10.0',
+        'vite-plugin-vue2': '^1.4.4'
+      }
+    });
+  }
   // 删除 vue-cli3 默认目录
   api.render((files) => {
     Object.keys(files)
@@ -355,19 +452,24 @@ module.exports = (api, options, rootOptions) => {
     require('./vant.js')(api, options);
   }
 
+  // 创建模板
+  // 基础模板
+  api.render('./template-base', options);
   if (options.preset === 'v2') {
     if (options.language === 'js') {
-      // 公共基础目录和文件
-      api.render('./template');
+      if (isNeedVite) {
+        api.render('./template-vue2-vite');
+      } else {
+        api.render('./template-vue2');
+      }
     } else {
-      api.render('./ts-template');
+      api.render('./template-vue2-ts');
     }
   } else {
     if (options.language === 'js') {
-      // 公共基础目录和文件
-      api.render('./template-v3');
+      api.render('./template-vue3');
     } else {
-      api.render('./ts-template-v3');
+      api.render('./template-vue3-ts');
     }
   }
 
@@ -376,6 +478,15 @@ module.exports = (api, options, rootOptions) => {
       // 只有离线包才有这个文件
       if (options.application !== 'offline') {
         delete files['offlinePackage.json'];
+      }
+
+      // 版本控制工具 git
+      if (options['version-control'] !== 'git') {
+        if (/^\.husky[/$]/.test(name)) {
+          delete files[name];
+        }
+        delete files['.ls-lint.yml'];
+        delete files['commitlint.config.js'];
       }
 
       // 是否为公司内部项目
@@ -395,6 +506,19 @@ module.exports = (api, options, rootOptions) => {
       if (options['application'] === 'pc') {
         delete files['public/console.js'];
         delete files['public/vconsole.min.js'];
+      }
+
+      // vite
+      if (isNeedVite) {
+        delete files['public/index.html'];
+      } else {
+        delete files['index.html'];
+        delete files['vite.config.js'];
+      }
+
+      // v3
+      if (options.preset === 'v3') {
+        delete files['vite.config.js'];
       }
     });
   });

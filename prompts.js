@@ -71,6 +71,13 @@ module.exports = [
     default: 'js'
   },
   {
+    name: 'build-tools',
+    type: 'confirm',
+    message: 'Whether you need to add the build tool Vite?',
+    when: (answers) => answers.preset === 'v2',
+    initial: true
+  },
+  {
     name: 'application',
     type: 'list',
     message: 'Choose whether your app is a PC or a mobile(default:mobile)',
@@ -127,6 +134,23 @@ module.exports = [
     default: 'none'
   },
   {
+    name: 'layout-adapter',
+    type: 'list',
+    message: 'Choose a mobile layout adaptation plan(default:rem)',
+    when: (answers) => answers.preset !== 'mini' && answers.application === 'mobile',
+    choices: [
+      {
+        name: 'viewpoint',
+        value: 'vw'
+      },
+      {
+        name: 'rem',
+        value: 'rem'
+      }
+    ],
+    default: 'rem'
+  },
+  {
     name: 'mobile-ui-framework',
     type: 'list',
     message: 'Choice Mobile UI Framework(default:none)',
@@ -144,6 +168,22 @@ module.exports = [
       answers.preset !== 'mini' &&
       (answers.application === 'mobile' || answers.application === 'offline'),
     default: 'none'
+  },
+  {
+    name: 'version-control',
+    type: 'list',
+    message: 'Choose the Version control tool(default:svn)?',
+    choices: [
+      {
+        name: 'SVN',
+        value: 'svn'
+      },
+      {
+        name: 'Git',
+        value: 'git'
+      }
+    ],
+    default: 'svn'
   },
   {
     name: 'mirror-source',

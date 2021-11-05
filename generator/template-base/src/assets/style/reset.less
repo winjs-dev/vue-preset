@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+*:not(input, textarea) {
+  // 非标准属性
+  // 当你触摸并按住触摸目标时候，禁止或显示系统默认菜单。在iOS上，当你触摸并按住触摸的目标，比如一个链接，Safari浏览器将显示链接有关的系统默认菜单。这个属性可以让你禁用系统默认菜单。
+  -webkit-touch-callout: none;
+  // iOS 若设置为 none, 则 input,textarea 输入无法触发 onchange 或者 oninput 事件
+  // 会出现输入不了值的问题
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  // https://www.zhangxinxu.com/wordpress/2018/10/scroll-behavior-scrollintoview-%E5%B9%B3%E6%BB%91%E6%BB%9A%E5%8A%A8/
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: @fontSizeH3;
+  line-height: 1.4;
+  color: @fontColor;
+  background-color: @colorWhite;
+}
+
+// Margin & Padding
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+form,
+button,
+input,
+select,
+ul,
+ol,
+dl,
+dd {
+  padding: 0;
+  margin: 0;
+}
+
+// Font
+h1,
+h2,
+h3,
+h4,
+i,
+em,
+strong {
+  font-weight: normal;
+}
+
+i,
+em,
+b {
+  font-style: normal;
+  font-weight: normal;
+}
+
+// Link
+a {
+  color: @colorBlueMain;
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+  outline: 0;
+}
+
+// Forms
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
