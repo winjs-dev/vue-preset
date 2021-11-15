@@ -6,7 +6,7 @@
   "singleQuote": true,
   "trailingComma": "none",
   "proseWrap": "never",
-  "bracketSameLine": "false",
+  "bracketSameLine": false,
   "arrowParens": "always",
   "jsxSingleQuote": false,
   "vueIndentScriptAndStyle": true,
