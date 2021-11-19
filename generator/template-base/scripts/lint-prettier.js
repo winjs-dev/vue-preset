@@ -9,7 +9,7 @@
 const prettier = require('prettier');
 const fs = require('fs');
 const chalk = require('chalk');
-const prettierConfigPath = require.resolve('../.prettierrc');
+const prettierConfigPath = require.resolve('../.prettierrc.js');
 
 const files = process.argv.slice(2);
 
