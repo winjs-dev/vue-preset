@@ -169,7 +169,6 @@ module.exports = (api, options, rootOptions) => {
       'normalize.css': '8.0.1'
     },
     devDependencies: {
-      '@babel/eslint-parser': '^7.14.9',
       '@winner-fed/eslint-config-win': '^1.0.2',
       '@vue/eslint-config-prettier': '^6.0.0',
       '@winner-fed/stylelint-config-win': '^0.1.0',
@@ -177,6 +176,7 @@ module.exports = (api, options, rootOptions) => {
       '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
       'add-asset-html-webpack-plugin': '^3.1.3',
       archiver: '^3.0.0',
+      'babel-eslint': '^10.1.0',
       chalk: '^2.4.1',
       'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
