@@ -37,3 +37,6 @@ npm run docs:build
 - [x] 新增离线包相关特性
 - [x] 支持vue3.0
 - [x] vue2.x 支持新的构建工具 vite
+
+## 统计
+![Alt](https://repobeats.axiom.co/api/embed/180b11b920e072bf5bdde5581431de24bc1bbf90.svg "Repobeats analytics image")
