@@ -51,7 +51,7 @@ export const getUrlToJson = (url) => {
  *
  * customFormatDate(时间戳, "yyyy-MM-dd hh:mm:ss.S") 转换后 2016-07-02 08:09:04.423
  */
-export const customFormatDate = (UnixTime, fmt) => {
+export const customFormatDate = (UnixTime, fmt?: string) => {
   if (!UnixTime) return '';
   const dateTime = new Date(parseInt(`${UnixTime * 1000}`));
   const o = {

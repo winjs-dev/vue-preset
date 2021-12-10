@@ -1,6 +1,6 @@
 // log输出级别分为五种：debug,info,warn,error,fatal。
 import Taro from '@tarojs/taro';
-import { formatTime } from './index';
+import { customFormatDate } from './index';
 import { stringify } from './serialize';
 
 /**
@@ -64,7 +64,7 @@ const report = (name, option, type = 'info') => {
   } catch (e) {
     console.error('not support getSystemInfoSync api', e.message);
   }
-  let time = formatTime(new Date());
+  let time = customFormatDate(Date.now() / 1000);
   // let user = getApp().globalData.user
   if (type == 'info') {
     console.log(time, name, option, device);

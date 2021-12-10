@@ -1,3 +1,4 @@
+import {combineURLs} from '@winner-fed/cloud-utils/dist/cloud-utils.esm.js';
 import { BASE_URL } from '@/constants/constant';
 
 /**
@@ -7,7 +8,6 @@ import { BASE_URL } from '@/constants/constant';
  * @returns {string}
  */
 export default function autoMatchBaseUrl(prefix: string = '') {
-  let baseUrl = BASE_URL;
 
-  return baseUrl;
+  return combineURLs(BASE_URL, prefix);
 }

@@ -7,10 +7,13 @@ const config = {
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
-    828: 1.81 / 2
+    828: 1.81 / 2,
+    375: 2 / 1
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  // 达到多端同步调试的目的
+  // 微信小程序编译后的目录就会是 dist/weapp，H5 编译后目录就会是 dist/h5。
+  outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
   defineConstants: {
     IS_H5: process.env.TARO_ENV === 'h5',
@@ -33,34 +36,6 @@ const config = {
     options: {}
   },
   framework: 'vue',
-  weapp: {
-    postcss: {
-      autoprefixer: {
-        enable: true,
-        config: {}
-      },
-      pxtransform: {
-        enable: true,
-        config: {}
-      },
-      url: {
-        enable: true,
-        config: {
-          limit: 10240 // 设定转换尺寸上限
-        }
-      },
-      cssModules: {
-        enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
-        config: {
-          namingPattern: 'module', // 转换模式，取值为 global/module
-          generateScopedName: '[name]__[local]___[hash:base64:5]'
-        }
-      }
-    },
-    sassLoaderOption: {
-      additionalData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
-    }
-  },
   mini: {
     postcss: {
       autoprefixer: {
@@ -85,24 +60,24 @@ const config = {
         }
       }
     },
-    sassLoaderOption: {
-      additionalData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
+    lessLoaderOption: {
+      additionalData: `@import '@/assets/style/variables.less'; @import '@winner-fed/magicless/magicless.less'; @import '@/assets/style/mixins.less';`
     }
   },
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
     output: {
-      filename: 'js/[name].[hash].js',
-      chunkFilename: 'js/[name].[chunkhash].js'
+      filename: 'static/js/[name].[hash].js',
+      chunkFilename: 'static/js/[name].[chunkhash].js'
     },
     imageUrlLoaderOption: {
       limit: 5000,
-      name: 'static/images/[name].[hash].[ext]'
+      name: 'static/img/[name].[hash].[ext]'
     },
     miniCssExtractPluginOption: {
-      filename: 'css/[name].[hash].css',
-      chunkFilename: 'css/[name].[chunkhash].css'
+      filename: 'static/css/[name].[hash].css',
+      chunkFilename: 'static/css/[name].[chunkhash].css'
     },
     postcss: {
       autoprefixer: {
@@ -117,8 +92,12 @@ const config = {
         }
       }
     },
-    sassLoaderOption: {
-      prependData: `@import '@/assets/style/variables.scss'; @import '@/assets/style/mixins.scss';`
+    devServer: {
+      host: '0.0.0.0',
+      port: 3001
+    },
+    lessLoaderOption: {
+      additionalData: `@import '@/assets/style/variables.less'; @import '@winner-fed/magicless/magicless.less'; @import '@/assets/style/mixins.less';`
     }
   }
 };

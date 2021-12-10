@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import './webview.scss';
+  import './webview.less';
 
   export default {
     data() {

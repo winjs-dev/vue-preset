@@ -34,9 +34,7 @@ export const serializer = (replacer, cycleReplacer) => {
       if (stack[0] === value) {
         return '[Circular ~]';
       }
-      return (
-        '[Circular ~.' + keys.slice(0, indexOf(stack, value)).join('.') + ']'
-      );
+      return '[Circular ~.' + keys.slice(0, indexOf(stack, value)).join('.') + ']';
     };
   }
 

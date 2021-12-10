@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './app.scss';
+import './app.less';
 
 const App = {
   onShow(options) {},

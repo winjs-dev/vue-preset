@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "dist/",
   "projectname": "myApp",
-  "description": "a ",
+  "description": "taro demo",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,
@@ -23,11 +23,6 @@
     "compileHotReLoad": false,
     "useMultiFrameRuntime": false,
     "useApiHook": true,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
     "useIsolateContext": true,
     "useCompilerModule": false,
     "userConfirmedUseCompilerModuleSwitch": false,

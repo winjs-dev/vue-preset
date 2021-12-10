@@ -16,7 +16,7 @@
   import 'taro-ui-vue/dist/style/components/noticebar.scss';
   import services from '@/services/index.ts';
   import log from '@/utils/log.ts';
-  import './index.scss';
+  import './index.less';
 
   export default {
     components: {

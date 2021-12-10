@@ -17,10 +17,7 @@
     "rootDir": ".",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "global.d.ts"
-    ],
+    "typeRoots": ["node_modules/@types", "global.d.ts"],
     "paths": {
       "@/components/*": ["./src/components/*"],
       "@/assets/*": ["./src/assets/*"],
@@ -31,9 +28,6 @@
       "@/project": ["./project.config.json"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
+  "exclude": ["node_modules", "dist"],
   "compileOnSave": false
 }
