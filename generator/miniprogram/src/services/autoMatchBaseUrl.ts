@@ -1,4 +1,4 @@
-import {combineURLs} from '@winner-fed/cloud-utils/dist/cloud-utils.esm.js';
+import { combineURLs } from '@winner-fed/cloud-utils/dist/cloud-utils.esm.js';
 import { BASE_URL } from '@/constants/constant';
 
 /**
