@@ -63,10 +63,10 @@ module.exports = (api, options, rootOptions) => {
       dependencies: {
         '@winner-fed/magicless': '*',
         '@babel/runtime': '^7.7.7',
-        "@tarojs/cli": "3.3.15",
-        "@tarojs/components": "3.3.15",
-        "@tarojs/runtime": "3.3.15",
-        "@tarojs/taro": "3.3.15",
+        '@tarojs/cli': '3.3.15',
+        '@tarojs/components': '3.3.15',
+        '@tarojs/runtime': '3.3.15',
+        '@tarojs/taro': '3.3.15',
         lodash: '4.17.15',
         'vue-template-compiler': '^2.5.0',
         vue: '^2.5.0',
@@ -74,10 +74,10 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         '@babel/core': '^7.8.0',
-        "@tarojs/mini-runner": "3.3.15",
-        "@tarojs/webpack-runner": "3.3.15",
+        '@tarojs/mini-runner': '3.3.15',
+        '@tarojs/webpack-runner': '3.3.15',
         '@types/webpack-env': '^1.13.6',
-        "babel-preset-taro": "3.3.15",
+        'babel-preset-taro': '3.3.15',
         eslint: '^6.8.0',
         'vue-loader': '^15.9.2',
         'eslint-plugin-vue': '^7.x',
@@ -131,6 +131,7 @@ module.exports = (api, options, rootOptions) => {
 
   // 命令
   api.extendPackage({
+    buildVersion: 'V202101-00-000',
     scripts: {
       bootstrap:
         'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
@@ -155,7 +156,7 @@ module.exports = (api, options, rootOptions) => {
       build: '生产环境执行构建',
       analyz: '生产环境执行构建打包分析',
       deploy: '生产环境执行构建并压缩zip包',
-      see: '生成 see 平台部署发布物',
+      'build:see': '生成 see 平台部署发布物',
       escheck: '检测是否含有 ES6+ 语法'
     }
   });
@@ -313,7 +314,7 @@ module.exports = (api, options, rootOptions) => {
   if (options['see-package']) {
     api.extendPackage({
       scripts: {
-        see: 'npm run build && node build/package/see.js'
+        'build:see': 'npm run build && node build/package/see.js'
       },
       devDependencies: {
         '@winner-fed/winner-deploy': '^2.0.0'
