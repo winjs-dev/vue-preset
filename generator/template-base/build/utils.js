@@ -1,43 +1,121 @@
 'use strict';
+const fs = require('fs-extra');
+const chalk = require('chalk');
+const path = require('path');
+const { formatDate, generateGUID } = require('@winner-fed/cloud-utils');
+const { name, version, buildVersion, description = '发布物描述测试' } = require('../package.json');
+const runtimeArgs = process.argv.slice(2);
+// 构建 docker 容器化发布物
+// windows 不区分大小写
+// npm run build:see -dockerSeePack
+const isDocker = process.env.npm_config_dockerseepack === 'true';
 
-const svnInfo = require('svn-info');
-const pkg = require('../package.json');
-
-// 获取当前SVN版本信息
-// { path: 'h5-isee-financial-component',
-//   url:
-//   'https://*.*.*.*/BrokerNet/iSeeRobotAdvisor/trunk/Sources/web/h5-isee-financial-component',
-//   relativeUrl: '^/trunk/Sources/web/h5-isee-financial-component',
-//   repositoryRoot: 'https://*.*.*.*/BrokerNet/iSeeRobotAdvisor',
-//   repositoryUuid: '4c2a55e3-85bc-7745-89fe-3553e2e4e147',
-//   revision: '14248',
-//   nodeKind: 'directory',
-//   lastChangedAuthor: 'author',
-//   lastChangedRev: '14243',
-//   lastChangedDate: '2019-01-22 10:29:32 +0800 ( ܶ , 22 һ   2019)' }
-exports.getCurrentVersion = function () {
-  // 当前项目的 svn 绝对路径
-  const svnUrl = '';
-
-  if (svnUrl) {
-    return svnInfo.sync(svnUrl, 'HEAD').lastChangedRev;
-  }
-
-  return pkg.name;
+// 判断是否是 git
+exports.isGitSync = function isGitSync(dir) {
+  return fs.existsSync(path.join(dir, '.git'));
 };
 
-<%_ if (options['build-tools']) { _%>
-exports.genHtmlOptions = function (env) {
-  const options = {
-    title: pkg.name,
+exports.getGitHash = function getGitHash() {
+  let rev;
+  try {
+    rev = fs
+      .readFileSync('.git/HEAD')
+      .toString()
+      .trim()
+      .split(/.*[: ]/)
+      .slice(-1)[0];
+  } catch (error) {
+    rev = generateGUID().slice(0, 8);
+  }
+
+  if (rev.indexOf('/') === -1) {
+    return rev;
+  } else {
+    try {
+      return fs
+        .readFileSync('.git/' + rev)
+        .toString()
+        .trim();
+    } catch (error) {
+      console.log(
+        chalk.red('.git/refs/heads/master 访问失败，还没有进行过第一次提交。默认取值为 guid。')
+      );
+      return generateGUID().slice(0, 8);
+    }
+  }
+};
+
+exports.transformTime = function transformTime() {
+  if (exports.isGitSync(process.cwd())) {
+    return `${formatDate(Date.now(), 'yyyyMMddhhmmss')}.${exports.getGitHash().substring(0, 8)}`;
+  } else {
+    return `${formatDate(Date.now(), 'yyyyMMddhhmmss')}`;
+  }
+};
+
+/**
+ * 生成发布物的相关信息
+ * @param system
+ * @param type
+ * @returns {{seePackageName: string, seePackageOptions: {system, templateFunc: ((function(): (string|string))|*), variablesFunc: ((function(): (*|[]|undefined))|*), name, description: string, type, version}}}
+ */
+exports.generateSeePackageInfo = function generateSeePackageInfo({ system, type }) {
+  let seePackageName = `${system}-${name}-web`;
+  const templateFunc = () => {
+    if (type === 'bizframe') {
+      return `./dist/config.local.js`;
+    }
+
+    // 子包遵循主框架的规范
+    return `./dist/${name}/sysconfig.js`;
   };
-  if (env === 'vite') {
-    process.env.TOOL_NAME = 'vite';
-    options.process = {
-      // 注入env
-      env: process.env,
-    };
+
+  const variablesFunc = () => {
+    try {
+      const { variables } = require(`./package/variables.js`);
+
+      return variables || [];
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  const seePackageOptions = {
+    system,
+    type,
+    name,
+    version,
+    templateFunc,
+    variablesFunc,
+    description
+  };
+
+  if (isDocker) {
+    seePackageName += '-docker';
+    seePackageOptions.seePackageType = 'docker';
   }
-  return options;
+
+  // 生成 see 发布物名称
+  function generateSeePackageName() {
+    let appVersion = version.replace('-patch', '.') || `1.0.0`;
+    const appVersionArray = appVersion.split('.');
+    appVersion = appVersionArray.length === 3 ? appVersion + '.0' : appVersion;
+    const cloneBuildVersion = buildVersion || appVersion;
+
+    seePackageName += `-${cloneBuildVersion}`;
+
+    // npm run build:see 测试包
+    // npm run build:see prod 生产包
+    if (runtimeArgs[0] !== 'prod') {
+      seePackageName += `-${exports.transformTime()}`;
+    }
+  }
+
+  generateSeePackageName();
+
+  return {
+    seePackageOptions,
+    seePackageName
+  };
 };
-<%_ } _%>

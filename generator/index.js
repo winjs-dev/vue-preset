@@ -141,7 +141,6 @@ module.exports = (api, options, rootOptions) => {
       'lint:style': 'vue-cli-service lint:style',
       'lint:prettier': 'check-prettier lint',
       report: 'vue-cli-service build --report',
-      new: 'plop',
       deploy: 'npm run build && npm run zip',
       prettier: 'node ./scripts/prettier.js',
       release: 'sh build/release.sh',
