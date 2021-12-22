@@ -9,11 +9,11 @@ if (!system) {
   throw new Error('system 不能为空！根据实际项目需求进行命名！');
 }
 
-const type = 'bizframe';
-const configName = 'config.local';
+const type = 'subsystem';
+const configName = 'sysconfig';
 
 async function init() {
-  // 1. 生成 see 发布物的名称及参数
+  // 1. 生成 see 发布物的名称
   const { seePackageName, seePackageOptions } = generateSeePackageInfo({ system, type });
 
   // 2. 移除 package 文件夹

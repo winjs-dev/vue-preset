@@ -185,7 +185,6 @@ module.exports = (api, options, rootOptions) => {
       'es-check': '^5.2.3',
       'eslint': '^7.24.0',
       'eslint-plugin-vue': '^7.13.0',
-      plop: '^2.3.0',
       prettier: '^2.4.1',
       'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
@@ -317,6 +316,26 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         '@winner-fed/winner-deploy': '^2.0.0'
+      }
+    });
+  }
+
+  // 支持子应用功能
+  if (options['needs-subsystem']) {
+    api.extendPackage({
+      scripts: {
+        'child': 'node --max_old_space_size=4096 build/child/build.child.js',
+        'build:see:child': 'npm run child && node build/package/see.child.js'
+      },
+      'dependencies': {
+        'js-cookie': '^3.0.1'
+      },
+      devDependencies: {
+        '@winner-fed/winner-deploy': '^3.0.0',
+        'postcss-import': '11.1.0',
+        'postcss-loader': '2.1.6',
+        'postcss-url': '7.3.2',
+        'replace-in-file': '^6.2.0'
       }
     });
   }
@@ -473,6 +492,11 @@ module.exports = (api, options, rootOptions) => {
     } else {
       api.render('./template-vue3-ts');
     }
+  }
+
+  // 支持子应用功能
+  if (options['needs-subsystem']) {
+    api.render('./subsystem', options);
   }
 
   api.postProcessFiles((files) => {

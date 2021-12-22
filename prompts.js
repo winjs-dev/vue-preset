@@ -199,5 +199,13 @@ module.exports = [
     when: (answers) =>
       answers.preset !== 'mini' && answers['mirror-source'] === true,
     initial: true
+  },
+  {
+    name: 'needs-subsystem',
+    type: 'confirm',
+    message: 'Whether to support the subsystem?',
+    when: (answers) =>
+      answers.preset !== 'mini' && answers['mirror-source'] === true,
+    initial: true
   }
 ];
