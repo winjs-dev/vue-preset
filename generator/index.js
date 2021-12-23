@@ -229,9 +229,6 @@ module.exports = (api, options, rootOptions) => {
       dependencies: {
         'vue-router': '3.5.1',
         'vue-svgicon': '3.2.6'
-      },
-      devDependencies: {
-        '@winner-fed/vue-router-invoke-webpack-plugin': '^1.0.0'
       }
     });
 
