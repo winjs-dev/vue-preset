@@ -1,7 +1,7 @@
 import FUNS from '@/services';
 import { routes } from './router';
 import { filters } from './filters';
-import Locale from './locale';
+import Locale from './locales';
 
 // icons
 import SvgIcon from 'vue-svgicon';
