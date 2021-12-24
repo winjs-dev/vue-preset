@@ -1,17 +1,16 @@
+// @ts-nocheck
 /**
  *
  * @authors liwb (lwbhtml@gmail.com)
- * @date    2018/6/5 上午10:43
- * @description https://github.com/mzabriskie/axios
- * 安卓4.4.3一下的手机还是不支持Promise的,需要引入npm install babel-polyfill和npm install babel-runtime，在入口文件上加上即可
- * import 'babel-polyfill';
+ * @date    2021/12/24 上午10:43
+ * @description https://github.com/axios/axios
  */
 
 import Qs from 'qs';
 import axios from 'axios';
-import autoMatchBaseUrl from './autoMatchBaseUrl';
 import Cookies from 'js-cookie';
 import { checkIsHwsContainer } from '@/utils';
+import autoMatchBaseUrl from './autoMatchBaseUrl';
 import { TIMEOUT } from '@/constant';
 
 const codeMessage = {
@@ -92,7 +91,7 @@ function checkStatus(response) {
  * 全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
  */
-const axiosConfig = {
+const axiosRequest = {
   success: (config) => {
     // 以下代码，鉴权token,可根据具体业务增删。
     // demo示例:
@@ -127,11 +126,6 @@ const axiosResponse = {
       }
     }
 
-    if (axios.isCancel(error)) {
-      console.error('repeated request: ' + error.message);
-    } else {
-      // handle error code
-    }
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
@@ -151,7 +145,7 @@ const axiosResponse = {
   }
 };
 
-axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
+axios.interceptors.request.use(axiosRequest.success, axiosRequest.error);
 axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
@@ -184,7 +178,19 @@ export default function request(
     data,
     timeout,
     headers: formatHeaders,
-    responseType: dataType
+    responseType: dataType,
+    // 这里将 response.data 为 string 做了 JSON.parse 的转换处理
+    transformResponse: axios.defaults.transformResponse.concat(function (data) {
+      let copyData = data;
+      if (typeof data === 'string' && data.length) {
+        try {
+          copyData = JSON.parse(data);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      return copyData;
+    })
   };
 
   if (method === 'get') {
@@ -192,7 +198,7 @@ export default function request(
   } else {
     defaultConfig.params = {};
 
-    const contentType = headers['Content-Type'];
+    const contentType = formatHeaders['Content-Type'];
 
     if (typeof contentType !== 'undefined') {
       if (contentType.indexOf('multipart') !== -1) {
