@@ -235,9 +235,9 @@ exports.removeVersion = function () {
   fse.removeSync(path.resolve(path.resolve(__dirname, '../../node_modules'), childName));
 };
 
-// 为 views 补齐 childName 路径
+// 除了 /views，其他目录前面都添加 childName
 exports.appendPrefixViews = function (dirPath) {
-  if (dirPath && dirPath.indexOf('views') === -1) {
+  if (dirPath && dirPath.indexOf('/views') === -1) {
     return dirPath.replace(`${childName}/`, '');
   }
 
