@@ -6,7 +6,10 @@ export const routes = [
   {
     component: () => import(/* webpackChunkName: "views/hello" */ `@/views/hello/index.vue`),
     name: 'hello',
-    path: '/hello'
+    path: '/hello',
+    meta: {
+      title: '首页'
+    }
   },
   {
     path: '/',

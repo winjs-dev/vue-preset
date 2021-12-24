@@ -15,7 +15,10 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'hello',
-    component: Hello
+    component: Hello,
+    meta: {
+      title: '首页'
+    }
   },
   {
     path: '*',
