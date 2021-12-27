@@ -49,7 +49,7 @@ exports.transformTime = function transformTime() {
   if (exports.isGitSync(process.cwd())) {
     return `${formatDate(Date.now(), 'yyyyMMddhhmmss')}.${exports.getGitHash().substring(0, 8)}`;
   } else {
-    return `${formatDate(Date.now(), 'yyyyMMddhhmmss')}`;
+    return `${formatDate(Date.now(), 'yyyyMMddhhmmss')}.${generateGUID().slice(0, 8)}`;
   }
 };
 
@@ -96,8 +96,8 @@ exports.generateSeePackageInfo = function generateSeePackageInfo({ system, type 
     seePackageOptions.seePackageType = 'docker';
   }
 
-  // 生成 see 发布物名称
-  function generateSeePackageName() {
+  // 生成 see 发布物名称和版本
+  function generateSeePackageNameAndVersion() {
     let appVersion = version.replace('-patch', '.') || `1.0.0`;
     const appVersionArray = appVersion.split('.');
     appVersion = appVersionArray.length === 3 ? appVersion + '.0' : appVersion;
@@ -108,11 +108,18 @@ exports.generateSeePackageInfo = function generateSeePackageInfo({ system, type 
     // npm run build:see 测试包
     // npm run build:see prod 生产包
     if (runtimeArgs[0] !== 'prod') {
+      appVersion = `${appVersion}-${exports.transformTime()}`;
       seePackageName += `-${exports.transformTime()}`;
     }
+
+    return {
+      appVersion
+    };
   }
 
-  generateSeePackageName();
+  const { appVersion } = generateSeePackageNameAndVersion();
+
+  seePackageOptions.version = appVersion || version;
 
   return {
     seePackageOptions,
