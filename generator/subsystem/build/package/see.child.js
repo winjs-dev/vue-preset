@@ -20,6 +20,27 @@ async function init() {
   fs.removeSync('./package');
 
   // 3. 生成 see 平台发布物
+  // 生成 docker 包的同时也生成 see 包
+  if (seePackageOptions.seePackageType === 'docker') {
+    generateSeePackageZip(
+      {
+        ...seePackageOptions,
+        configName,
+        seePackageName
+      },
+      function () {
+        generateSeePackageZip({
+          ...seePackageOptions,
+          seePackageType: 'web',
+          configName,
+          seePackageName: seePackageName.replace('-docker', '')
+        });
+      }
+    );
+
+    return;
+  }
+
   generateSeePackageZip({
     ...seePackageOptions,
     configName,
