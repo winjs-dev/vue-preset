@@ -93,7 +93,7 @@ const webpackConfig = {
       })
     ],
     splitChunks: {
-      chunks: 'async',
+      chunks: 'all',
       minSize: 30000,
       maxSize: 0,
       minChunks: 1,
@@ -102,13 +102,15 @@ const webpackConfig = {
       automaticNameDelimiter: '_',
       name: true,
       cacheGroups: {
-        [childName + '/vendors']: {
+        ['vendors']: {
           test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
           priority: -10
         },
-        [childName + '/default']: {
+        ['default']: {
           minChunks: 2,
           priority: -20,
+          chunks: 'async',
           reuseExistingChunk: true
         }
       }
@@ -138,7 +140,8 @@ const webpackConfig = {
         loader: 'url-loader',
         query: {
           limit: 10000,
-          name: path.posix.join(childName, utils.assetsPath('img/[name].[ext]'))
+          name: path.posix.join(childName, utils.assetsPath('img/[name].[ext]')),
+          publicPath: './'
         }
       },
       {
@@ -146,7 +149,8 @@ const webpackConfig = {
         loader: 'url-loader',
         query: {
           limit: 10000,
-          name: path.posix.join(childName, utils.assetsPath('fonts/[name].[hash:5].[ext]'))
+          name: path.posix.join(childName, utils.assetsPath('fonts/[name].[hash:5].[ext]')),
+          publicPath: './'
         }
       },
       ...utils.generateStyleModules({

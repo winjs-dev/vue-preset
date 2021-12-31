@@ -44,14 +44,18 @@ rm(path.resolve(__dirname, '../../dist'), (err) => {
   if (err) throw err;
 
   build(builds)
-    .then(() => {
-      // 迁移 views 到子产品目录下
-      fs.move(path.resolve(__dirname, '../../dist/views'), `${childPath}/views`);
+    .then(async () => {
+      try {
+        await fs.move(path.resolve(__dirname, '../../dist/views'), `${childPath}/views`);
+        await fs.move(
+          path.resolve(__dirname, '../../dist/vendors_views'),
+          `${childPath}/vendors_views`
+        );
+      } catch (err) {
+        console.error('迁移 views 到子产品目录下出现异常', err);
+      }
 
-      // 移除 version 文件
-      removeVersion();
-      console.log(chalk.cyan('  Build complete.\n'));
-      // 1, rename 全局变量 LOCAL_CONFIG TODO 风险
+      // 1, rename 全局变量 LOCAL_CONFIG TODO 风险 如果依赖主框架的全局变量
       // 2, rename $services,解决运行多个子包时，挂载到 Vue 实例原型命名的冲突
       const options = {
         files: [path.resolve(path.resolve(__dirname, '../../dist'), childName + '/**/*.js')],
@@ -60,6 +64,10 @@ rm(path.resolve(__dirname, '../../dist'), (err) => {
       };
 
       replace.sync(options);
+
+      // 移除 version 文件
+      removeVersion();
+      console.log(chalk.cyan('  Build complete.\n'));
     })
     .catch((err) => {
       console.log(chalk.red('Build failed with errors.\n'));
