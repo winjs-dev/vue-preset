@@ -1,14 +1,11 @@
 /**
  *
  * @authors liwb (you@example.org)
- * @date    2020/12/16 11:33
- * @version 此文件对应的是 meta.json， 详见 http://hui.hundsun.com/community/topic/147/%E5%88%A9%E7%94%A8-see-%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%A8%A1%E7%89%88%E9%85%8D%E7%BD%AE%E8%83%BD%E5%8A%9B%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9-api_home
+ * @date    2022/01/04 11:33
+ * @version variables 参考 http://hui.hundsun.com/frame-config/#see-variables
  */
 
 module.exports = {
-  version: '1.0.0',
-  'style-isolate': false,
-  prefetch: true,
   variables: [
     {
       type: 'input',
