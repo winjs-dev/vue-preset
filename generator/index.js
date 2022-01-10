@@ -113,8 +113,7 @@ module.exports = (api, options, rootOptions) => {
         'gen:log': 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0',
         'lint:ls-lint': 'ls-lint',
         'lint:lint-staged': 'lint-staged -c ./.husky/lintstagedrc.js',
-        'install:husky': 'is-ci || husky install',
-        'lint:pretty': 'pretty-quick --staged'
+        'install:husky': 'is-ci || husky install'
       },
       devDependencies: {
         '@commitlint/cli': '^13.1.0',
