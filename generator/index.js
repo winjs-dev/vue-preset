@@ -139,11 +139,9 @@ module.exports = (api, options, rootOptions) => {
       serve: 'vue-cli-service serve',
       lint: 'vue-cli-service lint',
       'lint:style': 'vue-cli-service lint:style',
-      'lint:prettier': 'check-prettier lint',
+      prettier: 'prettier --write "src/**/*.{js,json,tsx,css,less,scss,vue,html,md}"',
       report: 'vue-cli-service build --report',
       deploy: 'npm run build && npm run zip',
-      prettier: 'node ./scripts/prettier.js',
-      release: 'sh build/release.sh',
       inspect: 'vue inspect > output.js --verbose',
       reinstall: 'rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap',
       escheck: 'es-check',
@@ -178,7 +176,6 @@ module.exports = (api, options, rootOptions) => {
       archiver: '^3.0.0',
       'babel-eslint': '^10.1.0',
       chalk: '^2.4.1',
-      'check-prettier': '^1.0.3',
       'compression-webpack-plugin': '^3.0.0',
       'less-loader': '^7.3.0',
       rimraf: '^3.0.2',
@@ -186,10 +183,8 @@ module.exports = (api, options, rootOptions) => {
       'eslint': '^7.24.0',
       'eslint-plugin-vue': '^7.13.0',
       prettier: '^2.4.1',
-      'pretty-quick': '^3.1.0',
       'script-ext-html-webpack-plugin': '^2.1.3',
       stylelint: '^13.6.1',
-      'svn-info': '^1.0.0',
       tasksfile: '^5.1.0',
       'webpack-manifest-plugin': '^3.0.0',
       webpackbar: '^4.0.0'
@@ -294,11 +289,11 @@ module.exports = (api, options, rootOptions) => {
       plugins: {
         autoprefixer: {
           overrideBrowserslist: [
-            'Android 4.4',
+            'Android 5.0',
             'iOS 9.0',
             'Chrome > 43',
             'ff > 34',
-            'ie >= 10'
+            'ie >= 11'
           ]
         }
       }
@@ -344,11 +339,11 @@ module.exports = (api, options, rootOptions) => {
         plugins: {
           autoprefixer: {
             overrideBrowserslist: [
-              'Android 4.4',
+              'Android 5.0',
               'iOS 9.0',
               'Chrome > 43',
               'ff > 34',
-              'ie >= 10'
+              'ie >= 11'
             ]
           }
         }
