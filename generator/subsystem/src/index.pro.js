@@ -40,19 +40,6 @@ const plugin = {
 };
 
 /**
- * @description 生成 vuex 状态仓库模块，入参为 src/store 目录下的文件名
- * @param {array} files 模块文件
- */
-function generateStoreModules(files = []) {
-  const modules = {};
-  // files.forEach((file) => {
-  //   const name = file.replace(/\.js$/, "");
-  //   modules[name] = require(`@/store/${file}`);
-  // });
-  return modules;
-}
-
-/**
  * @description 注册对应的子系统router到框架
  */
 function generateRouterModules(routers = []) {
@@ -79,7 +66,7 @@ export default {
   router: generateRouterModules(routes),
 
   // 状态模块
-  store: generateStoreModules(['todos.js']),
+  store: {},
 
   // 实例方法
   utils: {},
