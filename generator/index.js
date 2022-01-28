@@ -183,6 +183,7 @@ module.exports = (api, options, rootOptions) => {
       'eslint-plugin-vue': '^7.13.0',
       prettier: '^2.4.1',
       'script-ext-html-webpack-plugin': '^2.1.3',
+      shelljs: '^0.8.5',
       stylelint: '^13.6.1',
       tasksfile: '^5.1.0',
       'webpack-manifest-plugin': '^3.0.0',
@@ -306,7 +307,7 @@ module.exports = (api, options, rootOptions) => {
         'build:see': 'npm run build && node build/package/see.js'
       },
       devDependencies: {
-        '@winner-fed/winner-deploy': '^2.0.0'
+        '@winner-fed/winner-deploy': '^3.0.0'
       }
     });
   }

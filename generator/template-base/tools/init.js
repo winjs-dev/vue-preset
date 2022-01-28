@@ -2,7 +2,7 @@
 const { readFileSync, writeFileSync } = require('fs');
 const chalk = require('chalk');
 const path = require('path');
-const {rm, exec } = require('shelljs');
+const { rm, exec } = require('shelljs');
 // Note: These should all be relative to the project root directory
 const rmFiles = [
   'tools/init.js'
@@ -52,4 +52,3 @@ function finalize () {
   removeItems();
   finalize();
 })();
-
