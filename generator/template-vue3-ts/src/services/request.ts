@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  *
  * @authors liwb (lwbhtml@gmail.com)
@@ -9,6 +10,8 @@ import Qs from 'qs';
 import axios, { AxiosRequestConfig } from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
 import { TIMEOUT } from '@/constant';
+
+export const requestInstance = axios.create({});
 
 const codeMessage: object = {
   200: '服务器成功返回请求的数据。',
@@ -73,7 +76,7 @@ function responseLog(response) {
 }
 
 /**
- * 全局请求扩展配置
+ * requestInstance 实例全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
  */
 const axiosRequest = {
@@ -90,7 +93,7 @@ const axiosRequest = {
 };
 
 /**
- * 全局请求响应处理
+ * requestInstance 实例全局请求响应处理
  * 添加一个返回拦截器 （于transformResponse之后处理）
  * 返回的数据类型默认是json，若是其他类型（text）就会出现问题，因此用try,catch捕获异常
  */
@@ -121,8 +124,8 @@ const axiosResponse = {
   }
 };
 
-axios.interceptors.request.use(axiosRequest.success, axiosRequest.error);
-axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
+requestInstance.interceptors.request.use(axiosRequest.success, axiosRequest.error);
+requestInstance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
  * 基于axios ajax请求
@@ -200,7 +203,7 @@ export default function request(
     }
   }
 
-  return axios(defaultConfig as AxiosRequestConfig);
+  return requestInstance(defaultConfig as AxiosRequestConfig);
 }
 
 // 上传文件封装

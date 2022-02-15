@@ -34,6 +34,12 @@ const pcUI2 = [
 
 module.exports = [
   {
+    type: 'confirm',
+    name: 'createProject',
+    message: `推荐使用更为快速的创建项目方式，npm init @winner-fed/project`,
+    initial: false
+  },
+  {
     name: 'preset',
     type: 'list',
     message: 'Please pick a preset',

@@ -278,11 +278,11 @@ module.exports = (api, options, rootOptions) => {
       dependencies: {
         '@yzfe/svgicon': '1.0.1',
         '@yzfe/vue3-svgicon': '1.0.1',
-        vue: '^3.0.5',
-        'vue-router': '^4.0.3'
+        vue: '^3.2.31',
+        'vue-router': '^4.0.12'
       },
       devDependencies: {
-        '@vue/compiler-sfc': '^3.0.0',
+        '@vue/compiler-sfc': '^3.2.31',
         '@winner-fed/svgicon-loader': '^1.0.0'
       }
     });
@@ -295,8 +295,8 @@ module.exports = (api, options, rootOptions) => {
       plugins: {
         autoprefixer: {
           overrideBrowserslist: [
-            'Android 5.0',
-            'iOS 9.0',
+            'Android >= 5.0',
+            'iOS >= 9.0',
             'Chrome > 43',
             'ff > 34',
             'ie >= 11'
@@ -345,8 +345,8 @@ module.exports = (api, options, rootOptions) => {
         plugins: {
           autoprefixer: {
             overrideBrowserslist: [
-              'Android 5.0',
-              'iOS 9.0',
+              'Android >= 5.0',
+              'iOS >= 9.0',
               'Chrome > 43',
               'ff > 34',
               'ie >= 11'
@@ -442,11 +442,11 @@ module.exports = (api, options, rootOptions) => {
   if (isNeedVite) {
     api.extendPackage({
       devDependencies: {
-        vite: '^2.2.3',
-        'vite-plugin-components': '^0.8.4',
-        'vite-plugin-html': '^2.0.3',
-        'vite-plugin-style-import': '^0.10.0',
-        'vite-plugin-vue2': '^1.4.4'
+        vite: '^2.8.2',
+        'unplugin-vue-components': '^0.17.18',
+        'vite-plugin-html': '^3.0.6',
+        'vite-plugin-style-import': '^2.0.0',
+        'vite-plugin-vue2': '^1.9.3'
       }
     });
   }

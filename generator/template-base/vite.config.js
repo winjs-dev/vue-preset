@@ -19,6 +19,15 @@ libs.push({
   }
 });
 <%_ } _%>
+<%_ if (options['mobile-ui-framework'] === 'WinUI') { _%>
+libs.push({
+  libraryName: '@winner-fed/win-ui',
+  esModule: true,
+  resolveStyle: (name) => {
+    return `@winner-fed/win-ui/es/${name}/style/index`;
+  }
+});
+<%_ } _%>
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
