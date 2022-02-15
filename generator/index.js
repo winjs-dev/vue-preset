@@ -126,6 +126,12 @@ module.exports = (api, options, rootOptions) => {
         'lint-staged': '^10.5.4'
       }
     });
+  } else {
+    api.extendPackage({
+      devDependencies: {
+        'svn-info': '^1.1.0'
+      }
+    });
   }
 
   // 命令
