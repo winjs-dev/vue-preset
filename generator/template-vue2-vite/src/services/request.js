@@ -30,7 +30,7 @@ const codeMessage = {
   504: '网关超时。'
 };
 
-function responseLog(response) {
+function responseLog (response) {
   if (process.env.NODE_ENV === 'development') {
     const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
       Math.random() * 255
@@ -53,10 +53,10 @@ function responseLog(response) {
   }
 }
 
-function checkStatus(response) {
+function checkStatus (response) {
   // 如果http状态码正常，则直接返回数据
   if (response) {
-    const { status, statusText } = response;
+    const {status, statusText} = response;
     if ((status >= 200 && status < 300) || status === 304) {
       // 如果不需要除了data之外的数据，可以直接 return response.data
       return response.data;
@@ -101,7 +101,7 @@ const axiosResponse = {
     return checkStatus(response);
   },
   error: (error) => {
-    const { response, code } = error;
+    const {response, code} = error;
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
@@ -135,7 +135,7 @@ requestInstance.interceptors.response.use(axiosResponse.success, axiosResponse.e
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request(
+export default function request (
   url,
   {
     method = 'post',
@@ -166,13 +166,14 @@ export default function request(
     transformResponse: axios.defaults.transformResponse.concat(function (data) {
       if (typeof data === 'string' && data.length) {
         try {
-          data = JSON.parse(data);
+          return JSON.parse(data);
         } catch (e) {
           console.error(e);
+          return {};
         }
       }
       return data;
-    }),
+    })
   };
 
   if (method === 'get') {
@@ -206,6 +207,6 @@ export const uploadFile = (url, formData) => {
   return request(url, {
     method: 'post',
     data: formData,
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: {'Content-Type': 'multipart/form-data'}
   });
 };

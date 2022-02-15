@@ -183,15 +183,15 @@ export default function request(
     responseType: dataType,
     // 这里将 response.data 为 string 做了 JSON.parse 的转换处理
     transformResponse: axios.defaults.transformResponse.concat(function (data) {
-      let copyData = data;
       if (typeof data === 'string' && data.length) {
         try {
-          copyData = JSON.parse(data);
+          return JSON.parse(data);
         } catch (e) {
           console.error(e);
+          return {};
         }
       }
-      return copyData;
+      return data;
     })
   };
 

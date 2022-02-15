@@ -152,12 +152,10 @@ export default function request(
 ) {
   const baseURL = autoMatchBaseUrl(prefix);
 
-  const formatHeaders = Object.assign(
-    {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    },
-    headers
-  );
+  const formatHeaders = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    ...headers
+  };
 
   const defaultConfig = {
     baseURL,
@@ -172,13 +170,14 @@ export default function request(
     transformResponse: axios.defaults.transformResponse.concat(function (data) {
       if (typeof data === 'string' && data.length) {
         try {
-          data = JSON.parse(data);
+          return JSON.parse(data);
         } catch (e) {
           console.error(e);
+          return {};
         }
       }
       return data;
-    }),
+    })
   };
 
   if (method === 'get') {
