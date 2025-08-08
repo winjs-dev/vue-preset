@@ -1,0 +1,27 @@
+/**
+ * 对于部分不兼容的样式，可以通过 mixins 统一处理
+ */
+/**
+ * NOTE RN 无法通过 text-overflow 实现省略号，这些代码不能打包到 RN 中
+ */
+.text-ellipsis() {
+  /*postcss-pxtransform rn eject enable*/
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /*postcss-pxtransform rn eject disable*/
+}
+
+/**
+ * NOTE 实现多行文本省略，RN 用 Text 标签的 numberOfLines，H5/小程序用 -webkit-line-clamp
+ */
+.lamp-clamp(@line) {
+  /*postcss-pxtransform rn eject enable*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @line;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  /*postcss-pxtransform rn eject disable*/
+}

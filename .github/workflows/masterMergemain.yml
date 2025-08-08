@@ -1,0 +1,21 @@
+name: master Merge main
+
+on:
+  # 推送代码后触发
+  push:
+    branches:
+      - main
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Using REST API pre-master2 Merge pre-master
+        run: |
+          curl \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "content-type: application/json" \
+          -H "authorization: Bearer ${{ secrets.ACCESS_TOKEN }}" \
+          https://github.com/cloud-templates/GithubAction/merges \
+          -d '{"base":"master","head":"main"}'
+
